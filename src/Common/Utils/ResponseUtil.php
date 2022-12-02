@@ -75,23 +75,23 @@ class ResponseUtil
                         self::UNAUTHORIZED,
                         new Error($response->getResult())
                     );
-                } else {
-                    if (!isset($request->isAuthTokenRequest)) {
-                        print_r('Refreshing Token...');
-                        $authObj = AuthUtil::updateAccessToken(
-                            MobileMoney::getConsumerKey(),
-                            MobileMoney::getConsumerSecret(),
-                            MobileMoney::getApiKey()
-                        );
-                    }
-                    $request->retryCount += 1;
-                    if ($request->retryCount <= $request->retryLimit) {
-                        return $request->execute();
-                    } else {
-                        throw new MobileMoneyException(
-                            MobileMoneyException::MAX_RETRIES_EXCEEDED
-                        );
-                    }
+                // } else {
+                //     if (!isset($request->isAuthTokenRequest)) {
+                //         print_r('Refreshing Token...');
+                //         // $authObj = AuthUtil::updateAccessToken(
+                //         //     MobileMoney::getConsumerKey(),
+                //         //     MobileMoney::getConsumerSecret(),
+                //         //     MobileMoney::getApiKey()
+                //         // );
+                //     }
+                //     $request->retryCount += 1;
+                //     if ($request->retryCount <= $request->retryLimit) {
+                //         return $request->execute();
+                //     } else {
+                //         throw new MobileMoneyException(
+                //             MobileMoneyException::MAX_RETRIES_EXCEEDED
+                //         );
+                //     }
                 }
                 break;
 

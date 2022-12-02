@@ -18,7 +18,7 @@ try {
         $env['api_key']
     );
     MobileMoney::setCallbackUrl($env['callback_url']);
-    MobileMoney::setSecurityLevel(SecurityLevel::STANDARD);
+    MobileMoney::setSecurityLevel(SecurityLevel::NONE);
 } catch (MobileMoneyException $exception) {
     prettyPrint($exception->getMessage());
 }

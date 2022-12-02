@@ -21,7 +21,7 @@ class API
          * Authentication
          * To generate an Access Token.
          */
-        ACCESS_TOKEN = '/token',
+        ACCESS_TOKEN = '/collection/token/',
         /**
          * Collections
          */

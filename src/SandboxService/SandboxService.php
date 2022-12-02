@@ -14,7 +14,6 @@ class SandboxService
 
     /**
      * Initiates a User Request.
-     * Asynchronous payment flow is used with a final callback.
      *
      * @param User $user
      * @param string $callBackUrl
@@ -32,7 +31,6 @@ class SandboxService
 
     /**
      * Initiates an API key request.
-     * Asynchronous payment flow is used with a final callback.
      *
      * @param string $callBackUrl
      * @return InitiateApiKey
@@ -42,6 +40,17 @@ class SandboxService
     ) {
         return new \mmpsdk\SandboxService\Process\InitiateApiKey(
             $callBackUrl
+        );
+    }
+
+    /**
+     * Initiates an Access Token request.
+     *
+     * @return InitiateAccessToken
+     */
+    public static function createAccessToken(
+    ) {
+        return new \mmpsdk\SandboxService\Process\InitiateAccessToken(
         );
     }
 }

@@ -23,6 +23,10 @@ class User extends BaseModel
      */
     protected $apiKey;
 
+    /**
+     * @var string
+     */
+    protected $accessToken;
 
     /**
      * @return string|null
@@ -64,11 +68,32 @@ class User extends BaseModel
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
+    public function getAccessToken()
+    {
+        return $this->accessToken;
+    }
+
+    /**
+     * @param string|null $accessToken
+     *
+     * @return User
+     */
+    public function setAccessToken($accessToken)
+    {
+        $this->accessToken = $accessToken;
+
+        return $this;
+    }
+
     public function jsonSerialize()
     {
         return $this->filterEmpty([
             'providerCallbackHost' => $this->providerCallbackHost,
             'apiKey' => $this->apiKey,
+            'accessToken' => $this->accessToken,
         ]);
     }
 

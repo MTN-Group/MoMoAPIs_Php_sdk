@@ -2,7 +2,6 @@
 
 namespace mmpsdk\SandboxService\Process;
 
-use mmpsdk\SandboxService\Models\Account;
 use mmpsdk\SandboxService\Models\User;
 use mmpsdk\Common\Models\Response;
 use mmpsdk\Common\Utils\RequestUtil;
@@ -14,9 +13,9 @@ use mmpsdk\Common\Process\BaseProcess;
 
 /**
  * Class InitiateApiKey
- * @package mmpsdk\SandboxService\Process
+ * @package mmpsdk\AgentService\Process
  */
-class InitiateApiKey extends BaseProcess
+class InitiateAccessToken extends BaseProcess
 {
 
     /**
@@ -34,17 +33,31 @@ class InitiateApiKey extends BaseProcess
     }
 
     /**
+     * Creates basic b64 authorization header.
+     * Asynchronous payment flow is used with a final callback.
+     *
+     * @return this
+     */
+    public function getBasicAuth()
+    {
+        $env = parse_ini_file(__DIR__ . './../../../config.env');
+        $authString = $env['reference_id'] . ":" . $env['momo_api_key'];
+        $this->basicAuth = "Basic " . base64_encode($authString);
+        return $this->basicAuth;
+    }
+
+    /**
      *
      * @return Response
      */
     public function execute()
     {
+        $auth = $this->getBasicAuth();
         $env = parse_ini_file(__DIR__ . './../../../config.env');
         $request = RequestUtil::post(
-            API::CREATE_API_KEY,
+            API::ACCESS_TOKEN,
         )
-            ->setUrlParams(['{xReferenceId}' => $env['reference_id']])
-            ->httpHeader(Header::X_CALLBACK_URL, $this->callBackUrl)
+            ->httpHeader(Header::AUTHORIZATION, $auth)
             ->httpHeader(Header::SUBSCRIPTION_KEY, $env['subscription_key'])
             ->build();
         $response = $this->makeRequest($request);
