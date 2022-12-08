@@ -30,6 +30,7 @@ class ResponseUtil
      */
     public static function parse($response, $obj = null, $request)
     {
+        print_r($response);
         switch ($response->getHttpCode()) {
             //Success Responses
             case self::OK:

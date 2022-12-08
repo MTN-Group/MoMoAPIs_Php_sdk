@@ -25,8 +25,8 @@ class API
         /**
          * Collections
          */
-        REQUEST_TO_PAY= '/requesttopay', //POST
-        REQUEST_TO_PAY_STATUS='/requesttopay/{referenceId}', //GET
+        REQUEST_TO_PAY= '/collection/v1_0/requesttopay', //POST
+        REQUEST_TO_PAY_STATUS='/collection/v1_0/requesttopay/{referenceId}', //GET
         
         /**
          * Transactions

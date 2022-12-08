@@ -27,7 +27,7 @@ class Header
         /**
          * Used to pass pre-shared client's identifier to the server.
          */
-        X_TARGET_ENVIRONMENT = 'X-Targer-Environment',
+        X_TARGET_ENVIRONMENT = 'X-Target-Environment',
         /**
          * Header parameter to uniquely identify the request. Must be supplied as a GUID.
          */
