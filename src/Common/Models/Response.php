@@ -1,12 +1,12 @@
 <?php
 
-namespace mmpsdk\Common\Models;
+namespace momopsdk\Common\Models;
 
-use mmpsdk\Common\Models\BaseModel;
+use momopsdk\Common\Models\BaseModel;
 
 /**
  * Class Response
- * @package mmpsdk\Common\Models
+ * @package momopsdk\Common\Models
  */
 class Response extends BaseModel
 {
@@ -38,7 +38,7 @@ class Response extends BaseModel
     /**
      * @var string
      */
-    private $clientCorrelationId;
+    private $referenceId;
 
     /**
      * @var array
@@ -138,17 +138,17 @@ class Response extends BaseModel
     /**
      * @return string|null
      */
-    public function getClientCorrelationId()
+    public function getReferenceId()
     {
-        return $this->clientCorrelationId;
+        return $this->referenceId;
     }
 
     /**
-     * @param string|null $clientCorrelationId
+     * @param string|null $referenceId
      */
-    public function setClientCorrelationId($clientCorrelationId)
+    public function setReferenceId($referenceId)
     {
-        $this->clientCorrelationId = $clientCorrelationId;
+        $this->referenceId = $referenceId;
         return $this;
     }
 

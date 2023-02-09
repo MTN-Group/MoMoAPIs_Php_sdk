@@ -1,16 +1,16 @@
 <?php
 
-namespace mmpsdk\Common\Utils;
+namespace momopsdk\Common\Utils;
 
-use mmpsdk\Common\Constants\Header;
-use mmpsdk\Common\Models\Error;
-use mmpsdk\Common\Models\MetaData;
-use mmpsdk\Common\Exceptions\MobileMoneyException;
-use mmpsdk\Common\Constants\MobileMoney;
+use momopsdk\Common\Constants\Header;
+use momopsdk\Common\Models\Error;
+use momopsdk\Common\Models\MetaData;
+use momopsdk\Common\Exceptions\MobileMoneyException;
+use momopsdk\Common\Constants\MobileMoney;
 
 /**
  * Class ResponseUtil
- * @package mmpsdk\Common\Utils
+ * @package momopsdk\Common\Utils
  */
 class ResponseUtil
 {
@@ -35,23 +35,49 @@ class ResponseUtil
             case self::OK:
             case self::ACCEPTED:
             case self::CREATED:
-                if (!$response->getResult()) {
-                    $response->setResult(["Operation Successful"]);
-                }
                 $decodedResponse = self::decodeJson($response->getResult());
                 $data = $decodedResponse;
                 if (is_array($decodedResponse) && empty($decodedResponse)) {
                     $data['data'] = $data;
+                    $data['metadata'] = new MetaData();
                     return $data;
                 }
                 //Add client correlation id along with response
-                if ($response->getClientCorrelationId()) {
-                    $data->clientCorrelationId = $response->getClientCorrelationId();
+                if ($response->getReferenceId()) {
+                    $data->referenceId = $response->getReferenceId();
                 }
                 if ($obj !== null) {
+                    $metaData = new MetaData();
+                    if (
+                        $response->getHeaders() !== null &&
+                        array_key_exists(
+                            Header::X_RECORDS_AVAILABLE_COUNT,
+                            $response->getHeaders()
+                        )
+                    ) {
+                        $metaData->setAvailableCount(
+                            $response->getHeaders()[
+                                Header::X_RECORDS_AVAILABLE_COUNT
+                            ]
+                        );
+                    }
+                    if (
+                        $response->getHeaders() !== null &&
+                        array_key_exists(
+                            Header::X_RECORDS_RETURNED_COUNT,
+                            $response->getHeaders()
+                        )
+                    ) {
+                        $metaData->setReturnedCount(
+                            $response->getHeaders()[
+                                Header::X_RECORDS_RETURNED_COUNT
+                            ]
+                        );
+                    }
                     $data = $obj->hydrate($decodedResponse, null);
                     if (is_array($data)) {
                         $dataResponse['data'] = $data;
+                        $dataResponse['metadata'] = $metaData;
                         $data = $dataResponse;
                     }
                 }
@@ -75,23 +101,23 @@ class ResponseUtil
                         self::UNAUTHORIZED,
                         new Error($response->getResult())
                     );
-                // } else {
-                //     if (!isset($request->isAuthTokenRequest)) {
-                //         print_r('Refreshing Token...');
-                //         // $authObj = AuthUtil::updateAccessToken(
-                //         //     MobileMoney::getConsumerKey(),
-                //         //     MobileMoney::getConsumerSecret(),
-                //         //     MobileMoney::getApiKey()
-                //         // );
-                //     }
-                //     $request->retryCount += 1;
-                //     if ($request->retryCount <= $request->retryLimit) {
-                //         return $request->execute();
-                //     } else {
-                //         throw new MobileMoneyException(
-                //             MobileMoneyException::MAX_RETRIES_EXCEEDED
-                //         );
-                //     }
+                } else {
+                    if (!isset($request->isAuthTokenRequest)) {
+                        print_r('Refreshing Token...');
+                        $authObj = AuthUtil::updateAccessToken(
+                            MobileMoney::getConsumerKey(),
+                            MobileMoney::getConsumerSecret(),
+                            MobileMoney::getApiKey()
+                        );
+                    }
+                    $request->retryCount += 1;
+                    if ($request->retryCount <= $request->retryLimit) {
+                        return $request->execute();
+                    } else {
+                        throw new MobileMoneyException(
+                            MobileMoneyException::MAX_RETRIES_EXCEEDED
+                        );
+                    }
                 }
                 break;
 

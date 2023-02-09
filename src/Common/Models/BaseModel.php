@@ -1,14 +1,14 @@
 <?php
 
-namespace mmpsdk\Common\Models;
+namespace momopsdk\Common\Models;
 
 use Exception;
 use JsonSerializable;
-use mmpsdk\Common\Exceptions\MobileMoneyException;
+use momopsdk\Common\Exceptions\MobileMoneyException;
 
 /**
  * Class BaseModel
- * @package mmpsdk\Common\Models
+ * @package momopsdk\Common\Models
  */
 class BaseModel implements JsonSerializable
 {

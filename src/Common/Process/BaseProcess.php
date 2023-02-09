@@ -1,12 +1,12 @@
 <?php
 
-namespace mmpsdk\Common\Process;
+namespace momopsdk\Common\Process;
 
-use mmpsdk\Common\Constants\MobileMoney;
-use mmpsdk\Common\Enums\NotificationMethod;
-use mmpsdk\Common\Utils\AuthUtil;
-use mmpsdk\Common\Utils\GUID;
-use mmpsdk\Common\Utils\ResponseUtil;
+use momopsdk\Common\Constants\MobileMoney;
+// use momopsdk\Common\Enums\NotificationMethod;
+use momopsdk\Common\Utils\AuthUtil;
+use momopsdk\Common\Utils\GUID;
+use momopsdk\Common\Utils\ResponseUtil;
 
 abstract class BaseProcess
 {
@@ -28,14 +28,14 @@ abstract class BaseProcess
      *
      * @var string
      */
-    protected $clientCorrelationId;
+    protected $referenceId;
 
     /**
      * Indicates whether a callback will be issued or whether the client will need to poll.
      *
      * @var string
      */
-    protected $notificationMethod = NotificationMethod::CALLBACK;
+    // protected $notificationMethod = NotificationMethod::CALLBACK;
 
     /**
      * String containing the URL which should receive the Callback.
@@ -114,7 +114,7 @@ abstract class BaseProcess
         AuthUtil::validateCredentials();
         $this->processType = $processType;
         if ($this->processType == self::ASYNCHRONOUS_PROCESS) {
-            $this->clientCorrelationId = GUID::create();
+            $this->referenceId = GUID::create();
             $this->callBackUrl = $callBackUrl
                 ? $callBackUrl
                 : MobileMoney::getCallbackUrl();
@@ -134,9 +134,9 @@ abstract class BaseProcess
      *
      * @return string
      */
-    public function getClientCorrelationId()
+    public function getReferenceId()
     {
-        return $this->clientCorrelationId;
+        return $this->referenceId;
     }
 
     /**

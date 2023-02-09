@@ -1,4 +1,0 @@
-#!/bin/sh
-
-echo committing as $(git config user.name)
-composer fix-cs

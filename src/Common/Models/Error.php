@@ -1,8 +1,8 @@
 <?php
 
-namespace mmpsdk\Common\Models;
+namespace momopsdk\Common\Models;
 
-use mmpsdk\Common\Models\BaseModel;
+use momopsdk\Common\Models\BaseModel;
 
 /**
  * Class Error

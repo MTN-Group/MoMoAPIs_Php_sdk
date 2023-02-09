@@ -1,18 +1,14 @@
 <?php
 
-namespace mmpsdk\Common\Utils;
+namespace momopsdk\Common\Utils;
 
 use stdClass;
-use mmpsdk\Common\Constants\Header;
-use mmpsdk\Common\Constants\MobileMoney;
-use mmpsdk\Common\Constants\API;
-use mmpsdk\Common\Utils\AuthUtil;
-use mmpsdk\Common\Models\Response;
+use momopsdk\Common\Constants\Header;
+use momopsdk\Common\Constants\MobileMoney;
+use momopsdk\Common\Constants\API;
+use momopsdk\Common\Utils\AuthUtil;
+use momopsdk\Common\Models\Response;
 
-/**
- * Class RequestUtil
- * @package mmpsdk\Common\Utils
- */
 class RequestUtil
 {
     /**
@@ -27,28 +23,7 @@ class RequestUtil
      *
      * @var array
      */
-    protected $_methods = ['POST', 'GET', 'PATCH'];
-
-    /**
-     * cURL URL
-     *
-     * @var string
-     */
-    protected $_url = '';
-
-    /**
-     * cURL data params
-     *
-     * @var mixed
-     */
-    protected $_params = [];
-
-    /**
-     * cURL url params
-     *
-     * @var mixed
-     */
-    protected $_urlParams = [];
+    protected $_methods = ['POST', 'GET'];
 
     /**
      * cURL options
@@ -58,11 +33,25 @@ class RequestUtil
     protected $_options = [];
 
     /**
-     * cURL user agent
+     * cURL data params
      *
-     * @var array
+     * @var mixed
      */
-    protected $_agent = 'ground(ctrl) engine';
+    protected $_params = [];
+
+    /**
+     * cURL URL
+     *
+     * @var string
+     */
+    protected $_url = '';
+
+    /**
+     * cURL url params
+     *
+     * @var mixed
+     */
+    protected $_urlParams = [];
 
     /**
      * Content Type
@@ -72,13 +61,6 @@ class RequestUtil
     protected $_contentType = false;
 
     /**
-     * Auth token
-     *
-     * @var array
-     */
-    protected $_clientCorrelationId = null;
-
-    /**
      * Curl Handle
      *
      * @var mixed
@@ -86,17 +68,11 @@ class RequestUtil
     protected $_curlHandle = null;
 
     /**
-     * GET request
+     * Auth token
      *
-     * @param   string  $url
-     * @param   array   $params
-     * @param   array   $options
-     * @return  mixed
+     * @var array
      */
-    public static function get($url = '', $params = [], $options = [])
-    {
-        return self::make($url, $params, $options, 'GET');
-    }
+    protected $_referenceId = null;
 
     /**
      * POST request
@@ -109,19 +85,6 @@ class RequestUtil
     public static function post($url = '', $params = [], $options = [])
     {
         return self::make($url, $params, $options, 'POST');
-    }
-
-    /**
-     * PATCH request
-     *
-     * @param   string  $url
-     * @param   array   $params
-     * @param   array   $options
-     * @return  mixed
-     */
-    public static function patch($url = '', $params = [], $options = [])
-    {
-        return self::make($url, $params, $options, 'PATCH');
     }
 
     /**
@@ -140,143 +103,6 @@ class RequestUtil
         $method = null
     ) {
         return new self($url, $params, $options, $method);
-    }
-
-    public function __construct(
-        $url = '',
-        $params = [],
-        $options = [],
-        $method = null
-    ) {
-        // Set request method
-        if ($method) {
-            $this->_method = $method;
-        }
-
-        // Explode the URL to get the URL params
-        $url_split = explode('?', $url);
-
-        // Request URL is everything before the ? (if it exists)
-        $this->_url = $url_split[0];
-
-        // If there were URL params, add it to the params array
-        $this->_params = (array) $params;
-
-        // Set the passed options
-        $this->_options($options);
-    }
-
-    /**
-     * Add multiple params
-     *
-     * @param   array   $keys
-     * @return  Curl
-     */
-    public function params($keys = [])
-    {
-        $this->_params = array_merge($this->_params, (array) $keys);
-
-        return $this;
-    }
-
-    /**
-     * Add a single param
-     *
-     * @param   string  $key
-     * @param   string  $value
-     * @return  Curl
-     */
-    public function param($key = '', $value = '')
-    {
-        if (!empty($key) && is_string($key)) {
-            $key = [
-                $key => (string) $value
-            ];
-        }
-
-        return $this->params($key);
-    }
-
-    /**
-     * Add multiple options
-     *
-     * @param   array   $options
-     * @return  Curl
-     */
-    public function options($options = [])
-    {
-        $this->_options($options);
-
-        return $this;
-    }
-
-    /**
-     * Get options
-     *
-     * @return array
-     */
-    public function getOptions()
-    {
-        return $this->_options;
-    }
-
-    /**
-     * Add single option
-     *
-     * @param   string  $key
-     * @param   string  $value
-     * @return  Curl
-     */
-    public function option($key = '', $value = '')
-    {
-        if (!is_null($value)) {
-            $this->_option($key, $value);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Request method
-     *
-     * @param   string  $method
-     * @return  Curl
-     */
-    public function method($method = null)
-    {
-        $this->_method = $method;
-
-        return $this;
-    }
-
-    /**
-     * User agent
-     *
-     * @param   string  $agent
-     * @return  Curl
-     */
-    public function agent($agent = '')
-    {
-        if ($agent) {
-            return $this->option('CURLOPT_USERAGENT', $agent);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Proxy helper
-     *
-     * @param   string  $url
-     * @param   int     $port
-     * @return  Curl
-     */
-    public function proxy($url = '', $port = 80)
-    {
-        return $this->options([
-            'CURLOPT_HTTPPROXYTUNNEL' => true,
-            'CURLOPT_PROXY' => $url . ':' . $port
-        ]);
     }
 
     /**
@@ -298,34 +124,6 @@ class RequestUtil
     }
 
     /**
-     * SSL helper
-     *
-     * @param   bool    $verify_peer
-     * @param   int     $verify_host
-     * @param   string  $path_to_cert
-     * @return  Curl
-     */
-    public function ssl(
-        $verify_peer = true,
-        $verify_host = 2,
-        $path_to_cert = null
-    ) {
-        if ($verify_peer) {
-            $options = [
-                'CURLOPT_SSL_VERIFYPEER' => true,
-                'CURLOPT_SSL_VERIFYHOST' => $verify_host,
-                'CURLOPT_CAINFO' => $path_to_cert
-            ];
-        } else {
-            $options = [
-                'CURLOPT_SSL_VERIFYPEER' => false
-            ];
-        }
-
-        return $this->options($options);
-    }
-
-    /**
      * Execute request
      *
      * @return  Curl
@@ -335,7 +133,7 @@ class RequestUtil
     {
         // cURL is not enabled
         if (!$this->_isEnabled()) {
-            throw new \mmpsdk\Common\Exceptions\MobileMoneyException(
+            throw new \momopsdk\Common\Exceptions\MobileMoneyException(
                 __CLASS__ .
                     ': PHP was not built with cURL enabled. Rebuild PHP with --with-curl to use cURL.'
             );
@@ -346,7 +144,7 @@ class RequestUtil
 
         // Unrecognized request method?
         if (!in_array($method, $this->_methods)) {
-            throw new \mmpsdk\Common\Exceptions\MobileMoneyException(
+            throw new \momopsdk\Common\Exceptions\MobileMoneyException(
                 __CLASS__ . ': Unrecognized request method of ' . $this->_method
             );
         }
@@ -354,40 +152,14 @@ class RequestUtil
         return $this->_execute($method);
     }
 
-    public function setUrlParams($params)
-    {
-        $this->_urlParams = $params;
-        return $this;
-    }
-
-    public function setClientCorrelationId($clientCorrelationId)
-    {
-        $this->_clientCorrelationId = $clientCorrelationId;
-        return $this;
-    }
-
-    private function buildUrl($endpoint)
-    {
-        $baseUrl = MobileMoney::getBaseUrl();
-        if ($this->_urlParams) {
-            $endpoint = strtr($endpoint, $this->_urlParams);
-        }
-        return $baseUrl . $endpoint;
-    }
-
-    // private function buildAuthHeaders()
-    // {
-    //     AuthUtil::buildHeader($this, $this->_params);
-    // }
-
     /**
-     * Alias for call();
+     * Check if cURL is enabled
      *
-     * @return  Curl
+     * @return  bool
      */
-    public function execute()
+    protected function _isEnabled()
     {
-        return $this->build();
+        return function_exists('curl_init');
     }
 
     /**
@@ -414,20 +186,6 @@ class RequestUtil
                 // Set options
                 $this->options([
                     'CURLOPT_CUSTOMREQUEST' => 'POST',
-                    'CURLOPT_POSTFIELDS' => $this->_params ? $this->_params[0] : null
-                ]);
-                if (!$this->_contentType) {
-                    $this->option(
-                        'CURLOPT_HTTPHEADER',
-                        Header::CONTENT_TYPE . ': application/json'
-                    );
-                }
-                break;
-
-            case 'PATCH':
-                // Set options
-                $this->options([
-                    'CURLOPT_CUSTOMREQUEST' => 'PATCH',
                     'CURLOPT_POSTFIELDS' => $this->_params[0]
                 ]);
                 if (!$this->_contentType) {
@@ -438,15 +196,22 @@ class RequestUtil
                 }
                 break;
             default:
-                throw new \mmpsdk\Common\Exceptions\MobileMoneyException(
+                throw new \momopsdk\Common\Exceptions\MobileMoneyException(
                     "Unknown Request Method: $method"
                 );
                 break;
         }
 
-        // if ($this->_url != API::ACCESS_TOKEN) {
-        //     $this->buildAuthHeaders();
-        // }
+        if ($this->_url != API::ACCESS_TOKEN) {
+            $this->buildAuthHeaders();
+        }
+
+        if ($this->_clientCorrelationId) {
+            $this->option(
+                'CURLOPT_HTTPHEADER',
+                Header::X_CORELLATION_ID . ': ' . $this->_clientCorrelationId
+            );
+        }
 
         // Set timeout option if it isn't already set
         if (!array_key_exists(CURLOPT_TIMEOUT, $this->_options)) {
@@ -501,14 +266,22 @@ class RequestUtil
         return $this;
     }
 
+    private function buildAuthHeaders()
+    {
+        AuthUtil::buildHeader($this, $this->_params);
+    }
+
+    public function setReferenceId($referenceId)
+    {
+        $this->_referenceId = $referenceId;
+        return $this;
+    }
+
     public function call()
     {
         $ch = $this->_curlHandle;
         $output = curl_exec($ch);
         $outputData = $this->getResponseHeaders($output);
-        if (!array_key_exists('Data', $outputData)) {
-            $outputData['Data'] = null;
-        }
         $response = new Response();
         $response
             ->setResult($outputData['Data'])
@@ -516,23 +289,11 @@ class RequestUtil
             ->setHttpCode(curl_getinfo($ch, CURLINFO_HTTP_CODE))
             ->setError(curl_error($ch))
             ->setErrorCode(curl_errno($ch))
-            ->setClientCorrelationId($this->_clientCorrelationId)
+            ->setReferenceId($this->_referenceId)
             ->setHeaders($outputData['Headers'])
             ->setRequestObj($this);
         curl_close($ch);
         return $response;
-    }
-
-    /**
-     * Add multiple options
-     *
-     * @param   array   $options
-     */
-    protected function _options($options = [])
-    {
-        foreach ((array) $options as $key => $value) {
-            $this->_option($key, $value);
-        }
     }
 
     protected function getResponseHeaders($response)
@@ -561,72 +322,5 @@ class RequestUtil
             }
         }
         return $out;
-    }
-
-    /**
-     * Add single option
-     *
-     * @param   string  $key
-     * @param   string  $value
-     * @throws  MobileMoneyException
-     */
-    protected function _option($key = '', $value = '')
-    {
-        if (is_string($key) && !is_numeric($key)) {
-            $const = strtoupper($key);
-
-            if (defined($const)) {
-                $key = constant(strtoupper($key));
-            } else {
-                throw new \mmpsdk\Common\Exceptions\MobileMoneyException(
-                    'Curl: Constant [' . $const . '] not defined.'
-                );
-            }
-        }
-
-        // Custom header
-        if ($key == CURLOPT_HTTPHEADER) {
-            $this->_options[$key][] = $value;
-        }
-
-        // Not a custom header
-        else {
-            $this->_options[$key] = $value;
-        }
-    }
-
-    /**
-     * Get query string from URL
-     *
-     * @param   $uri
-     * @return  array
-     */
-    protected function _queryString($uri)
-    {
-        $query_data = [];
-
-        $query_array = html_entity_decode(parse_url($uri, PHP_URL_QUERY));
-
-        if (!empty($query_array)) {
-            $query_array = explode('&', $query_array);
-
-            foreach ($query_array as $val) {
-                $x = explode('=', $val);
-
-                $query_data[$x[0]] = $x[1];
-            }
-        }
-
-        return $query_data;
-    }
-
-    /**
-     * Check if cURL is enabled
-     *
-     * @return  bool
-     */
-    protected function _isEnabled()
-    {
-        return function_exists('curl_init');
     }
 }

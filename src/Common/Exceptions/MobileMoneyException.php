@@ -1,10 +1,10 @@
 <?php
 
-namespace mmpsdk\Common\Exceptions;
+namespace momopsdk\Common\Exceptions;
 
 use Exception;
 use RuntimeException;
-use mmpsdk\Common\Models\Error;
+use momopsdk\Common\Models\Error;
 
 /**
  * MobileMoneyException creates exception which are originated from Merchant code

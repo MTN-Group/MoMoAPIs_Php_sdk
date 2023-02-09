@@ -1,3 +1,2 @@
-cghooks.lock
-vendor/*
 config.env
+/vendor/

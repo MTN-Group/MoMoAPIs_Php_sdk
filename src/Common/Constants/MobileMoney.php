@@ -1,10 +1,10 @@
 <?php
 
-namespace mmpsdk\Common\Constants;
+namespace momopsdk\Common\Constants;
 
-use mmpsdk\Common\Enums\SecurityLevel;
-use mmpsdk\Common\Constants\API;
-use mmpsdk\Common\Utils\CommonUtil;
+use momopsdk\Common\Enums\SecurityLevel;
+use momopsdk\Common\Constants\API;
+use momopsdk\Common\Utils\CommonUtil;
 
 /**
  * This class is used to store all the mobile money api related Constants
@@ -76,7 +76,7 @@ class MobileMoney
     /**
      * @var string
      */
-    private static $baseUrl = 'https://sandbox.momodeveloper.mtn.com';
+    private static $baseUrl = 'https://sandbox.mobilemoneyapi.io/simulator/v1.2/passthrough/mm';
 
     /**
      * Initialize SDK

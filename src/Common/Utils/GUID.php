@@ -1,10 +1,10 @@
 <?php
 
-namespace mmpsdk\Common\Utils;
+namespace momopsdk\Common\Utils;
 
 /**
  * Class Guid
- * @package mmpsdk\Common\Utils
+ * @package momopsdk\Common\Utils
  */
 class GUID
 {

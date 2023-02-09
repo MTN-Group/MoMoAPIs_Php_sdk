@@ -1,6 +1,6 @@
 <?php
 
-namespace mmpsdk\Common\Enums;
+namespace momopsdk\Common\Enums;
 
 /**
  * Class SecurityLevel
