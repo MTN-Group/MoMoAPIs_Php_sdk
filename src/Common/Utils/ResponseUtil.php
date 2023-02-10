@@ -7,6 +7,7 @@ use momopsdk\Common\Models\Error;
 use momopsdk\Common\Models\MetaData;
 use momopsdk\Common\Exceptions\MobileMoneyException;
 use momopsdk\Common\Constants\MobileMoney;
+use momopsdk\Common\Process\BaseProcess;
 
 /**
  * Class ResponseUtil
@@ -35,51 +36,59 @@ class ResponseUtil
             case self::OK:
             case self::ACCEPTED:
             case self::CREATED:
-                $decodedResponse = self::decodeJson($response->getResult());
-                $data = $decodedResponse;
-                if (is_array($decodedResponse) && empty($decodedResponse)) {
-                    $data['data'] = $data;
-                    $data['metadata'] = new MetaData();
-                    return $data;
-                }
-                //Add client correlation id along with response
-                if ($response->getReferenceId()) {
-                    $data->referenceId = $response->getReferenceId();
-                }
-                if ($obj !== null) {
-                    $metaData = new MetaData();
-                    if (
-                        $response->getHeaders() !== null &&
-                        array_key_exists(
-                            Header::X_RECORDS_AVAILABLE_COUNT,
-                            $response->getHeaders()
-                        )
-                    ) {
-                        $metaData->setAvailableCount(
-                            $response->getHeaders()[
-                                Header::X_RECORDS_AVAILABLE_COUNT
-                            ]
-                        );
+                if ($response->getResult() != '')
+                {
+                    $decodedResponse = $response->getResult();
+                    $data = $decodedResponse;
+                    if (is_array($decodedResponse) && empty($decodedResponse)) {
+                        $data['data'] = $data;
+                        $data['metadata'] = new MetaData();
+                        return $data;
                     }
-                    if (
-                        $response->getHeaders() !== null &&
-                        array_key_exists(
-                            Header::X_RECORDS_RETURNED_COUNT,
-                            $response->getHeaders()
-                        )
-                    ) {
-                        $metaData->setReturnedCount(
-                            $response->getHeaders()[
-                                Header::X_RECORDS_RETURNED_COUNT
-                            ]
-                        );
+                    //Add client correlation id along with response
+                    if ($response->getReferenceId()) {
+                        $data->referenceId = $response->getReferenceId();
                     }
-                    $data = $obj->hydrate($decodedResponse, null);
-                    if (is_array($data)) {
-                        $dataResponse['data'] = $data;
-                        $dataResponse['metadata'] = $metaData;
-                        $data = $dataResponse;
+                    if ($obj !== null) {
+                        $metaData = new MetaData();
+                        if (
+                            $response->getHeaders() !== null &&
+                            array_key_exists(
+                                Header::X_RECORDS_AVAILABLE_COUNT,
+                                $response->getHeaders()
+                            )
+                        ) {
+                            $metaData->setAvailableCount(
+                                $response->getHeaders()[
+                                    Header::X_RECORDS_AVAILABLE_COUNT
+                                ]
+                            );
+                        }
+                        if (
+                            $response->getHeaders() !== null &&
+                            array_key_exists(
+                                Header::X_RECORDS_RETURNED_COUNT,
+                                $response->getHeaders()
+                            )
+                        ) {
+                            $metaData->setReturnedCount(
+                                $response->getHeaders()[
+                                    Header::X_RECORDS_RETURNED_COUNT
+                                ]
+                            );
+                        }
+                        $data = $obj->hydrate($response, null);
+                        if (is_array($data)) {
+                            $dataResponse['data'] = $data;
+                            $dataResponse['metadata'] = $metaData;
+                            $data = $dataResponse;
+                        }
                     }
+                    
+                    
+                } else {
+                    $data = $obj->hydrate($request, null);
+                    $data->referenceId = $request->getReferenceId();
                 }
                 return $data;
                 break;
@@ -96,7 +105,7 @@ class ResponseUtil
                 break;
             case self::UNAUTHORIZED:
                 $errorObject = self::decodeJson($response->getResult());
-                if (isset($errorObject->errorCode)) {
+                if (isset($errorObject->statusCode)) {
                     throw new MobileMoneyException(
                         self::UNAUTHORIZED,
                         new Error($response->getResult())
@@ -104,11 +113,11 @@ class ResponseUtil
                 } else {
                     if (!isset($request->isAuthTokenRequest)) {
                         print_r('Refreshing Token...');
-                        $authObj = AuthUtil::updateAccessToken(
-                            MobileMoney::getConsumerKey(),
-                            MobileMoney::getConsumerSecret(),
-                            MobileMoney::getApiKey()
-                        );
+                        // $authObj = AuthUtil::updateAccessToken(
+                        //     MobileMoney::getConsumerKey(),
+                        //     MobileMoney::getConsumerSecret(),
+                        //     MobileMoney::getApiKey()
+                        // );
                     }
                     $request->retryCount += 1;
                     if ($request->retryCount <= $request->retryLimit) {
@@ -151,7 +160,7 @@ class ResponseUtil
     public static function decodeJson($jsonData)
     {
         $decodedJson = json_decode($jsonData);
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        if (json_last_error() !== JSON_ERROR_NONE) {die("sd");
             throw new MobileMoneyException('Invalid JSON Response from API');
         }
         return $decodedJson;

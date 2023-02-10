@@ -5,15 +5,24 @@ namespace momopsdk\SandboxUserProvisioning\Process;
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
+use momopsdk\Common\Constants\API;
+use momopsdk\Common\Constants\Header;
+use momopsdk\Common\Models\ResponseState;
 
 class CreateApiUser extends BaseProcess
 {
     /**
      * Request body
      */
-    private $aReqBody;
+    protected $aReqBody;
 
-    public function __construct($aReqBody)
+    /**
+     * Subscription Key
+     */
+    private $subscriptionKey;
+     
+
+    public function __construct($aReqBody, $sSubKey)
     {
         CommonUtil::validateArgument(
             $aReqBody,
@@ -21,6 +30,8 @@ class CreateApiUser extends BaseProcess
             CommonUtil::TYPE_ARRAY
         );
         $this->setUp(self::ASYNCHRONOUS_PROCESS);
+        $this->subscriptionKey = $sSubKey;
+        $this->aReqBody = $aReqBody;
         return $this;
     }
 
@@ -31,12 +42,12 @@ class CreateApiUser extends BaseProcess
      */
     public function execute()
     {
-        $request = RequestUtil::post(API::CREATE_USER, json_encode($aReqBody))
-            ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY)
+        $request = RequestUtil::post(API::CREATE_USER, json_encode($this->aReqBody))
+            ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subscriptionKey)
             ->setReferenceId($this->referenceId)
             ->build();
 
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new RequestState());
+        return $this->parseResponse($response, new ResponseState());
     }
 }

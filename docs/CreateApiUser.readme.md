@@ -1,6 +1,6 @@
 # Create API user in the sandbox environment
 
-1.	`createUser($aData) creates a API user for using sandbox. It creates a POST request to end point /v1_0/apiuser and creates API user in sandbox environment.`
+1.	`createUser($aData, $sCollectionSubKey) creates a API user for using sandbox. It creates a POST request to end point /v1_0/apiuser and creates API user in sandbox environment.`
 
 > `End user will get a referenceId which will be used as the User ID for the API user to be created.`
 
@@ -9,18 +9,17 @@
 ```php
 
 <?php
-include(__DIR__.'/../../autoload.php');
+require_once __DIR__ . './../bootstrap.php';
 
 use momopsdk\SandboxUserProvisioning\User;
 
 try {
-    $aData = ['providerCallbackHost' => 'string'];
+    $aData = ['providerCallbackHost' => 'www.example.com'];
 
-    $obj = new User();
+    $request = User::createUser($aData, $sCollectionSubKey);
 
-    $aResponse = User::createUser($aData);
-
-    print_r($aResponse);
+    $response = $request->execute();
+    print_r($response);
 } catch (Throwable $e) {
     print_r($e);
 }
@@ -28,17 +27,13 @@ try {
 ```
 
 ### Example Output
-
+`200 OK`
 ```php
-momopsdk\SandboxUserProvisioning\Process\CreateApiUser Object
+momopsdk\Common\Models\ResponseState Object
 (
-    [aReqBody:momopsdk\SandboxUserProvisioning\Process\CreateApiUser:private] => 
-    [referenceId:protected] => 99d63033-90ff-4eaa-9343-f7435a2b1f5d
-    [callBackUrl:protected] => 
-    [retryLimit] => 2
-    [retryCount] => 0
-    [rawResponse] => 
-    [processType:protected] => 2
+    [referenceId] => c34d4077-ea8d-4a50-bf76-dbfd37d8bfb6
+    [hydratorStrategies:protected] => 
+    [availableCount:protected] => 
 )
 
 ```

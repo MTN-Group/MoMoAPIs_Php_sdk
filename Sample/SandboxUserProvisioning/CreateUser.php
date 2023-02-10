@@ -1,17 +1,15 @@
 <?php
-
-include(__DIR__.'/../../autoload.php');
+require_once __DIR__ . './../bootstrap.php';
 
 use momopsdk\SandboxUserProvisioning\User;
 
 try {
     $aData = ['providerCallbackHost' => 'www.example.com'];
 
-    $obj = new User();
+    $request = User::createUser($aData, $sCollectionSubKey);
 
-    $aResponse = User::createUser($aData);
-
-    print_r($aResponse);
+    $response = $request->execute();
+    print_r($response);
 } catch (Throwable $e) {
     print_r($e);
 }
