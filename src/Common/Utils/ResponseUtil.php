@@ -50,29 +50,35 @@ class ResponseUtil
                     }
                     if ($obj !== null) {
                         $metaData = new MetaData();
-                        if (
-                            $response->getHeaders() !== null &&
-                            array_key_exists(
-                                Header::X_RECORDS_AVAILABLE_COUNT,
-                                $response->getHeaders()
-                            )
-                        ) {
-                            $metaData->setAvailableCount(
-                                $response->getHeaders()[Header::X_RECORDS_AVAILABLE_COUNT]
-                            );
-                        }
-                        if (
-                            $response->getHeaders() !== null &&
-                            array_key_exists(
-                                Header::X_RECORDS_RETURNED_COUNT,
-                                $response->getHeaders()
-                            )
-                        ) {
-                            $metaData->setReturnedCount(
-                                $response->getHeaders()[Header::X_RECORDS_RETURNED_COUNT]
-                            );
-                        }
+                        // if (
+                        //     $response->getHeaders() !== null &&
+                        //     array_key_exists(
+                        //         Header::X_RECORDS_AVAILABLE_COUNT,
+                        //         $response->getHeaders()
+                        //     )
+                        // ) {
+                        //     $metaData->setAvailableCount(
+                        //         $response->getHeaders()[
+                        //             Header::X_RECORDS_AVAILABLE_COUNT
+                        //         ]
+                        //     );
+                        // }
+                        // if (
+                        //     $response->getHeaders() !== null &&
+                        //     array_key_exists(
+                        //         Header::X_RECORDS_RETURNED_COUNT,
+                        //         $response->getHeaders()
+                        //     )
+                        // ) {
+                        //     $metaData->setReturnedCount(
+                        //         $response->getHeaders()[
+                        //             Header::X_RECORDS_RETURNED_COUNT
+                        //         ]
+                        //     );
+                        // }
                         $data = $obj->hydrate($response, null);
+                        $data->result = json_decode($response->getResult());
+                        $data->referenceId = $response->getReferenceId();
                         if (is_array($data)) {
                             $dataResponse['data'] = $data;
                             $dataResponse['metadata'] = $metaData;
