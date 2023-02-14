@@ -1,6 +1,6 @@
 <?php
 //require the autoload file
-require dirname(__DIR__, 1) . '/autoload.php';
+require_once __DIR__ . './../autoload.php';
 
 //Parse the config file
 $env = parse_ini_file(__DIR__ . './../config.env');

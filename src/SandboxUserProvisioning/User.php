@@ -3,6 +3,8 @@
 namespace momopsdk\SandboxUserProvisioning;
 
 use momopsdk\SandboxUserProvisioning\Process\CreateApiUser;
+use momopsdk\SandboxUserProvisioning\Process\GetApiUserDetails;
+use momopsdk\SandboxUserProvisioning\Process\GetApiKey;
 
 class User
 {
@@ -16,8 +18,18 @@ class User
      * @param string $sSubKey
      * @return
      */
-    public function getUserDetails($sSubKey)
+    public function getUserDetails($sSubKey, $sRefId)
     {
-        return new GetApiUserDetails($sSubKey);
+        return new GetApiUserDetails($sSubKey, $sRefId);
+    }
+
+    /**
+     * Function to get API Key
+     * @param string $sSubKey
+     * @return
+     */
+    public function createApiKey($sSubKey, $sRefId)
+    {
+        return new GetApiKey($sSubKey, $sRefId);
     }
 }

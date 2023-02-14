@@ -72,12 +72,7 @@ class MobileMoney
      */
     private static $accessToken = null;
 
-    /** URLs */
-    /**
-     * @var string
-     */
-    private static $baseUrl = 'https://sandbox.mobilemoneyapi.io/simulator/v1.2/passthrough/mm';
-
+    
     /**
      * Initialize SDK
      *
@@ -179,7 +174,8 @@ class MobileMoney
      */
     public static function getBaseUrl()
     {
-        return self::$baseUrl;
+        $env = parse_ini_file(__DIR__ . './../../../config.env');
+        return $env['base_url'];
     }
 
     /**
