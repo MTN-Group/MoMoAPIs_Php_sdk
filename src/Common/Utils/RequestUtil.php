@@ -293,7 +293,6 @@ class RequestUtil
         }
 
         $header = $content ? $header . ': ' . $content : $header;
-
         return $this->option(CURLOPT_HTTPHEADER, $header);
     }
 
@@ -580,7 +579,6 @@ class RequestUtil
     {
         if (is_string($key) && !is_numeric($key)) {
             $const = strtoupper($key);
-
             if (defined($const)) {
                 $key = constant(strtoupper($key));
             } else {
