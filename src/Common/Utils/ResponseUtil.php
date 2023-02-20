@@ -34,10 +34,15 @@ class ResponseUtil
         switch ($response->getHttpCode()) {
             //Success Responses
             case self::OK:
-                $data = $obj->hydrate($response, null);
-                $data->result = json_decode($response->getResult());
-                if ($response->getReferenceId()) {
-                    $data->referenceId = $response->getReferenceId();
+                if($obj != null)
+                {
+                    $data = $obj->hydrate($response, null);
+                    $data->result = json_decode($response->getResult());
+                    if ($response->getReferenceId()) {
+                        $data->referenceId = $response->getReferenceId();
+                    }
+                } else {
+                    $data = json_decode($response->getResult());
                 }
                 return $data;
             case self::ACCEPTED:
