@@ -12,9 +12,9 @@ use momopsdk\Common\Exceptions\MobileMoneyException;
  */
 class BaseModel implements JsonSerializable
 {
-    protected $hydratorStrategies;
+    // protected $hydratorStrategies;
 
-    protected $availableCount;
+    // protected $availableCount;
 
     public function __construct($value = null)
     {
@@ -71,7 +71,7 @@ class BaseModel implements JsonSerializable
             foreach ($data as $attribute => $value) {
                 $context->hydrateAttribute($attribute, $value);
             }
-            $context->hydratorStrategies = null;
+            // $context->hydratorStrategies = null;
             return $context;
         }
         return $this;

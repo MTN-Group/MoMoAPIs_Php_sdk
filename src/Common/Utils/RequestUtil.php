@@ -8,6 +8,7 @@ use momopsdk\Common\Constants\MobileMoney;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Utils\AuthUtil;
 use momopsdk\Common\Models\Response;
+use momopsdk\Common\Constants\ProductUniqueIdentifier;
 
 /**
  * Class RequestUtil
@@ -15,6 +16,11 @@ use momopsdk\Common\Models\Response;
  */
 class RequestUtil
 {
+    /**
+     * Token Identifier
+     * @var string
+     */
+    public $tokenIdentifier = null;
     /**
      * cURL request method
      *
@@ -84,6 +90,11 @@ class RequestUtil
      * @var mixed
      */
     protected $_curlHandle = null;
+
+    /**
+     * Subscription Key
+     */
+    protected $subscriptionKey;
 
     /**
      * GET request
@@ -444,9 +455,32 @@ class RequestUtil
                 break;
         }
 
-        // if ($this->_url != API::ACCESS_TOKEN) {
-        //     $this->buildAuthHeaders();
-        // }
+        if ($this->_url != API::DISBURSEMENT_ACCESS_TOKEN &&
+        $this->_url != API::REMITTANCE_ACCESS_TOKEN &&
+        $this->_url != API::COLLECTION_ACCESS_TOKEN &&
+        $this->_url != API::CREATE_USER &&
+        $this->_url != API::GET_USER_INFORMATION &&
+        $this->_url != API::GET_API_KEY) {
+            $sProductName = explode('/', $this->_url)[1];
+            switch ($sProductName) {
+                case 'disbursement':
+                    $this->tokenIdentifier = 'DISBURSEMENT';
+                    # code...
+                    break;
+                case 'remittance':
+                    $this->tokenIdentifier = 'REMITTANCE';
+                    # code...
+                    break;
+                case 'collection':
+                    $this->tokenIdentifier = 'COLLECTION';
+                    # code...
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+            $this->buildAuthHeaders();
+        }
 
         if ($this->_referenceId) {
             $this->option(
@@ -634,5 +668,16 @@ class RequestUtil
     protected function _isEnabled()
     {
         return function_exists('curl_init');
+    }
+
+    public function setSubscriptionKey($sSubscriptionKey)
+    {
+        $this->subscriptionKey = $sSubscriptionKey;
+        return $this;
+    }
+
+    public function getSubscriptionKey()
+    {
+        return $this->subscriptionKey;
     }
 }
