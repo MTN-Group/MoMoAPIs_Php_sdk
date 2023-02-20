@@ -18,7 +18,7 @@ class UserDetail extends BaseModel
 
     public function getResult()
     {
-        return $this->referenceId;
+        return $this->result;
     }
 
     public function setResult($result)

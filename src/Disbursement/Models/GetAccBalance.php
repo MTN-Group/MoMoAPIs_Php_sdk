@@ -5,7 +5,7 @@ namespace momopsdk\Disbursement\Models;
 use momopsdk\Common\Models\BaseModel;
 
 /**
- * Class RequestState
+ * Class GetAccBalance
  * @package momopsdk\Disbursement\Models
  */
 class GetAccBalance extends BaseModel
@@ -18,7 +18,7 @@ class GetAccBalance extends BaseModel
 
     public function getResult()
     {
-        return $this->referenceId;
+        return $this->result;
     }
 
     public function setResult($result)
