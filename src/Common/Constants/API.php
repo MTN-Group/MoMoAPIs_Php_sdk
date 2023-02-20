@@ -18,5 +18,6 @@ class API
     DISBURSEMENT_ACCESS_TOKEN = '/disbursement/token/',
     REMITTANCE_ACCESS_TOKEN = '/remittance/token',
     COLLECTION_ACCESS_TOKEN = '/collection/token',
-    GET_ACCOUNT_BALANCE = '/disbursement/v1_0/account/balance';
+    GET_ACCOUNT_BALANCE = '/disbursement/v1_0/account/balance',
+    GET_DEPOSIT_STATUS = '/disbursement/v1_0/deposit/{referenceId}';
 }

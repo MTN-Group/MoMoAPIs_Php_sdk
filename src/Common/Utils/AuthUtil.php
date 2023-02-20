@@ -107,7 +107,7 @@ class AuthUtil
         if ($token && self::checkExpiredToken($token)) {
             $token = null;
         }
-
+        
         // Check for persisted data first
         $token = AuthorizationCache::pull($tokenIdentifier);
         // Check if Access Token is not null and has not expired.
