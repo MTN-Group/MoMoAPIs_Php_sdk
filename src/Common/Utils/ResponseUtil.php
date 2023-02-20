@@ -35,16 +35,16 @@ class ResponseUtil
         switch ($response->getHttpCode()) {
                 //Success Responses
             case self::OK:
-                $data = $obj->hydrate($request, null);
-                if ($response->getResult() != '') {
+                if ($obj != null) {
+                    $data = $obj->hydrate($response, null);
                     $data->result = json_decode($response->getResult());
+                    if ($response->getReferenceId()) {
+                        $data->referenceId = $response->getReferenceId();
+                    }
+                } else {
+                    $data = json_decode($response->getResult());
                 }
-                if ($response->getReferenceId() != '') {
-                    $data->referenceId = $response->getReferenceId();
-                }
-                $data->httpCode = $response->getHttpCode();
                 return $data;
-                break;
             case self::ACCEPTED:
                 $data = $obj->hydrate($request, null);
                 $data->referenceId = $response->getReferenceId();
@@ -103,7 +103,9 @@ class ResponseUtil
                     }
                 } else {
                     $data = $obj->hydrate($request, null);
-                    $data->referenceId = $request->getReferenceId();
+                    if ($response->getReferenceId()) {
+                        $data->referenceId = $request->getReferenceId();
+                    }
                 }
                 return $data;
                 break;

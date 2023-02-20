@@ -37,7 +37,7 @@ class MobileMoney
     /**
      * @var string
      */
-    private static $consumerKey = null;
+    private static $userId = null;
 
     /**
      * @var string
@@ -72,27 +72,30 @@ class MobileMoney
      */
     private static $accessToken = null;
 
+    /**
+     * Base Url
+     * @var string
+     */
+    private static $baseUrl;
+
 
     /**
      * Initialize SDK
      *
      * @param string $environment SANDBOX or PRODUCTION
-     * @param string $consumerKey  pre-shared client's consumer key
-     * @param string $consumerSecret pre-shared client's secret key
+     * @param string $user Id  user reference Id
      * @param string $apiKey pre-shared client's api key
      * @throws Exception
      */
     public static function initialize(
         $environment,
-        $consumerKey,
-        $consumerSecret,
+        $userId,
         $apiKey = ''
     ) {
         if (!self::$isInitialized) {
             self::$isInitialized = true;
             self::setEnvironment($environment);
-            self::setConsumerKey($consumerKey);
-            self::setConsumerSecret($consumerSecret);
+            self::setUserId($userId);
             self::setApiKey($apiKey);
             self::$cachePath = __DIR__ . '/../../../var/auth.cache';
         }
@@ -104,13 +107,8 @@ class MobileMoney
             ])
         ) {
             CommonUtil::validateArgument(
-                self::getConsumerKey(),
-                'consumerKey',
-                CommonUtil::TYPE_STRING
-            );
-            CommonUtil::validateArgument(
-                self::getConsumerSecret(),
-                'consumerSecret',
+                self::getUserId(),
+                'User Id',
                 CommonUtil::TYPE_STRING
             );
             CommonUtil::validateArgument(
@@ -132,18 +130,18 @@ class MobileMoney
     /**
      * @return string
      */
-    public static function getConsumerKey()
+    public static function getUserId()
     {
-        return self::$consumerKey;
+        return self::$userId;
     }
 
-    /**
-     * @return string
-     */
-    public static function getConsumerSecret()
-    {
-        return self::$consumerSecret;
-    }
+    // /**
+    //  * @return string
+    //  */
+    // public static function getConsumerSecret()
+    // {
+    //     return self::$consumerSecret;
+    // }
 
     /**
      * @return string
@@ -211,20 +209,20 @@ class MobileMoney
     }
 
     /**
-     * @param string $consumerKey
+     * @param string $userId
      */
-    public static function setConsumerKey($consumerKey)
+    public static function setUserId($userId)
     {
-        self::$consumerKey = $consumerKey;
+        self::$userId = $userId;
     }
 
-    /**
-     * @param string $consumerSecret
-     */
-    public static function setConsumerSecret($consumerSecret)
-    {
-        self::$consumerSecret = $consumerSecret;
-    }
+    // /**
+    //  * @param string $consumerSecret
+    //  */
+    // public static function setConsumerSecret($consumerSecret)
+    // {
+    //     self::$consumerSecret = $consumerSecret;
+    // }
 
     /**
      * Set pre-shared client's API key

@@ -1,14 +1,14 @@
 <?php
 
-namespace momopsdk\Common\Models;
+namespace momopsdk\Disbursement\Models;
 
 use momopsdk\Common\Models\BaseModel;
 
 /**
- * Class RequestState
- * @package momopsdk\Common\Models
+ * Class GetAccBalance
+ * @package momopsdk\Disbursement\Models
  */
-class UserDetail extends BaseModel
+class GetAccBalance extends BaseModel
 {
     /**
      * Reference Id
