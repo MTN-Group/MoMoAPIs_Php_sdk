@@ -34,6 +34,17 @@ class ResponseUtil
         switch ($response->getHttpCode()) {
             //Success Responses
             case self::OK:
+                if($obj != null)
+                {
+                    $data = $obj->hydrate($response, null);
+                    $data->result = json_decode($response->getResult());
+                    if ($response->getReferenceId()) {
+                        $data->referenceId = $response->getReferenceId();
+                    }
+                } else {
+                    $data = json_decode($response->getResult());
+                }
+                return $data;
             case self::ACCEPTED:
             case self::CREATED:
                 if ($response->getResult() != '')
@@ -51,33 +62,35 @@ class ResponseUtil
                     }
                     if ($obj !== null) {
                         $metaData = new MetaData();
-                        if (
-                            $response->getHeaders() !== null &&
-                            array_key_exists(
-                                Header::X_RECORDS_AVAILABLE_COUNT,
-                                $response->getHeaders()
-                            )
-                        ) {
-                            $metaData->setAvailableCount(
-                                $response->getHeaders()[
-                                    Header::X_RECORDS_AVAILABLE_COUNT
-                                ]
-                            );
-                        }
-                        if (
-                            $response->getHeaders() !== null &&
-                            array_key_exists(
-                                Header::X_RECORDS_RETURNED_COUNT,
-                                $response->getHeaders()
-                            )
-                        ) {
-                            $metaData->setReturnedCount(
-                                $response->getHeaders()[
-                                    Header::X_RECORDS_RETURNED_COUNT
-                                ]
-                            );
-                        }
+                        // if (
+                        //     $response->getHeaders() !== null &&
+                        //     array_key_exists(
+                        //         Header::X_RECORDS_AVAILABLE_COUNT,
+                        //         $response->getHeaders()
+                        //     )
+                        // ) {
+                        //     $metaData->setAvailableCount(
+                        //         $response->getHeaders()[
+                        //             Header::X_RECORDS_AVAILABLE_COUNT
+                        //         ]
+                        //     );
+                        // }
+                        // if (
+                        //     $response->getHeaders() !== null &&
+                        //     array_key_exists(
+                        //         Header::X_RECORDS_RETURNED_COUNT,
+                        //         $response->getHeaders()
+                        //     )
+                        // ) {
+                        //     $metaData->setReturnedCount(
+                        //         $response->getHeaders()[
+                        //             Header::X_RECORDS_RETURNED_COUNT
+                        //         ]
+                        //     );
+                        // }
                         $data = $obj->hydrate($response, null);
+                        $data->result = json_decode($response->getResult());
+                        $data->referenceId = $response->getReferenceId();
                         if (is_array($data)) {
                             $dataResponse['data'] = $data;
                             $dataResponse['metadata'] = $metaData;
@@ -88,7 +101,9 @@ class ResponseUtil
                     
                 } else {
                     $data = $obj->hydrate($request, null);
-                    $data->referenceId = $request->getReferenceId();
+                    if ($response->getReferenceId()) {
+                        $data->referenceId = $request->getReferenceId();
+                    }
                 }
                 return $data;
                 break;
