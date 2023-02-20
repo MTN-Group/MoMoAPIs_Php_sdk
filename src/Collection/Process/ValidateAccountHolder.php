@@ -10,20 +10,26 @@ use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Common\Models\CallbackResponse;
 
 /**
- * Class RetrieveRequestToPay
+ * Class ValidateAccountHolder
  * @package momopsdk\Collection\Process
  */
-class RetrieveRequestToPay extends BaseProcess
+class ValidateAccountHolder extends BaseProcess
 {
+
     /**
-     * Authentication token
+     * Party Id of the transaction initiated
      */
-    private $bearerAuth;
+    private $accountHolderId;
+
+    /**
+     * Party type of the transaction initiated
+     */
+    private $accountHolderIdType;
 
     /**
      * Authentication token
      */
-    private $refId;
+    private $bearerAuth;
 
     /**
      * Get the transaction request status.
@@ -31,15 +37,23 @@ class RetrieveRequestToPay extends BaseProcess
      * @param string $referenceId
      * @return this
      */
-    public function __construct($referenceId)
+    public function __construct($accountHolderId, $accountHolderIdType)
     {
         CommonUtil::validateArgument(
-            $referenceId,
-            'User Reference ID',
+            $accountHolderId,
+            'accountHolderId',
             CommonUtil::TYPE_STRING
         );
+
+        CommonUtil::validateArgument(
+            $accountHolderIdType,
+            'accountHolderIdType',
+            CommonUtil::TYPE_STRING
+        );
+
         $this->setUp(self::SYNCHRONOUS_PROCESS);
-        $this->refId = $referenceId;
+        $this->accountHolderId = $accountHolderId;
+        $this->accountHolderIdType = $accountHolderIdType;
         return $this;
     }
 
@@ -57,19 +71,21 @@ class RetrieveRequestToPay extends BaseProcess
     }
 
     /**
-     * Function to execute API call to get payment status
+     * Function to execute API call to validate account holder status
      * @return CallbackResponse
      */
     public function execute()
     {
         $auth = $this->getBearerAuth();
         $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $request = RequestUtil::get(API::REQUEST_TO_PAY_STATUS)
-            ->setUrlParams(['{X-Reference-Id}' => $this->refId])
+        $request = RequestUtil::get(API::VALIDATE_ACCOUNT_HOLDER)
+            ->setUrlParams([
+                '{accountHolderId}' => $this->accountHolderId,
+                '{accountHolderIdType}' => $this->accountHolderIdType
+            ])
             ->httpHeader(Header::AUTHORIZATION, $auth)
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, "sandbox")
             ->httpHeader(Header::SUBSCRIPTION_KEY, $env['collection_subscription_key'])
-            ->setReferenceId($this->refId)
             ->build();
         $response = $this->makeRequest($request);
         return $this->parseResponse($response, new CallbackResponse());

@@ -9,8 +9,9 @@ try {
     /**
      * Construct request object and set desired parameters
      */
-    $referenceId = 'e270a95f-dbdc-4981-b636-3f15ab7eb6fa';
-    $request = Collection::requestToPayTransactionStatus($referenceId);
+    $referenceId = '6743502b-3c8b-453b-9132-0c819fe428f5';
+    $notificationMessage = 'Pay for product a mrudul delivery notification';
+    $request = Collection::requestToPayDeliveryNotification($referenceId, $notificationMessage);
 
     /**
      *Execute the request

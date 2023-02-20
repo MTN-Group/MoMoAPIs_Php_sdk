@@ -9,8 +9,8 @@ try {
     /**
      * Construct request object and set desired parameters
      */
-    $referenceId = 'e270a95f-dbdc-4981-b636-3f15ab7eb6fa';
-    $request = Collection::requestToPayTransactionStatus($referenceId);
+    $accountHolderMSISDN = '0248888736';
+    $request = Collection::getBasicUserinfo($accountHolderMSISDN);
 
     /**
      *Execute the request

@@ -2,46 +2,46 @@
 
 namespace momopsdk\Collection\Process;
 
-use momopsdk\Common\Models\Response;
-use momopsdk\Common\Utils\RequestUtil;
-
-use momopsdk\Common\Constants\Header;
 use momopsdk\Common\Constants\API;
-use momopsdk\Common\Models\CallbackResponse;
+use momopsdk\Common\Constants\Header;
+use momopsdk\Common\Utils\CommonUtil;
+use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Collection\Models\Transaction;
-use momopsdk\Common\Utils\GUID;
+use momopsdk\Common\Models\CallbackResponse;
 
 /**
- * Class InitiateRequestToPay
+ * Class GetBasicUserInfo
  * @package momopsdk\Collection\Process
  */
-class InitiateRequestToPay extends BaseProcess
+class GetBasicUserInfo extends BaseProcess
 {
     /**
-     * Transaction object
-     *
-     * @var Transaction
-     */
-    private $transaction;
-
-    /**
      * Authentication token
-     *
-     * @var AuthToken
      */
     private $bearerAuth;
 
     /**
-     * Initiates a Request To Pay.
+     * Notification Message
+     */
+    private $msisdn;
+
+    /**
+     * Send notification message for a payment request
      *
-     * @param string $transaction
+     * @param string $notificationMessage
+     * @param string $referenceId
      * @return this
      */
-    public function __construct($transaction, $callBackUrl = null)
+    public function __construct($accountHolderMSISDN)
     {
-        $this->setUp(self::ASYNCHRONOUS_PROCESS, $callBackUrl);
-        $this->transaction = $transaction;
+        CommonUtil::validateArgument(
+            $accountHolderMSISDN,
+            'accountHolderMSISDN',
+            CommonUtil::TYPE_STRING
+        );
+        $this->msisdn = $accountHolderMSISDN;
+        $this->setUp(self::SYNCHRONOUS_PROCESS);
+
         return $this;
     }
 
@@ -59,23 +59,20 @@ class InitiateRequestToPay extends BaseProcess
     }
 
     /**
-     *
+     * Function to execute sending of additional Notification to an End User
      * @return CallbackResponse
      */
     public function execute()
     {
         $auth = $this->getBearerAuth();
-        $referenceId = GUID::create();
         $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $request = RequestUtil::post(
-            API::REQUEST_TO_PAY,
-            json_encode($this->transaction)
-        )
+        $request = RequestUtil::get(API::GET_BASIC_USER_INFO)
+            ->setUrlParams([
+                '{accountHolderMSISDN}' => $this->msisdn
+            ])
             ->httpHeader(Header::AUTHORIZATION, $auth)
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, "sandbox")
             ->httpHeader(Header::SUBSCRIPTION_KEY, $env['collection_subscription_key'])
-            ->httpHeader(Header::CONTENT_TYPE, "application/json")
-            ->setReferenceId($referenceId)
             ->build();
         $response = $this->makeRequest($request);
         return $this->parseResponse($response, new CallbackResponse());

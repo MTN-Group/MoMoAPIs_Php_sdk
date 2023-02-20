@@ -31,10 +31,26 @@ class ResponseUtil
      */
     public static function parse($response, $obj = null, $request)
     {
+
         switch ($response->getHttpCode()) {
                 //Success Responses
             case self::OK:
+                $data = $obj->hydrate($request, null);
+                if ($response->getResult() != '') {
+                    $data->result = json_decode($response->getResult());
+                }
+                if ($response->getReferenceId() != '') {
+                    $data->referenceId = $response->getReferenceId();
+                }
+                $data->httpCode = $response->getHttpCode();
+                return $data;
+                break;
             case self::ACCEPTED:
+                $data = $obj->hydrate($request, null);
+                $data->referenceId = $response->getReferenceId();
+                $data->httpCode = $response->getHttpCode();
+                return $data;
+                break;
             case self::CREATED:
                 if ($response->getResult() != '') {
                     $decodedResponse = $response->getResult();
@@ -161,11 +177,8 @@ class ResponseUtil
     {
         $decodedJson = json_decode($jsonData);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            // die("sd");
             throw new MobileMoneyException('Invalid JSON Response from API');
         }
-        print_r($decodedJson);
-        die;
         return $decodedJson;
     }
 }

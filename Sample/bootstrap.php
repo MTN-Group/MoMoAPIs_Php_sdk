@@ -3,7 +3,7 @@
 require_once __DIR__ . './../autoload.php';
 
 //Parse the config file
-$env = parse_ini_file(__DIR__ . './../config.env.example');
+$env = parse_ini_file(__DIR__ . './../config.env');
 
 use momopsdk\Common\Constants\MobileMoney;
 use momopsdk\Common\Enums\SecurityLevel;

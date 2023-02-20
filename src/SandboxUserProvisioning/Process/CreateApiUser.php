@@ -20,7 +20,7 @@ class CreateApiUser extends BaseProcess
      * Subscription Key
      */
     private $subscriptionKey;
-     
+
 
     public function __construct($aReqBody, $sSubKey)
     {
@@ -48,6 +48,8 @@ class CreateApiUser extends BaseProcess
             ->build();
 
         $response = $this->makeRequest($request);
+        // print_r($response);
+        // die;
         return $this->parseResponse($response, new ResponseState());
     }
 }

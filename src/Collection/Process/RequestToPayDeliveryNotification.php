@@ -10,10 +10,10 @@ use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Common\Models\CallbackResponse;
 
 /**
- * Class RetrieveRequestToPay
+ * Class RequestToPayDeliveryNotification
  * @package momopsdk\Collection\Process
  */
-class RetrieveRequestToPay extends BaseProcess
+class RequestToPayDeliveryNotification extends BaseProcess
 {
     /**
      * Authentication token
@@ -21,25 +21,33 @@ class RetrieveRequestToPay extends BaseProcess
     private $bearerAuth;
 
     /**
-     * Authentication token
+     * Notification Message
+     */
+    private $notificationMessage;
+
+    /**
+     * Notification Message
      */
     private $refId;
 
     /**
-     * Get the transaction request status.
+     * Send notification message for a payment request
      *
+     * @param string $notificationMessage
      * @param string $referenceId
      * @return this
      */
-    public function __construct($referenceId)
+    public function __construct($referenceId, $notificationMessage)
     {
         CommonUtil::validateArgument(
-            $referenceId,
-            'User Reference ID',
+            $notificationMessage,
+            'notificationMessage',
             CommonUtil::TYPE_STRING
         );
-        $this->setUp(self::SYNCHRONOUS_PROCESS);
         $this->refId = $referenceId;
+        $this->notificationMessage = $notificationMessage;
+        $this->setUp(self::SYNCHRONOUS_PROCESS);
+
         return $this;
     }
 
@@ -57,19 +65,23 @@ class RetrieveRequestToPay extends BaseProcess
     }
 
     /**
-     * Function to execute API call to get payment status
+     * Function to execute sending of additional Notification to an End User
      * @return CallbackResponse
      */
     public function execute()
     {
         $auth = $this->getBearerAuth();
         $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $request = RequestUtil::get(API::REQUEST_TO_PAY_STATUS)
-            ->setUrlParams(['{X-Reference-Id}' => $this->refId])
+        $request = RequestUtil::get(API::REQUEST_TO_PAY_DELIVERY_NOTIFICATION)
+            ->setUrlParams([
+                '{referenceId}' => $this->refId
+            ])
+            ->httpHeader(Header::NOTIFICATION, $this->notificationMessage)
             ->httpHeader(Header::AUTHORIZATION, $auth)
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, "sandbox")
             ->httpHeader(Header::SUBSCRIPTION_KEY, $env['collection_subscription_key'])
-            ->setReferenceId($this->refId)
+            ->httpHeader(Header::CONTENT_TYPE, "application/json")
+            // ->setReferenceId($this->refId)
             ->build();
         $response = $this->makeRequest($request);
         return $this->parseResponse($response, new CallbackResponse());

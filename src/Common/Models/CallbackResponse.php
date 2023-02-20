@@ -13,11 +13,18 @@ class CallbackResponse extends BaseModel
     /**
      * @var array
      */
-    protected $result;
+    public $result;
+
     /**
      * @var string
      */
-    protected $httpCode;
+    public $httpCode;
+
+    /**
+     * @var string
+     */
+    public $referenceId;
+
 
     /**
      * @return array|null
@@ -51,5 +58,22 @@ class CallbackResponse extends BaseModel
     {
         $this->httpCode = $httpCode;
         return $this;
+    }
+
+    /**
+     * @param string|null $httpCode
+     */
+    public function setReferenceId($referenceId)
+    {
+        $this->referenceId = $referenceId;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getReferenceId()
+    {
+        return $this->referenceId;
     }
 }

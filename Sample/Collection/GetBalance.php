@@ -4,13 +4,12 @@ require_once __DIR__ . './../bootstrap.php';
 use momopsdk\Common\Exceptions\MobileMoneyException;
 use momopsdk\Collection\Collection;
 
-try {
 
+try {
     /**
      * Construct request object and set desired parameters
      */
-    $referenceId = 'e270a95f-dbdc-4981-b636-3f15ab7eb6fa';
-    $request = Collection::requestToPayTransactionStatus($referenceId);
+    $request = Collection::getAccountBalance();
 
     /**
      *Execute the request

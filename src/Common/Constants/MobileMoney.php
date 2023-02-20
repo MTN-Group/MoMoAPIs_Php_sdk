@@ -72,7 +72,7 @@ class MobileMoney
      */
     private static $accessToken = null;
 
-    
+
     /**
      * Initialize SDK
      *

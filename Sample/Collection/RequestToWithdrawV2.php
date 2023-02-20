@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . './../bootstrap.php';
 
-
 use momopsdk\Common\Enums\NotificationMethod;
 use momopsdk\Common\Exceptions\MobileMoneyException;
 use momopsdk\Collection\Collection;
@@ -27,7 +26,7 @@ try {
      * Construct request object and set desired parameters
      */
 
-    $request = Collection::requestToPay($transaction);
+    $request = Collection::requestToWithdrawV2($transaction);
 
     /**
      * Choose notification method can be either Callback or Polling

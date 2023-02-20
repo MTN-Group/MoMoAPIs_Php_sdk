@@ -16,5 +16,6 @@ class Header
         X_REFERENCE_ID = 'X-Reference-Id',
         AUTHORIZATION = 'Authorization',
         X_TARGET_ENVIRONMENT = 'X-Target-Environment',
-        SUBSCRIPTION_KEY = 'Ocp-Apim-Subscription-Key';
+        SUBSCRIPTION_KEY = 'Ocp-Apim-Subscription-Key',
+        NOTIFICATION = 'notificationMessage';
 }

@@ -361,6 +361,7 @@ class RequestUtil
 
     public function setReferenceId($referenceId)
     {
+
         $this->_referenceId = $referenceId;
         return $this;
     }
@@ -486,6 +487,7 @@ class RequestUtil
 
         // Initialize cURL request
         // Check if URL contains base url if not build url with base url
+
         if (strpos($this->_url, 'http') !== false) {
             $ch = curl_init($this->_url);
         } else {
@@ -513,6 +515,7 @@ class RequestUtil
     {
         $ch = $this->_curlHandle;
         $output = curl_exec($ch);
+
         $outputData = $this->getResponseHeaders($output);
         $response = new Response();
         $response

@@ -2,21 +2,18 @@
 
 namespace momopsdk\Collection\Process;
 
-use momopsdk\Common\Models\Response;
-use momopsdk\Common\Utils\RequestUtil;
-
-use momopsdk\Common\Constants\Header;
-use momopsdk\Common\Constants\API;
-use momopsdk\Common\Models\CallbackResponse;
-use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Collection\Models\Transaction;
 use momopsdk\Common\Utils\GUID;
+use momopsdk\Common\Constants\API;
+use momopsdk\Common\Constants\Header;
+use momopsdk\Common\Utils\RequestUtil;
+use momopsdk\Common\Process\BaseProcess;
+use momopsdk\Common\Models\CallbackResponse;
 
 /**
- * Class InitiateRequestToPay
+ * Class RequestToWithdrawV1
  * @package momopsdk\Collection\Process
  */
-class InitiateRequestToPay extends BaseProcess
+class RequestToWithdrawV1 extends BaseProcess
 {
     /**
      * Transaction object
@@ -68,7 +65,7 @@ class InitiateRequestToPay extends BaseProcess
         $referenceId = GUID::create();
         $env = parse_ini_file(__DIR__ . './../../../config.env');
         $request = RequestUtil::post(
-            API::REQUEST_TO_PAY,
+            API::REQUEST_TO_WITHDRAW_V1,
             json_encode($this->transaction)
         )
             ->httpHeader(Header::AUTHORIZATION, $auth)
@@ -77,6 +74,7 @@ class InitiateRequestToPay extends BaseProcess
             ->httpHeader(Header::CONTENT_TYPE, "application/json")
             ->setReferenceId($referenceId)
             ->build();
+
         $response = $this->makeRequest($request);
         return $this->parseResponse($response, new CallbackResponse());
     }

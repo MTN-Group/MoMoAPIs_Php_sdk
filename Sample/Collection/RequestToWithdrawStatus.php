@@ -9,8 +9,8 @@ try {
     /**
      * Construct request object and set desired parameters
      */
-    $referenceId = 'e270a95f-dbdc-4981-b636-3f15ab7eb6fa';
-    $request = Collection::requestToPayTransactionStatus($referenceId);
+    $referenceId = '06bc2597-5c93-4e37-878e-489dc75b8113';
+    $request = Collection::requestToWithdrawTransactionStatus($referenceId);
 
     /**
      *Execute the request
