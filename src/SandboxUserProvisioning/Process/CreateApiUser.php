@@ -48,8 +48,6 @@ class CreateApiUser extends BaseProcess
             ->build();
 
         $response = $this->makeRequest($request);
-        // print_r($response);
-        // die;
         return $this->parseResponse($response, new ResponseState());
     }
 }

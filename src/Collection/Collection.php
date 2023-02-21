@@ -24,12 +24,12 @@ class Collection
      * Asynchronous payment flow is used with a final callback.
      *
      * @param Transaction $transaction
-     * @param string $callBackUrl
+     * @param string $sCollectionSubKey, $targetEnvironment,$callBackUrl
      * @return InitiateRequestToPay
      */
-    public static function requestToPay($transaction, $callBackUrl = null)
+    public static function requestToPay($transaction, $sCollectionSubKey, $targetEnvironment, $callBackUrl = null)
     {
-        return new InitiateRequestToPay($transaction, $callBackUrl);
+        return new InitiateRequestToPay($transaction, $sCollectionSubKey, $targetEnvironment, $callBackUrl);
     }
 
     /**

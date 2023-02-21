@@ -40,7 +40,7 @@ class GetAccountBalance extends BaseProcess
     {
         $auth = $this->getBearerAuth();
         $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $request = RequestUtil::get(API::GET_ACCOUNT_BALANCE)
+        $request = RequestUtil::get(API::GET_ACCOUNT_BALANCE_COLLECTION)
             ->httpHeader(Header::AUTHORIZATION, $auth)
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, "sandbox")
             ->httpHeader(Header::SUBSCRIPTION_KEY, $env['collection_subscription_key'])
