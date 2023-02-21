@@ -15,5 +15,6 @@ class Header
         CONTENT_TYPE = 'Content-Type',
         X_REFERENCE_ID = 'X-Reference-Id',
         X_TARGET_ENVIRONMENT = 'X-Target-Environment',
-        AUTHORIZATION = 'Authorization';
+        AUTHORIZATION = 'Authorization',
+        X_CALLBACK_URL = 'X-Callback-Url';
 }

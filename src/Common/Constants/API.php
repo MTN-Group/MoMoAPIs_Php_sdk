@@ -21,5 +21,7 @@ class API
     GET_ACCOUNT_BALANCE = '/disbursement/v1_0/account/balance',
     GET_DEPOSIT_STATUS = '/disbursement/v1_0/deposit/{referenceId}',
     GET_REFUND_STATUS = '/disbursement/v1_0/refund/{referenceId}',
-    GET_TRANSFER_STATUS = '/disbursement/v1_0/transfer/{referenceId}';
+    GET_TRANSFER_STATUS = '/disbursement/v1_0/transfer/{referenceId}',
+    GET_DEPOSIT_V1 = '/disbursement/v1_0/deposit',
+    GET_DEPOSIT_V2 = '/disbursement/v2_0/deposit';
 }

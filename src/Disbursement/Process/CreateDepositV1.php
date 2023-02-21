@@ -8,8 +8,9 @@ use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
 use momopsdk\Disbursement\Models\StatusDetail;
+use momopsdk\Disbursement\Models\DepositModel;
 
-class GetDepositStatus extends BaseProcess
+class CreateDepositV1 extends BaseProcess
 {
     /**
      * Subscription Key
@@ -22,26 +23,23 @@ class GetDepositStatus extends BaseProcess
     private $targetEnvironment;
     
     /**
-     * Reference Id
+     * Request data
      */
-    private $refId;
+    public $aReq;
 
-    public function __construct($sSubsKey, $sTargetEnvironment, $sReferenceId)
+    public function __construct($oDeposit, $sSubsKey, $sTargetEnvironment, $sCallBackUrl)
     {
         CommonUtil::validateArgument(
             $sSubsKey,
             'Subscription Key',
             CommonUtil::TYPE_STRING
         );
-        CommonUtil::validateArgument(
-            $sReferenceId,
-            'Reference Id',
-            CommonUtil::TYPE_STRING
-        );
+        $this->setUp(self::ASYNCHRONOUS_PROCESS, $sCallBackUrl);
         $this->subscriptionKey = $sSubsKey;
         $this->targetEnvironment = $sTargetEnvironment;
-        $this->refId = $sReferenceId;
+        $this->aReq = $oDeposit;
         return $this;
+       
     }
 
     /**
@@ -51,12 +49,16 @@ class GetDepositStatus extends BaseProcess
      */
     public function execute()
     {
-        $request = RequestUtil::get(API::GET_DEPOSIT_STATUS)
-            ->setUrlParams(['{referenceId}' => $this->refId])
+        $request = RequestUtil::post(API::GET_DEPOSIT_V1, json_encode($this->aReq))
+            ->httpHeader(Header::X_REFERENCE_ID, $this->referenceId)
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnvironment)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subscriptionKey)
-            ->setSubscriptionKey($this->subscriptionKey)
-            ->build();
+            ->setSubscriptionKey($this->subscriptionKey);
+        if ($this->callBackUrl != null)
+        {
+            $request = $request->httpHeader(Header::X_CALLBACK_URL, $this->callBackUrl);
+        }
+        $request = $request->build();
         $response = $this->makeRequest($request);
         return $this->parseResponse($response, new StatusDetail());
     }

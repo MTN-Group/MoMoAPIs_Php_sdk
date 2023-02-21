@@ -9,7 +9,7 @@ use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
 use momopsdk\Disbursement\Models\StatusDetail;
 
-class GetDepositStatus extends BaseProcess
+class GetRefundStatus extends BaseProcess
 {
     /**
      * Subscription Key
@@ -51,7 +51,7 @@ class GetDepositStatus extends BaseProcess
      */
     public function execute()
     {
-        $request = RequestUtil::get(API::GET_DEPOSIT_STATUS)
+        $request = RequestUtil::get(API::GET_REFUND_STATUS)
             ->setUrlParams(['{referenceId}' => $this->refId])
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnvironment)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subscriptionKey)
