@@ -28,11 +28,14 @@ try {
 ### Example Output
 `200 OK`
 ```php
-stdClass Object
+momopsdk\Disbursement\Models\GetAccBalance Object
 (
-    [availableBalance] => 1000
-    [currency] => EUR
-    [referenceId] => 
+    [result] => stdClass Object
+        (
+            [availableBalance] => 0
+            [currency] => EUR
+        )
+
 )
 
 ```
