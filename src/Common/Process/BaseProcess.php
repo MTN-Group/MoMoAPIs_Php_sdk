@@ -3,7 +3,7 @@
 namespace momopsdk\Common\Process;
 
 use momopsdk\Common\Constants\MobileMoney;
-// use momopsdk\Common\Enums\NotificationMethod;
+use momopsdk\Common\Enums\NotificationMethod;
 use momopsdk\Common\Utils\AuthUtil;
 use momopsdk\Common\Utils\GUID;
 use momopsdk\Common\Utils\ResponseUtil;
@@ -73,6 +73,13 @@ abstract class BaseProcess
      */
     protected $processType = self::SYNCHRONOUS_PROCESS;
 
+    /**
+     * Raw response from the API
+     *
+     * @var mixed
+     */
+    public $notificationMethod;
+
     public function __construct($processType, $callBackUrl = null)
     {
         $this->setUp($processType, $callBackUrl);
@@ -93,7 +100,7 @@ abstract class BaseProcess
                     break;
                 case NotificationMethod::CALLBACK:
                     if (empty($this->callBackUrl)) {
-                        throw new \mmpsdk\Common\Exceptions\MobileMoneyException(
+                        throw new \momopsdk\Common\Exceptions\MobileMoneyException(
                             'Callback URL is empty'
                         );
                     }
@@ -103,7 +110,7 @@ abstract class BaseProcess
                     break;
             }
         } elseif ($this->processType == self::ASYNCHRONOUS_PROCESS) {
-            throw new \mmpsdk\Common\Exceptions\MobileMoneyException(
+            throw new \momopsdk\Common\Exceptions\MobileMoneyException(
                 'Unknown notification method: ' . $notificationMethod
             );
         }

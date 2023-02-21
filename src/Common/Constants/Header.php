@@ -16,5 +16,6 @@ class Header
         X_REFERENCE_ID = 'X-Reference-Id',
         X_TARGET_ENVIRONMENT = 'X-Target-Environment',
         AUTHORIZATION = 'Authorization',
-        X_CALLBACK_URL = 'X-Callback-Url';
+        X_CALLBACK_URL = 'X-Callback-Url',
+        NOTIFICATION = 'notificationMessage';
 }

@@ -20,7 +20,7 @@ class CreateApiUser extends BaseProcess
      * Subscription Key
      */
     private $subscriptionKey;
-     
+
 
     public function __construct($aReqBody, $sSubKey)
     {

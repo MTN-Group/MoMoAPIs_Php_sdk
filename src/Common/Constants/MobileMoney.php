@@ -78,7 +78,7 @@ class MobileMoney
      */
     private static $baseUrl;
 
-    
+
     /**
      * Initialize SDK
      *

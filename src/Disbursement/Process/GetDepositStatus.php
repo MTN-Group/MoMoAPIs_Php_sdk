@@ -20,7 +20,7 @@ class GetDepositStatus extends BaseProcess
      * Target Environment
      */
     private $targetEnvironment;
-    
+
     /**
      * Reference Id
      */

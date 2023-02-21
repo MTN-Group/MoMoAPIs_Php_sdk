@@ -31,24 +31,29 @@ class ResponseUtil
      */
     public static function parse($response, $obj = null, $request)
     {
+
         switch ($response->getHttpCode()) {
-            //Success Responses
+                //Success Responses
             case self::OK:
-                if($obj != null)
-                {
+                if ($obj != null) {
                     $data = $obj->hydrate($response, null);
                     $data->result = json_decode($response->getResult());
                     if ($response->getReferenceId()) {
                         $data->referenceId = $response->getReferenceId();
                     }
+                    $data->httpCode = $response->getHttpCode();
                 } else {
                     $data = json_decode($response->getResult());
                 }
                 return $data;
             case self::ACCEPTED:
+                $data = $obj->hydrate($request, null);
+                $data->referenceId = $response->getReferenceId();
+                $data->httpCode = $response->getHttpCode();
+                return $data;
+                break;
             case self::CREATED:
-                if ($response->getResult() != '')
-                {
+                if ($response->getResult() != '') {
                     $decodedResponse = $response->getResult();
                     $data = $decodedResponse;
                     if (is_array($decodedResponse) && empty($decodedResponse)) {
@@ -97,8 +102,6 @@ class ResponseUtil
                             $data = $dataResponse;
                         }
                     }
-                    
-                    
                 } else {
                     $data = $obj->hydrate($request, null);
                     if ($response->getReferenceId()) {
@@ -108,7 +111,7 @@ class ResponseUtil
                 return $data;
                 break;
 
-            //Failed Responses
+                //Failed Responses
             case self::BAD_REQUEST:
                 $errorObject = new Error($response->getResult());
                 throw new MobileMoneyException(
@@ -147,6 +150,7 @@ class ResponseUtil
 
             case self::NOT_FOUND:
                 $errorObject = self::decodeJson($response->getResult());
+
                 if (isset($errorObject->errorCode)) {
                     $errObj = new Error($response->getResult());
                     throw new MobileMoneyException(
@@ -175,7 +179,7 @@ class ResponseUtil
     public static function decodeJson($jsonData)
     {
         $decodedJson = json_decode($jsonData);
-        if (json_last_error() !== JSON_ERROR_NONE) {die("sd");
+        if (json_last_error() !== JSON_ERROR_NONE) {
             throw new MobileMoneyException('Invalid JSON Response from API');
         }
         return $decodedJson;
