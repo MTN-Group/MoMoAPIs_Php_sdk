@@ -455,12 +455,14 @@ class RequestUtil
                 break;
         }
 
-        if ($this->_url != API::DISBURSEMENT_ACCESS_TOKEN &&
-        $this->_url != API::REMITTANCE_ACCESS_TOKEN &&
-        $this->_url != API::COLLECTION_ACCESS_TOKEN &&
-        $this->_url != API::CREATE_USER &&
-        $this->_url != API::GET_USER_INFORMATION &&
-        $this->_url != API::GET_API_KEY) {
+        if (
+            $this->_url != API::DISBURSEMENT_ACCESS_TOKEN &&
+            $this->_url != API::REMITTANCE_ACCESS_TOKEN &&
+            $this->_url != API::COLLECTION_ACCESS_TOKEN &&
+            $this->_url != API::CREATE_USER &&
+            $this->_url != API::GET_USER_INFORMATION &&
+            $this->_url != API::GET_API_KEY
+        ) {
             $sProductName = explode('/', $this->_url)[1];
             switch ($sProductName) {
                 case 'disbursement':

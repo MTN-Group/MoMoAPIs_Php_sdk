@@ -39,7 +39,6 @@ class AccessToken extends BaseProcess
 
     public function execute()
     {
-
         switch ($this->tokenIdentifier) {
             case 'COLLECTION':
                 $apiUrl = API::COLLECTION_ACCESS_TOKEN;
@@ -74,8 +73,6 @@ class AccessToken extends BaseProcess
             )
             ->build();
         $response = $this->makeRequest($request);
-        print_r($response);
-        die;
         return $this->parseResponse($response);
     }
 }

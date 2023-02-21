@@ -2,15 +2,14 @@
 
 namespace momopsdk\Collection\Process;
 
-use momopsdk\Common\Models\Response;
-use momopsdk\Common\Utils\RequestUtil;
 
-use momopsdk\Common\Constants\Header;
+use momopsdk\Common\Utils\GUID;
 use momopsdk\Common\Constants\API;
-use momopsdk\Common\Models\CallbackResponse;
+use momopsdk\Common\Constants\Header;
+use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Collection\Models\Transaction;
-use momopsdk\Common\Utils\GUID;
+use momopsdk\Collection\Models\RequestToPayResponse;
 
 /**
  * Class InitiateRequestToPay
@@ -50,36 +49,20 @@ class InitiateRequestToPay extends BaseProcess
         return $this;
     }
 
-    // /**
-    //  * Creates bearer authorization header.
-    //  *
-    //  * @return this
-    //  */
-    // public function getBearerAuth()
-    // {
-    //     $env = parse_ini_file(__DIR__ . './../../../config.env');
-    //     $accessToken = $env['access_token'];
-    //     $this->bearerAuth = "Bearer " . $accessToken;
-    //     return $this->bearerAuth;
-    // }
-
     /**
      *
-     * @return CallbackResponse
+     * @return RequestToPayResponse
      */
     public function execute()
     {
         $referenceId = GUID::create();
         $request = RequestUtil::post(API::REQUEST_TO_PAY, json_encode($this->transaction))
-            ->httpHeader(Header::X_REFERENCE_ID, $referenceId)
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
             ->httpHeader(Header::SUBSCRIPTION_KEY, $this->subKey)
-            ->setSubscriptionKey($this->subKey)
             ->setReferenceId($referenceId)
+            ->setSubscriptionKey($this->subKey)
             ->build();
-        print_r("fbghnhjnjh");
-        die;
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new CallbackResponse());
+        return $this->parseResponse($response, new RequestToPayResponse());
     }
 }

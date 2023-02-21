@@ -7,7 +7,7 @@ use momopsdk\Common\Constants\Header;
 use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Common\Models\CallbackResponse;
+use momopsdk\Collection\Models\RequestToPayStatusResponse;
 
 /**
  * Class RetrieveRequestToPay
@@ -16,14 +16,19 @@ use momopsdk\Common\Models\CallbackResponse;
 class RetrieveRequestToPay extends BaseProcess
 {
     /**
-     * Authentication token
+     * Collection subscription key
      */
-    private $bearerAuth;
+    private $subKey;
 
     /**
-     * Authentication token
+     * Reference Id
      */
     private $refId;
+
+    /**
+     * Target Environment
+     */
+    private $targetEnv;
 
     /**
      * Get the transaction request status.
@@ -31,47 +36,42 @@ class RetrieveRequestToPay extends BaseProcess
      * @param string $referenceId
      * @return this
      */
-    public function __construct($referenceId)
+    public function __construct($referenceId, $sCollectionSubKey, $targetEnvironment)
     {
         CommonUtil::validateArgument(
             $referenceId,
             'User Reference ID',
             CommonUtil::TYPE_STRING
         );
+        CommonUtil::validateArgument(
+            $sCollectionSubKey,
+            'Subscription Key',
+            CommonUtil::TYPE_STRING
+        );
         $this->setUp(self::SYNCHRONOUS_PROCESS);
         $this->refId = $referenceId;
+        $this->subKey = $sCollectionSubKey;
+        $this->targetEnv = $targetEnvironment;
         return $this;
     }
 
-    /**
-     * Creates bearer authorization header.
-     *
-     * @return this
-     */
-    public function getBearerAuth()
-    {
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $accessToken = $env['access_token'];
-        $this->bearerAuth = "Bearer " . $accessToken;
-        return $this->bearerAuth;
-    }
 
     /**
      * Function to execute API call to get payment status
-     * @return CallbackResponse
+     * @return RequestToPayStatusResponse
      */
     public function execute()
     {
-        $auth = $this->getBearerAuth();
+
         $env = parse_ini_file(__DIR__ . './../../../config.env');
         $request = RequestUtil::get(API::REQUEST_TO_PAY_STATUS)
             ->setUrlParams(['{X-Reference-Id}' => $this->refId])
-            ->httpHeader(Header::AUTHORIZATION, $auth)
-            ->httpHeader(Header::X_TARGET_ENVIRONMENT, "sandbox")
-            ->httpHeader(Header::SUBSCRIPTION_KEY, $env['collection_subscription_key'])
+            ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
+            ->httpHeader(Header::SUBSCRIPTION_KEY, $this->subKey)
             ->setReferenceId($this->refId)
+            ->setSubscriptionKey($this->subKey)
             ->build();
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new CallbackResponse());
+        return $this->parseResponse($response, new RequestToPayStatusResponse());
     }
 }

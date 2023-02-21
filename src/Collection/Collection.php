@@ -39,9 +39,9 @@ class Collection
      * @return RetrieveRequestToPay
      *
      */
-    public static function requestToPayTransactionStatus($referenceId)
+    public static function requestToPayTransactionStatus($referenceId, $sCollectionSubKey, $targetEnvironment)
     {
-        return new RetrieveRequestToPay($referenceId);
+        return new RetrieveRequestToPay($referenceId, $sCollectionSubKey, $targetEnvironment);
     }
 
     /**
@@ -52,9 +52,9 @@ class Collection
      * @return ValidateAccountHolder
      *
      */
-    public static function validateAccountHolderStatus($accountHolderId, $accountHolderIdType)
+    public static function validateAccountHolderStatus($accountHolderId, $accountHolderIdType, $sCollectionSubKey, $targetEnvironment)
     {
-        return new ValidateAccountHolder($accountHolderId, $accountHolderIdType);
+        return new ValidateAccountHolder($accountHolderId, $accountHolderIdType, $sCollectionSubKey, $targetEnvironment);
     }
 
     /**

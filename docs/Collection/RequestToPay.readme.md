@@ -29,10 +29,11 @@ try {
     $transaction->setPartyIdType("0248888736");
     $transaction->setPayerMessage("Paying for product a");
     $transaction->setPayeeNote("Payer note");
-    $request = Collection::requestToPay($transaction);
-    $request->setNotificationMethod(NotificationMethod::POLLING);
+
+    $request = Collection::requestToPay($transaction, $sCollectionSubKey, $targetEnvironment);
     $response = $request->execute();
     print_r($response);
+
 } catch (MobileMoneyException $ex) {
 
     print_r($ex->getMessage());
@@ -45,12 +46,10 @@ try {
 ### Example Output
 `202 Accepted`
 ```php
-momopsdk\Common\Models\CallbackResponse Object
+momopsdk\Collection\Models\RequestToPayResponse Object
 (
     [httpCode] => 202
-    [referenceId] => c1f51313-247f-4431-b3c2-aef3567e4794
-    [hydratorStrategies:protected] =>
-    [availableCount:protected] =>
+    [referenceId] => a52d1a60-b777-4c0f-a3b1-9957cf74b25e
 )
 
 ```

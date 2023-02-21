@@ -41,6 +41,7 @@ class ResponseUtil
                     if ($response->getReferenceId()) {
                         $data->referenceId = $response->getReferenceId();
                     }
+                    $data->httpCode = $response->getHttpCode();
                 } else {
                     $data = json_decode($response->getResult());
                 }

@@ -1,6 +1,6 @@
 # Validate the account holder status in the sandbox environment
 
-1. `validateAccountHolderStatus($accountHolderId, $accountHolderIdType) create a GET request to end point /v1_0/accountholder/{accountHolderIdType}/{accountHolderId}/active and get statsus of the account holder in the sandbox environment.`
+1. `validateAccountHolderStatus($accountHolderId, $accountHolderIdType, $sCollectionSubKey, $targetEnvironment) create a GET request to end point /v1_0/accountholder/{accountHolderIdType}/{accountHolderId}/active and get statsus of the account holder in the sandbox environment.`
 
 > `End user will get result as 200 OK True if account holder is registered and active, false if the account holder is not active or not found.`
 
@@ -21,7 +21,7 @@ try {
      */
     $accountHolderId = '0248888736';
     $accountHolderIdType = 'msisdn';
-    $request = Collection::validateAccountHolderStatus($accountHolderId, $accountHolderIdType);
+    $request = Collection::validateAccountHolderStatus($accountHolderId, $accountHolderIdType, $sCollectionSubKey, $targetEnvironment);
 
     /**
      *Execute the request
@@ -37,18 +37,16 @@ try {
 
 ```
 ### Example Output
-`202 Accepted`
+`200 OK`
 ```php
-momopsdk\Common\Models\CallbackResponse Object
+momopsdk\Collection\Models\StatusResponse Object
 (
     [result] => stdClass Object
         (
-            [result] => true
+            [result] => 1
         )
+
     [httpCode] => 200
-    [referenceId] =>
-    [hydratorStrategies:protected] =>
-    [availableCount:protected] =>
 )
 
 ```

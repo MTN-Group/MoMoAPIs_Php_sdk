@@ -12,7 +12,7 @@ try {
      */
     $accountHolderId = '0248888736';
     $accountHolderIdType = 'msisdn';
-    $request = Collection::validateAccountHolderStatus($accountHolderId, $accountHolderIdType);
+    $request = Collection::validateAccountHolderStatus($accountHolderId, $accountHolderIdType, $sCollectionSubKey, $targetEnvironment);
 
     /**
      *Execute the request
