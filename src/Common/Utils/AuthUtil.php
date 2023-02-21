@@ -50,7 +50,7 @@ class AuthUtil
                 );
                 $request->httpHeader(
                     Header::AUTHORIZATION,
-                    "Bearer ".$accessToken->getAuthToken()
+                    "Bearer " . $accessToken->getAuthToken()
                 );
                 return $request;
                 break;
@@ -90,24 +90,25 @@ class AuthUtil
     {
         $authRequest = new AccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey);
         $authResponse = $authRequest->execute();
+
         $accessTokenObj = new AuthToken();
         $accessTokenObj
             ->setAuthToken($authResponse->access_token)
             ->setExpiresIn($authResponse->expires_in)
             ->setCreatedAt(time())
             ->setTokenIdentifier($tokenIdentifier);
-            
         return $accessTokenObj;
     }
 
     public static function getAccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey)
     {
+        $token = self::updateAccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey);
         // Check if we already have accessToken in memory
         $token = self::getAccessTokenFromMemory();
         if ($token && self::checkExpiredToken($token)) {
             $token = null;
         }
-        
+
         // Check for persisted data first
         $token = AuthorizationCache::pull($tokenIdentifier);
         // Check if Access Token is not null and has not expired.
@@ -115,10 +116,11 @@ class AuthUtil
             $token = null;
         }
         //check token exists and of same type as token identifier
-        if ($token != null && property_exists($token, "tokenIdentifier") &&
-        $token->tokenIdentifier == $tokenIdentifier &&
-        !(self::checkExpiredToken($token)))
-        {
+        if (
+            $token != null && property_exists($token, "tokenIdentifier") &&
+            $token->tokenIdentifier == $tokenIdentifier &&
+            !(self::checkExpiredToken($token))
+        ) {
             return $token;
         } else {
             $token = null;
@@ -144,27 +146,27 @@ class AuthUtil
                 break;
             case SecurityLevel::DEVELOPMENT:
             case SecurityLevel::STANDARD:
-            //     CommonUtil::validateArgument(
-            //         MobileMoney::getConsumerKey(),
-            //         'consumerKey',
-            //         CommonUtil::TYPE_STRING
-            //     );
-            //     CommonUtil::validateArgument(
-            //         MobileMoney::getConsumerSecret(),
-            //         'consumerSecret',
-            //         CommonUtil::TYPE_STRING
-            //     );
-            //     CommonUtil::validateArgument(
-            //         MobileMoney::getApiKey(),
-            //         'apiKey',
-            //         CommonUtil::TYPE_STRING
-            //     );
-            //     return true;
-            //     break;
+                //     CommonUtil::validateArgument(
+                //         MobileMoney::getConsumerKey(),
+                //         'consumerKey',
+                //         CommonUtil::TYPE_STRING
+                //     );
+                //     CommonUtil::validateArgument(
+                //         MobileMoney::getConsumerSecret(),
+                //         'consumerSecret',
+                //         CommonUtil::TYPE_STRING
+                //     );
+                //     CommonUtil::validateArgument(
+                //         MobileMoney::getApiKey(),
+                //         'apiKey',
+                //         CommonUtil::TYPE_STRING
+                //     );
+                //     return true;
+                //     break;
 
-            // case SecurityLevel::ENHANCED:
-            //     //TBD
-            //     return true;
+                // case SecurityLevel::ENHANCED:
+                //     //TBD
+                //     return true;
                 break;
             default:
                 throw new \momopsdk\Common\Exceptions\MobileMoneyException(

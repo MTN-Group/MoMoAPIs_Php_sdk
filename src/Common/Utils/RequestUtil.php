@@ -304,7 +304,6 @@ class RequestUtil
         }
 
         $header = $content ? $header . ': ' . $content : $header;
-
         return $this->option(CURLOPT_HTTPHEADER, $header);
     }
 
@@ -373,6 +372,7 @@ class RequestUtil
 
     public function setReferenceId($referenceId)
     {
+
         $this->_referenceId = $referenceId;
         return $this;
     }
@@ -455,12 +455,14 @@ class RequestUtil
                 break;
         }
 
-        if ($this->_url != API::DISBURSEMENT_ACCESS_TOKEN &&
-        $this->_url != API::REMITTANCE_ACCESS_TOKEN &&
-        $this->_url != API::COLLECTION_ACCESS_TOKEN &&
-        $this->_url != API::CREATE_USER &&
-        $this->_url != API::GET_USER_INFORMATION &&
-        $this->_url != API::GET_API_KEY) {
+        if (
+            $this->_url != API::DISBURSEMENT_ACCESS_TOKEN &&
+            $this->_url != API::REMITTANCE_ACCESS_TOKEN &&
+            $this->_url != API::COLLECTION_ACCESS_TOKEN &&
+            $this->_url != API::CREATE_USER &&
+            $this->_url != API::GET_USER_INFORMATION &&
+            $this->_url != API::GET_API_KEY
+        ) {
             $sProductName = explode('/', $this->_url)[1];
             switch ($sProductName) {
                 case 'disbursement':
@@ -521,6 +523,7 @@ class RequestUtil
 
         // Initialize cURL request
         // Check if URL contains base url if not build url with base url
+
         if (strpos($this->_url, 'http') !== false) {
             $ch = curl_init($this->_url);
         } else {
@@ -548,6 +551,7 @@ class RequestUtil
     {
         $ch = $this->_curlHandle;
         $output = curl_exec($ch);
+
         $outputData = $this->getResponseHeaders($output);
         $response = new Response();
         $response
@@ -614,7 +618,6 @@ class RequestUtil
     {
         if (is_string($key) && !is_numeric($key)) {
             $const = strtoupper($key);
-
             if (defined($const)) {
                 $key = constant(strtoupper($key));
             } else {
