@@ -8,7 +8,9 @@ namespace momopsdk\Common\Constants;
  */
 class API
 {
-    const CREATE_USER = '/v1_0/apiuser',
+    const SANDBOX_BASE_URL = 'https://sandbox.momodeveloper.mtn.com',
+        PRODUCTION_BASE_URL = '',
+        CREATE_USER = '/v1_0/apiuser',
         GET_USER_INFORMATION = '/v1_0/apiuser/{X-Reference-Id}',
         GET_API_KEY = '/v1_0/apiuser/{X-Reference-Id}/apikey',
         REQUEST_TO_PAY = '/collection/v1_0/requesttopay',
@@ -20,8 +22,6 @@ class API
         REQUEST_TO_WITHDRAW_STATUS = '/collection/v1_0/requesttowithdraw/{referenceId}',
         GET_BASIC_USER_INFO = '/collection/v1_0/accountholder/msisdn/{accountHolderMSISDN}/basicuserinfo',
         REQUEST_TO_PAY_DELIVERY_NOTIFICATION = '/collection/v1_0/requesttopay/{referenceId}/deliverynotification',
-        SANDBOX_BASE_URL = 'https://sandbox.momodeveloper.mtn.com',
-        PRODUCTION_BASE_URL = '',
         DISBURSEMENT_ACCESS_TOKEN = '/disbursement/token/',
         REMITTANCE_ACCESS_TOKEN = '/remittance/token/',
         COLLECTION_ACCESS_TOKEN = '/collection/token/',
