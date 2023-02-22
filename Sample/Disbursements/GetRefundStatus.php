@@ -5,7 +5,7 @@ use momopsdk\Disbursement\DisbursementTransaction;
 
 try {
 
-    $sRefId = 'c0602a40-ed66-4c53-a8b8-b61b7a00e3ee';
+    $sRefId = '195324cf-ece7-4e88-b296-94fc0082271d';
 
     $request = DisbursementTransaction::getRefundStatus($sDisbursementSubKey, $targetEnvironment, $sRefId);
 

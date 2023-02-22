@@ -1,16 +1,15 @@
 <?php
 
-namespace momopsdk\Disbursement\Process;
+namespace momopsdk\Common\Process;
 
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
-use momopsdk\Disbursement\Models\ResponseModel;
-use momopsdk\Disbursement\Models\DepositModel;
+use momopsdk\Disbursement\Models\GetAccBalance;
 
-class CreateDepositV1 extends BaseProcess
+class GetBalance extends BaseProcess
 {
     /**
      * Subscription Key
@@ -21,28 +20,20 @@ class CreateDepositV1 extends BaseProcess
      * Target Environment
      */
     private $targetEnvironment;
-    
-    /**
-     * Request data
-     */
-    public $aReq;
 
     public $subType;
 
-    public function __construct($oDeposit, $sSubsKey, $sTargetEnvironment, $sCallBackUrl, $subType)
+    public function __construct($sSubsKey, $sTargetEnvironment, $subType)
     {
         CommonUtil::validateArgument(
             $sSubsKey,
             'Subscription Key',
             CommonUtil::TYPE_STRING
         );
-        $this->setUp(self::ASYNCHRONOUS_PROCESS, $sCallBackUrl);
         $this->subscriptionKey = $sSubsKey;
         $this->targetEnvironment = $sTargetEnvironment;
-        $this->aReq = $oDeposit;
         $this->subType = $subType;
         return $this;
-       
     }
 
     /**
@@ -52,20 +43,13 @@ class CreateDepositV1 extends BaseProcess
      */
     public function execute()
     {
-        $request = RequestUtil::post(
-            str_replace('{subscriptionType}', $this->subType, API::GET_DEPOSIT_V1),
-            json_encode($this->aReq))
+        $request = RequestUtil::get(
+            str_replace('{subscriptionType}', $this->subType, API::GET_ACCOUNT_BALANCE))
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnvironment)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subscriptionKey)
             ->setSubscriptionKey($this->subscriptionKey)
-            ->setReferenceId($this->referenceId);
-
-        if ($this->callBackUrl != null)
-        {
-            $request = $request->httpHeader(Header::X_CALLBACK_URL, $this->callBackUrl);
-        }
-        $request = $request->build();
+            ->build();
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new ResponseModel());
+        return $this->parseResponse($response, new GetAccBalance());
     }
 }

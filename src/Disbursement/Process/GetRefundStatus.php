@@ -26,7 +26,9 @@ class GetRefundStatus extends BaseProcess
      */
     private $refId;
 
-    public function __construct($sSubsKey, $sTargetEnvironment, $sReferenceId)
+    public $subType;
+
+    public function __construct($sSubsKey, $sTargetEnvironment, $sReferenceId, $subType)
     {
         CommonUtil::validateArgument(
             $sSubsKey,
@@ -41,6 +43,7 @@ class GetRefundStatus extends BaseProcess
         $this->subscriptionKey = $sSubsKey;
         $this->targetEnvironment = $sTargetEnvironment;
         $this->refId = $sReferenceId;
+        $this->subType = $subType;
         return $this;
     }
 
@@ -51,7 +54,8 @@ class GetRefundStatus extends BaseProcess
      */
     public function execute()
     {
-        $request = RequestUtil::get(API::GET_REFUND_STATUS)
+        $request = RequestUtil::get(
+            str_replace('{subscriptionType}', $this->subType, API::GET_REFUND_STATUS))
             ->setUrlParams(['{referenceId}' => $this->refId])
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnvironment)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subscriptionKey)

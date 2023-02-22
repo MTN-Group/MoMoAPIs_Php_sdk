@@ -4,7 +4,7 @@ namespace momopsdk\Collection;
 
 use momopsdk\Collection\Models\Transaction;
 use momopsdk\Collection\Process\GetBasicUserInfo;
-use momopsdk\Collection\Process\GetAccountBalance;
+use momopsdk\Common\Process\GetBalance;
 use momopsdk\Collection\Process\RequestToWithdrawV1;
 use momopsdk\Collection\Process\RequestToWithdrawV2;
 use momopsdk\Collection\Process\InitiateRequestToPay;
@@ -19,6 +19,8 @@ use momopsdk\Collection\Process\RequestToPayDeliveryNotification;
  */
 class Collection
 {
+    const SUBTYPE = 'collection';
+
     /**
      * Create a Collection Payment Request.
      * Asynchronous payment flow is used with a final callback.
@@ -65,7 +67,7 @@ class Collection
      */
     public static function getAccountBalance()
     {
-        return new GetAccountBalance($callBackUrl = null);
+        return new GetBalance($sSubKey, $sTargetEnvironment, Collection::SUBTYPE);
     }
 
     /**
