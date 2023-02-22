@@ -62,8 +62,6 @@ class RetrieveRequestToPay extends BaseProcess
      */
     public function execute()
     {
-
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
         $request = RequestUtil::get(API::REQUEST_TO_PAY_STATUS)
             ->setUrlParams(['{X-Reference-Id}' => $this->refId])
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)

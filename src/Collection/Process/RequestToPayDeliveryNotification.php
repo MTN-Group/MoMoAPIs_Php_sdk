@@ -15,10 +15,6 @@ use momopsdk\Common\Models\CallbackResponse;
  */
 class RequestToPayDeliveryNotification extends BaseProcess
 {
-    /**
-     * Authentication token
-     */
-    private $bearerAuth;
 
     /**
      * Notification Message
@@ -31,37 +27,48 @@ class RequestToPayDeliveryNotification extends BaseProcess
     private $refId;
 
     /**
+     * Collection subscription key
+     */
+    private $subKey;
+
+    /**
+     * Target environment
+     */
+    private $targetEnv;
+
+    /**
      * Send notification message for a payment request
      *
      * @param string $notificationMessage
      * @param string $referenceId
      * @return this
      */
-    public function __construct($referenceId, $notificationMessage)
+    public function __construct($referenceId, $notificationMessage, $sCollectionSubKey, $targetEnvironment)
     {
         CommonUtil::validateArgument(
             $notificationMessage,
             'notificationMessage',
             CommonUtil::TYPE_STRING
         );
+
+        CommonUtil::validateArgument(
+            $referenceId,
+            'ReferenceID',
+            CommonUtil::TYPE_STRING
+        );
+
+        CommonUtil::validateArgument(
+            $sCollectionSubKey,
+            'CollectionSubKey',
+            CommonUtil::TYPE_STRING
+        );
+
         $this->refId = $referenceId;
         $this->notificationMessage = $notificationMessage;
+        $this->subKey = $sCollectionSubKey;
+        $this->targetEnv = $targetEnvironment;
         $this->setUp(self::SYNCHRONOUS_PROCESS);
-
         return $this;
-    }
-
-    /**
-     * Creates bearer authorization header.
-     *
-     * @return this
-     */
-    public function getBearerAuth()
-    {
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $accessToken = $env['access_token'];
-        $this->bearerAuth = "Bearer " . $accessToken;
-        return $this->bearerAuth;
     }
 
     /**
@@ -70,20 +77,19 @@ class RequestToPayDeliveryNotification extends BaseProcess
      */
     public function execute()
     {
-        $auth = $this->getBearerAuth();
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
         $request = RequestUtil::get(API::REQUEST_TO_PAY_DELIVERY_NOTIFICATION)
             ->setUrlParams([
                 '{referenceId}' => $this->refId
             ])
             ->httpHeader(Header::NOTIFICATION, $this->notificationMessage)
-            ->httpHeader(Header::AUTHORIZATION, $auth)
-            ->httpHeader(Header::X_TARGET_ENVIRONMENT, "sandbox")
-            ->httpHeader(Header::SUBSCRIPTION_KEY, $env['collection_subscription_key'])
-            ->httpHeader(Header::CONTENT_TYPE, "application/json")
-            // ->setReferenceId($this->refId)
+            ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
+            ->httpHeader(Header::SUBSCRIPTION_KEY, $this->subKey)
+            ->setSubscriptionKey($this->subKey)
+            ->setReferenceId($this->refId)
             ->build();
         $response = $this->makeRequest($request);
+        print_r($response);
+        die;
         return $this->parseResponse($response, new CallbackResponse());
     }
 }

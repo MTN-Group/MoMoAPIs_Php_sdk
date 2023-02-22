@@ -2,11 +2,13 @@
 
 namespace momopsdk\Collection\Process;
 
+
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
+use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Common\Models\CallbackResponse;
+use momopsdk\Collection\Models\StatusResponse;
 
 /**
  * Class GetAccountBalance
@@ -14,38 +16,47 @@ use momopsdk\Common\Models\CallbackResponse;
  */
 class GetAccountBalance extends BaseProcess
 {
-    /**
-     * Authentication token
-     */
-    private $bearerAuth;
 
     /**
-     * Creates bearer authorization header.
+     * Collection subscription key
+     */
+    private $subKey;
+
+    /**
+     * Target environment
+     */
+    private $targetEnv;
+
+    /**
+     * Initiates a Request To Pay.
      *
+     * @param string $transaction
      * @return this
      */
-    public function getBearerAuth()
+    public function __construct($sCollectionSubKey, $targetEnvironment)
     {
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $accessToken = $env['access_token'];
-        $this->bearerAuth = "Bearer " . $accessToken;
-        return $this->bearerAuth;
+        CommonUtil::validateArgument(
+            $sCollectionSubKey,
+            'User Reference ID',
+            CommonUtil::TYPE_STRING
+        );
+        $this->subKey = $sCollectionSubKey;
+        $this->targetEnv = $targetEnvironment;
+        return $this;
     }
 
     /**
      * Function to execute API call to get the account balance
-     * @return CallbackResponse
+     * @return StatusResponse
      */
     public function execute()
     {
-        $auth = $this->getBearerAuth();
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
         $request = RequestUtil::get(API::GET_ACCOUNT_BALANCE_COLLECTION)
-            ->httpHeader(Header::AUTHORIZATION, $auth)
-            ->httpHeader(Header::X_TARGET_ENVIRONMENT, "sandbox")
-            ->httpHeader(Header::SUBSCRIPTION_KEY, $env['collection_subscription_key'])
+            ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
+            ->httpHeader(Header::SUBSCRIPTION_KEY, $this->subKey)
+            ->setSubscriptionKey($this->subKey)
             ->build();
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new CallbackResponse());
+        return $this->parseResponse($response, new StatusResponse());
     }
 }

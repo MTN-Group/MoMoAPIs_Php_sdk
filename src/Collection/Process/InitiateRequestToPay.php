@@ -6,6 +6,7 @@ namespace momopsdk\Collection\Process;
 use momopsdk\Common\Utils\GUID;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
+use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Collection\Models\Transaction;
@@ -42,7 +43,12 @@ class InitiateRequestToPay extends BaseProcess
      */
     public function __construct($transaction, $sCollectionSubKey, $targetEnvironment, $callBackUrl = null)
     {
-        $this->setUp(self::ASYNCHRONOUS_PROCESS, $callBackUrl);
+        CommonUtil::validateArgument(
+            $sCollectionSubKey,
+            'CollectionSubKey',
+            CommonUtil::TYPE_STRING
+        );
+        // $this->setUp(self::ASYNCHRONOUS_PROCESS, $callBackUrl);
         $this->transaction = $transaction;
         $this->subKey = $sCollectionSubKey;
         $this->targetEnv = $targetEnvironment;

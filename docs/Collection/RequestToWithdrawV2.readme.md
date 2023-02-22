@@ -1,6 +1,6 @@
 # Create a request for withdrawel for consumer in the sandbox environment
 
-1.	`requestToWithdrawV2($transaction, $callBackUrl = null) create a withdrawel request for the consumer. It creates a POST request to end point v2_0/requesttowithdraw and initiate a withdrawel request in the sandbox environment.`
+1.	`requestToWithdrawV2($transaction, $sCollectionSubKey, $targetEnvironment) create a withdrawel request for the consumer. It creates a POST request to end point v2_0/requesttowithdraw and initiate a withdrawel request in the sandbox environment.`
 
 > `End user will get result as 202 Accepted if the request to withdraw is sucessful.`
 
@@ -36,7 +36,7 @@ try {
      * Construct request object and set desired parameters
      */
 
-    $request = Collection::requestToWithdrawV2($transaction);
+    $request = Collection::requestToWithdrawV2($transaction, $sCollectionSubKey, $targetEnvironment);
 
     /**
      * Choose notification method can be either Callback or Polling
@@ -57,13 +57,10 @@ try {
 ### Example Output
 `202 Accepted`
 ```php
-momopsdk\Common\Models\CallbackResponse Object
+momopsdk\Collection\Models\RequestToPayResponse Object
 (
-    [result] =>
     [httpCode] => 202
-    [referenceId] => a692800a-0317-4400-94f2-0841f84d8eee
-    [hydratorStrategies:protected] =>
-    [availableCount:protected] =>
+    [referenceId] => 7e8be910-0294-443c-920a-b58988124541
 )
 
 ```

@@ -63,37 +63,35 @@ class Collection
      * @return GetAccountBalance
      *
      */
-    public static function getAccountBalance()
+    public static function getAccountBalance($sCollectionSubKey, $targetEnvironment)
     {
-        return new GetAccountBalance($callBackUrl = null);
+        return new GetAccountBalance($sCollectionSubKey, $targetEnvironment);
     }
 
     /**
      * For requesting to withdraw from a consumer account
-     * Asynchronous payment flow is used with a final callback.
      *
      * @param Transaction $transaction
-     * @param string $callBackUrl
+     * @param string $sCollectionSubKey, $targetEnvironment
      * @return RequestToWithdrawV1
      *
      */
-    public static function requestToWithdrawV1($transaction, $callBackUrl = null)
+    public static function requestToWithdrawV1($transaction, $sCollectionSubKey, $targetEnvironment)
     {
-        return new RequestToWithdrawV1($transaction, $callBackUrl = null);
+        return new RequestToWithdrawV1($transaction, $sCollectionSubKey, $targetEnvironment);
     }
 
     /**
      * For requesting to withdraw from a consumer account
-     * Asynchronous payment flow is used with a final callback.
      *
      * @param Transaction $transaction
-     * @param string $callBackUrl
+     * @param string $sCollectionSubKey, $targetEnvironment
      * @return RequestToWithdrawV2
      *
      */
-    public static function requestToWithdrawV2($transaction, $callBackUrl = null)
+    public static function requestToWithdrawV2($transaction, $sCollectionSubKey, $targetEnvironment)
     {
-        return new RequestToWithdrawV2($transaction, $callBackUrl = null);
+        return new RequestToWithdrawV2($transaction, $sCollectionSubKey, $targetEnvironment);
     }
 
     /**
@@ -102,9 +100,9 @@ class Collection
      * @return RequestToWithdrawStatus
      *
      */
-    public static function requestToWithdrawTransactionStatus($referenceId)
+    public static function requestToWithdrawTransactionStatus($referenceId, $sCollectionSubKey, $targetEnvironment)
     {
-        return new RequestToWithdrawStatus($referenceId);
+        return new RequestToWithdrawStatus($referenceId, $sCollectionSubKey, $targetEnvironment);
     }
 
     /**
@@ -115,19 +113,19 @@ class Collection
      * @return RequestToPayDeliveryNotification
      *
      */
-    public static function requestToPayDeliveryNotification($referenceId, $notificationMessage)
+    public static function requestToPayDeliveryNotification($referenceId, $notificationMessage, $sCollectionSubKey, $targetEnvironment)
     {
-        return new RequestToPayDeliveryNotification($referenceId, $notificationMessage);
+        return new RequestToPayDeliveryNotification($referenceId, $notificationMessage, $sCollectionSubKey, $targetEnvironment);
     }
 
     /**
      * For getting information about the user
-     * @param string $accountHolderMSISDN
+     * @param string $accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment
      * @return GetBasicUserInfo
      *
      */
-    public static function getBasicUserinfo($accountHolderMSISDN)
+    public static function getBasicUserinfo($accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment)
     {
-        return new GetBasicUserInfo($accountHolderMSISDN);
+        return new GetBasicUserInfo($accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment);
     }
 }

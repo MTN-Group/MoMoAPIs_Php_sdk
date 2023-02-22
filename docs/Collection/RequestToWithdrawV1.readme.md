@@ -1,6 +1,6 @@
 # Create a request for withdrawel for consumer in the sandbox environment
 
-1.	`requestToWithdrawV1($transaction, $callBackUrl = null) create a withdrawel request for the consumer. It creates a POST request to end point v1_0/requesttowithdraw and initiate a withdrawel request in the sandbox environment.`
+1.	`requestToWithdrawV1($transaction, $sCollectionSubKey, $targetEnvironment) create a withdrawel request for the consumer. It creates a POST request to end point v1_0/requesttowithdraw and initiate a withdrawel request in the sandbox environment.`
 
 > `End user will get result as 202 Accepted if the request to withdraw is sucessful.`
 
@@ -11,13 +11,15 @@
 <?php
 require_once __DIR__ . './../bootstrap.php';
 
-use momopsdk\Common\Enums\NotificationMethod;
 use momopsdk\Common\Exceptions\MobileMoneyException;
 use momopsdk\Collection\Collection;
 use momopsdk\Collection\Models\Transaction;
 
 try {
 
+    /**
+     * Create a transaction object and set the parameters
+     */
     $transaction = new Transaction();
     $transaction->setAmount("100");
     $transaction->setCurrency("EUR");
@@ -36,12 +38,7 @@ try {
      * Construct request object and set desired parameters
      */
 
-    $request = Collection::requestToWithdrawV1($transaction);
-
-    /**
-     * Choose notification method can be either Callback or Polling
-     */
-    $request->setNotificationMethod(NotificationMethod::CALLBACK);
+    $request = Collection::requestToWithdrawV1($transaction, $sCollectionSubKey, $targetEnvironment);
 
     /**
      *Execute the request
@@ -57,13 +54,10 @@ try {
 ### Example Output
 `202 Accepted`
 ```php
-momopsdk\Common\Models\CallbackResponse Object
+momopsdk\Collection\Models\RequestToPayResponse Object
 (
-    [result] =>
     [httpCode] => 202
-    [referenceId] => dda52501-3493-4189-b11c-286284c86fda
-    [hydratorStrategies:protected] =>
-    [availableCount:protected] =>
+    [referenceId] => 09d6bd7d-a253-4ae4-be43-5b2e9277f90a
 )
 
 ```

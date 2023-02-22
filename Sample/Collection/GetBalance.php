@@ -9,7 +9,7 @@ try {
     /**
      * Construct request object and set desired parameters
      */
-    $request = Collection::getAccountBalance();
+    $request = Collection::getAccountBalance($sCollectionSubKey, $targetEnvironment);
 
     /**
      *Execute the request

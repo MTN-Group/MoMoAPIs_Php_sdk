@@ -1,8 +1,8 @@
 # Get information about the user created in the sandbox environment
 
-1.	`getBasicUserinfo($accountHolderMSISDN) creates a GET request to end point /collection/v1_0/accountholder/msisdn/{accountHolderMSISDN}/basicuserinfo and returns the informations about the user. The accountHolderMSISDN will be the partyId of the payer user.`
+1.	`getBasicUserinfo($accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment) creates a GET request to end point /collection/v1_0/accountholder/msisdn/{accountHolderMSISDN}/basicuserinfo and returns the informations about the user. The accountHolderMSISDN will be the partyId of the payer user.`
 
-> `End user will get basic user info of the user.`
+> `End user will get basic user info of the account holder.`
 
 ### Usage/Examples
 
@@ -20,7 +20,7 @@ try {
      * Construct request object and set desired parameters
      */
     $accountHolderMSISDN = '0248888736';
-    $request = Collection::getBasicUserinfo($accountHolderMSISDN);
+    $request = Collection::getBasicUserinfo($accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment);
 
     /**
      *Execute the request
@@ -35,9 +35,9 @@ try {
 ```
 
 ### Example Output
-`202 Accepted`
+`200 OK`
 ```php
-momopsdk\Common\Models\CallbackResponse Object
+momopsdk\Collection\Models\StatusResponse Object
 (
     [result] => stdClass Object
         (
@@ -48,13 +48,10 @@ momopsdk\Common\Models\CallbackResponse Object
             [birthdate] => 1976-08-13
             [locale] => sv_SE
             [gender] => MALE
-            [updated_at] => 1676878958
+            [updated_at] => 1676978048
         )
 
     [httpCode] => 200
-    [referenceId] =>
-    [hydratorStrategies:protected] =>
-    [availableCount:protected] =>
 )
 
 ```

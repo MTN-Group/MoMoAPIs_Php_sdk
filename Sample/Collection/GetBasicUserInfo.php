@@ -10,7 +10,7 @@ try {
      * Construct request object and set desired parameters
      */
     $accountHolderMSISDN = '0248888736';
-    $request = Collection::getBasicUserinfo($accountHolderMSISDN);
+    $request = Collection::getBasicUserinfo($accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment);
 
     /**
      *Execute the request

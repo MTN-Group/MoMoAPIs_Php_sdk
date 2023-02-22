@@ -2,6 +2,7 @@
 
 namespace momopsdk\Collection\Process;
 
+use momopsdk\Collection\Models\StatusResponse;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
 use momopsdk\Common\Utils\CommonUtil;
@@ -16,9 +17,9 @@ use momopsdk\Common\Models\CallbackResponse;
 class GetBasicUserInfo extends BaseProcess
 {
     /**
-     * Authentication token
+     * Collection subscription key
      */
-    private $bearerAuth;
+    private $subKey;
 
     /**
      * Notification Message
@@ -26,37 +27,35 @@ class GetBasicUserInfo extends BaseProcess
     private $msisdn;
 
     /**
-     * Send notification message for a payment request
+     * Target Environment
+     */
+    private $targetEnv;
+
+    /**
+     * Used to het the personal information of the account holder
      *
-     * @param string $notificationMessage
-     * @param string $referenceId
+     * @param string $accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment
      * @return this
      */
-    public function __construct($accountHolderMSISDN)
+    public function __construct($accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment)
     {
         CommonUtil::validateArgument(
             $accountHolderMSISDN,
             'accountHolderMSISDN',
             CommonUtil::TYPE_STRING
         );
+        CommonUtil::validateArgument(
+            $sCollectionSubKey,
+            'CollectionSubKey',
+            CommonUtil::TYPE_STRING
+        );
         $this->msisdn = $accountHolderMSISDN;
         $this->setUp(self::SYNCHRONOUS_PROCESS);
-
+        $this->subKey = $sCollectionSubKey;
+        $this->targetEnv = $targetEnvironment;
         return $this;
     }
 
-    /**
-     * Creates bearer authorization header.
-     *
-     * @return this
-     */
-    public function getBearerAuth()
-    {
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $accessToken = $env['access_token'];
-        $this->bearerAuth = "Bearer " . $accessToken;
-        return $this->bearerAuth;
-    }
 
     /**
      * Function to execute sending of additional Notification to an End User
@@ -64,17 +63,15 @@ class GetBasicUserInfo extends BaseProcess
      */
     public function execute()
     {
-        $auth = $this->getBearerAuth();
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
         $request = RequestUtil::get(API::GET_BASIC_USER_INFO)
             ->setUrlParams([
                 '{accountHolderMSISDN}' => $this->msisdn
             ])
-            ->httpHeader(Header::AUTHORIZATION, $auth)
-            ->httpHeader(Header::X_TARGET_ENVIRONMENT, "sandbox")
-            ->httpHeader(Header::SUBSCRIPTION_KEY, $env['collection_subscription_key'])
+            ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
+            ->httpHeader(Header::SUBSCRIPTION_KEY, $this->subKey)
+            ->setSubscriptionKey($this->subKey)
             ->build();
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new CallbackResponse());
+        return $this->parseResponse($response, new StatusResponse());
     }
 }
