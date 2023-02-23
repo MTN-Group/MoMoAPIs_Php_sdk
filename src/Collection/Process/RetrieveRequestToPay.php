@@ -33,13 +33,13 @@ class RetrieveRequestToPay extends BaseProcess
     /**
      * Get the transaction request status.
      *
-     * @param string $referenceId
+     * @param string $sReferenceId, $sCollectionSubKey, $sTargetEnvironment
      * @return this
      */
-    public function __construct($referenceId, $sCollectionSubKey, $targetEnvironment)
+    public function __construct($sReferenceId, $sCollectionSubKey, $sTargetEnvironment)
     {
         CommonUtil::validateArgument(
-            $referenceId,
+            $sReferenceId,
             'User Reference ID',
             CommonUtil::TYPE_STRING
         );
@@ -49,9 +49,9 @@ class RetrieveRequestToPay extends BaseProcess
             CommonUtil::TYPE_STRING
         );
         $this->setUp(self::SYNCHRONOUS_PROCESS);
-        $this->refId = $referenceId;
+        $this->refId = $sReferenceId;
         $this->subKey = $sCollectionSubKey;
-        $this->targetEnv = $targetEnvironment;
+        $this->targetEnv = $sTargetEnvironment;
         return $this;
     }
 
@@ -62,12 +62,10 @@ class RetrieveRequestToPay extends BaseProcess
      */
     public function execute()
     {
-
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
         $request = RequestUtil::get(API::REQUEST_TO_PAY_STATUS)
             ->setUrlParams(['{X-Reference-Id}' => $this->refId])
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
-            ->httpHeader(Header::SUBSCRIPTION_KEY, $this->subKey)
+            ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
             ->setReferenceId($this->refId)
             ->setSubscriptionKey($this->subKey)
             ->build();

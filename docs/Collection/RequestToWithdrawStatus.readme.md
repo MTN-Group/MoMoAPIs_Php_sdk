@@ -1,6 +1,6 @@
 # Shows the status of initiated payment request in the sandbox environment
 
-1.	`requestToWithdrawTransactionStatus($referenceId) get the status of transaction withdraw request. It creates a GET request to end point /collection/v1_0/requesttowithdraw/{referenceId} and get the status of the created payment request in the sandbox environment and it requires to pass reference id of transaction withdraw request in the header url to get result. Reference id used when creating the request to withdraw.`
+1.	`requestToWithdrawTransactionStatus($referenceId, $sCollectionSubKey, $targetEnvironment) get the status of transaction withdraw request. It creates a GET request to end point /collection/v1_0/requesttowithdraw/{referenceId} and get the status of the created payment request in the sandbox environment and it requires to pass reference id of transaction withdraw request in the header url to get result. Reference id used when creating the request to withdraw.`
 
 > `End user will get result as 200 OK. Note that a failed request to pay will be returned with this status too. The 'status' of the RequestToPayResult can be used to determine the outcome of the request. The 'reason' field can be used to retrieve a cause in case of failure.`
 
@@ -20,7 +20,7 @@ try {
      * Construct request object and set desired parameters
      */
     $referenceId = '06bc2597-5c93-4e37-878e-489dc75b8113';
-    $request = Collection::requestToWithdrawTransactionStatus($referenceId);
+    $request = Collection::requestToWithdrawTransactionStatus($referenceId, , $sCollectionSubKey, $targetEnvironment);
 
     /**
      *Execute the request
@@ -37,13 +37,27 @@ try {
 ### Example Output
 `200 OK`
 ```php
-momopsdk\Common\Models\CallbackResponse Object
+momopsdk\Collection\Models\StatusResponse Object
 (
-    [result] => {"financialTransactionId":"863997450","externalId":"6353636","amount":"5","currency":"EUR","payer":{"partyIdType":"MSISDN","partyId":"0248888736"},"payerMessage":"Pay for product a","payeeNote":"payer note","status":"SUCCESSFUL"}
+    [result] => stdClass Object
+        (
+            [financialTransactionId] => 1742984081
+            [externalId] => 6253728
+            [amount] => 100
+            [currency] => EUR
+            [payer] => stdClass Object
+                (
+                    [partyIdType] => MSISDN
+                    [partyId] => 0248888736
+                )
+
+            [payerMessage] => Paying for product a
+            [payeeNote] => Payer note
+            [status] => SUCCESSFUL
+        )
+
     [httpCode] => 200
-    [referenceId] => e270a95f-dbdc-4981-b636-3f15ab7eb6fa
-    [hydratorStrategies:protected] =>
-    [availableCount:protected] =>
+    [referenceId] => 09d6bd7d-a253-4ae4-be43-5b2e9277f90a
 )
 
 ```

@@ -1,8 +1,6 @@
 <?php
 require_once __DIR__ . './../bootstrap.php';
 
-
-use momopsdk\Common\Enums\NotificationMethod;
 use momopsdk\Common\Exceptions\MobileMoneyException;
 use momopsdk\Collection\Collection;
 use momopsdk\Collection\Models\Transaction;
@@ -25,11 +23,13 @@ try {
     $transaction->setPartyIdType("0248888736");
     $transaction->setPayerMessage("Paying for product a");
     $transaction->setPayeeNote("Payer note");
+    $callbackUrl = "https://webhook.site/37b4b85e-8c15-4fe5-9076-b7de3071b85d";
+    $contentType = "application/json";
 
     /**
      * Construct request object and set desired parameters
      */
-    $request = Collection::requestToPay($transaction, $sCollectionSubKey, $targetEnvironment);
+    $request = Collection::requestToPay($transaction, $sCollectionSubKey, $targetEnvironment, $callbackUrl, $contentType);
 
     /**
      * Execute the request

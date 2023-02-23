@@ -2,9 +2,11 @@
 
 namespace momopsdk\Collection\Process;
 
+use momopsdk\Collection\Models\RequestToPayResponse;
 use momopsdk\Common\Utils\GUID;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
+use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Common\Models\CallbackResponse;
@@ -23,59 +25,67 @@ class RequestToWithdrawV1 extends BaseProcess
     private $transaction;
 
     /**
-     * Authentication token
-     *
-     * @var AuthToken
+     * Collection subscription key
      */
-    private $bearerAuth;
+    private $subKey;
 
     /**
-     * Initiates a Request To Pay.
+     * Target environment
+     */
+    private $targetEnv;
+
+    /**
+     * Content type
+     */
+    private $contentType;
+
+    /**
+     * Initiates a Request To withdraw.
      *
-     * @param string $transaction
+     * @param Transaction $transaction
+     * @param string $sCollectionSubKey, $targetEnvironment
      * @return this
      */
-    public function __construct($transaction, $callBackUrl = null)
+    public function __construct($oTransaction, $sCollectionSubKey, $sTargetEnvironment, $sCallbackUrl, $sContentType)
     {
-        $this->setUp(self::ASYNCHRONOUS_PROCESS, $callBackUrl);
-        $this->transaction = $transaction;
+        CommonUtil::validateArgument(
+            $sCollectionSubKey,
+            'CollectionSubKey',
+            CommonUtil::TYPE_STRING
+        );
+        CommonUtil::validateArgument(
+            $oTransaction,
+            'Transaction',
+            CommonUtil::TYPE_OBJECT
+        );
+        $this->setUp(self::ASYNCHRONOUS_PROCESS, $sCallbackUrl);
+        $this->transaction = $oTransaction;
+        $this->subKey = $sCollectionSubKey;
+        $this->targetEnv = $sTargetEnvironment;
+        $this->contentType = $sContentType;
         return $this;
     }
 
     /**
-     * Creates bearer authorization header.
-     *
-     * @return this
-     */
-    public function getBearerAuth()
-    {
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $accessToken = $env['access_token'];
-        $this->bearerAuth = "Bearer " . $accessToken;
-        return $this->bearerAuth;
-    }
-
-    /**
-     *
-     * @return CallbackResponse
+     * This operation is used to request a withdrawal(cash-out) from a consumer (Payer).
+     * @return RequestToPayResponse
      */
     public function execute()
     {
-        $auth = $this->getBearerAuth();
         $referenceId = GUID::create();
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $request = RequestUtil::post(
-            API::REQUEST_TO_WITHDRAW_V1,
-            json_encode($this->transaction)
-        )
-            ->httpHeader(Header::AUTHORIZATION, $auth)
-            ->httpHeader(Header::X_TARGET_ENVIRONMENT, "sandbox")
-            ->httpHeader(Header::SUBSCRIPTION_KEY, $env['collection_subscription_key'])
-            ->httpHeader(Header::CONTENT_TYPE, "application/json")
+        $request = RequestUtil::post(API::REQUEST_TO_WITHDRAW_V1, json_encode($this->transaction))
+            ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
+            ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
             ->setReferenceId($referenceId)
-            ->build();
-
+            ->setSubscriptionKey($this->subKey);
+        if ($this->callBackUrl != null) {
+            $request = $request->httpHeader(Header::X_CALLBACK_URL, $this->callBackUrl);
+        }
+        if ($this->contentType != null) {
+            $request = $request->httpHeader(Header::CONTENT_TYPE, $this->contentType);
+        }
+        $request = $request->build();
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new CallbackResponse());
+        return $this->parseResponse($response, new RequestToPayResponse());
     }
 }

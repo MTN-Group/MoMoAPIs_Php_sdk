@@ -21,6 +21,10 @@ class GetBalance extends BaseProcess
      */
     private $targetEnvironment;
 
+
+    /**
+     * Subscription Type
+     */
     public $subType;
 
     public function __construct($sSubsKey, $sTargetEnvironment, $subType)
@@ -44,7 +48,8 @@ class GetBalance extends BaseProcess
     public function execute()
     {
         $request = RequestUtil::get(
-            str_replace('{subscriptionType}', $this->subType, API::GET_ACCOUNT_BALANCE))
+            str_replace('{subscriptionType}', $this->subType, API::GET_ACCOUNT_BALANCE)
+        )
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnvironment)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subscriptionKey)
             ->setSubscriptionKey($this->subscriptionKey)

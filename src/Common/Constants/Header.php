@@ -17,5 +17,6 @@ class Header
         X_TARGET_ENVIRONMENT = 'X-Target-Environment',
         AUTHORIZATION = 'Authorization',
         X_CALLBACK_URL = 'X-Callback-Url',
-        NOTIFICATION = 'notificationMessage';
+        NOTIFICATION = 'notificationMessage',
+        LANGUAGE = 'Language';
 }
