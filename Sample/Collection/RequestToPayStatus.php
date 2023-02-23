@@ -9,7 +9,7 @@ try {
     /**
      * Construct request object and set desired parameters
      */
-    $referenceId = 'a52d1a60-b777-4c0f-a3b1-9957cf74b25e';
+    $referenceId = 'ab1582b0-754a-476a-8929-fbb07bfe4247';
     $request = Collection::requestToPayTransactionStatus($referenceId, $sCollectionSubKey, $targetEnvironment);
 
     /**

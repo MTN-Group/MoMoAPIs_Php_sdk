@@ -1,6 +1,6 @@
 # Get the account balance in the sandbox environment
 
-1. `getAccountBalance() create a GET request to end point /v1_0/account/balance and get the available account balance in the sandbox environment.`
+1. `getAccountBalance() create a GET request to end point /v1_0/account/balance and get the  balance of the account in the sandbox environment.`
 
 > `End user will get result as 200 OK with account balace and currency details.`
 
@@ -19,7 +19,7 @@ try {
     /**
      * Construct request object and set desired parameters
      */
-    $request = Collection::getAccountBalance();
+     $request = Collection::getAccountBalance($sCollectionSubKey, $targetEnvironment);
 
     /**
      *Execute the request
@@ -37,7 +37,7 @@ try {
 
 `200 OK`
 ```php
-momopsdk\Common\Models\CallbackResponse Object
+momopsdk\Collection\Models\StatusResponse Object
 (
     [result] => stdClass Object
         (
@@ -46,8 +46,6 @@ momopsdk\Common\Models\CallbackResponse Object
         )
 
     [httpCode] => 200
-    [hydratorStrategies:protected] =>
-    [availableCount:protected] =>
 )
 
 ```

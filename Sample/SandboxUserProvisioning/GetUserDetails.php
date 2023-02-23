@@ -5,7 +5,7 @@ use momopsdk\SandboxUserProvisioning\User;
 
 try {
 
-    $sRefId = 'c34d4077-ea8d-4a50-bf76-dbfd37d8bfb6';
+    $sRefId = 'd0091568-0e09-4d1f-b682-a22d0a7e3b52';
 
     $request = User::getUserDetails($sCollectionSubKey, $sRefId);
 

@@ -3,15 +3,21 @@ require_once __DIR__ . './../bootstrap.php';
 
 use momopsdk\Common\Exceptions\MobileMoneyException;
 use momopsdk\Collection\Collection;
+use momopsdk\Common\Models\DeliveryNotification;
 
 try {
 
     /**
      * Construct request object and set desired parameters
      */
-    $referenceId = '6743502b-3c8b-453b-9132-0c819fe428f5';
+
+    $deliveryNotification = new DeliveryNotification();
+    $deliveryNotification->setnotificationMessage('Pay for product a mrudul delivery notification');
+    $referenceId = '11716f27-6bb9-4285-9061-4857d136206b';
     $notificationMessage = 'Pay for product a mrudul delivery notification';
-    $request = Collection::requestToPayDeliveryNotification($referenceId, $notificationMessage);
+    $language = "eng";
+    $contentType = "application/json";
+    $request = Collection::requestToPayDeliveryNotification($referenceId, $notificationMessage, $sCollectionSubKey, $targetEnvironment, $deliveryNotification, $language, $contentType);
 
     /**
      *Execute the request

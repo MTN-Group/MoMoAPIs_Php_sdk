@@ -13,16 +13,18 @@ try {
     $oReqDataObject = new DepositModel();
 
     $oReqDataObject
-                ->setAmount('2000')
-                ->setCurrency('EUR')
-                ->setExternalId('12345678')
-                ->setPayerMessage('Payer message here')
-                ->setPayeeNote('Payee note here')
-                ->setPayee($payee);
+        ->setAmount('2000')
+        ->setCurrency('EUR')
+        ->setExternalId('12345678')
+        ->setPayerMessage('Payer message here')
+        ->setPayeeNote('Payee note here')
+        ->setPayee($payee);
     $callbackUrl = "http://webhook.site/c84cd23c-062b-49bb-b206-909bc8625207";
     $request = DisbursementTransaction::depositV1(
-        $oReqDataObject, $sDisbursementSubKey,
-        $targetEnvironment, $callbackUrl
+        $oReqDataObject,
+        $sDisbursementSubKey,
+        $targetEnvironment,
+        $callbackUrl
     );
 
     $response = $request->execute();

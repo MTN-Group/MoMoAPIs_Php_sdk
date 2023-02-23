@@ -3,16 +3,9 @@
 namespace momopsdk\Collection\Models;
 
 use momopsdk\Common\Models\BaseModel;
-use momopsdk\Common\Utils\CommonUtil;
-
 
 class Transaction extends BaseModel
 {
-
-    /**
-     * @var string
-     */
-    protected $financialTransactionId;
 
     /**
      * @var string
@@ -68,26 +61,6 @@ class Transaction extends BaseModel
      * @var string
      */
     protected $partyId;
-
-    /**
-     * @return string|null
-     */
-    public function getFinancialTransactionId()
-    {
-        return $this->financialTransactionId;
-    }
-
-    /**
-     * @param string|null $financialTransactionId
-     *
-     * @return Transaction
-     */
-    public function setFinancialTransactionId($financialTransactionId)
-    {
-        $this->financialTransactionId = $financialTransactionId;
-
-        return $this;
-    }
 
     /**
      * @return string|null
@@ -272,7 +245,6 @@ class Transaction extends BaseModel
     public function jsonSerialize()
     {
         return $this->filterEmpty([
-            'financialTransactionId' => $this->financialTransactionId,
             'amount' => $this->amount,
             'currency' => $this->currency,
             'externalId' => $this->externalId,
@@ -282,12 +254,4 @@ class Transaction extends BaseModel
             'status' => $this->status,
         ]);
     }
-
-    // public function hydratorStrategies()
-    // {
-    // $this->addHydratorStrategy(
-    //     'payer',
-    //     new \mmpsdk\Collection\Models\Payer()
-    // );
-    // }
 }
