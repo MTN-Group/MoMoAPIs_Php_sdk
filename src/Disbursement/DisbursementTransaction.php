@@ -93,10 +93,10 @@ class DisbursementTransaction
 
     /**
      * Function to transfer functionality
-     * @param
+     * @param $oTransferData, $sSubKey, $sTargetEnvironment, $sCallBackUrl
      * @return object
      */
-    public function transfer($oTransferData, $sSubKey, $sTargetEnvironment, $sCallBackUrl)
+    public function transfer($oTransferData, $sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
     {
         return new Transfer($oTransferData, $sSubKey, $sTargetEnvironment, $sCallBackUrl, DisbursementTransaction::SUBTYPE);
     }

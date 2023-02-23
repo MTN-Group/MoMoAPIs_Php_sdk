@@ -5,7 +5,7 @@ namespace momopsdk\Common\Models;
 use momopsdk\Common\Models\BaseModel;
 
 /**
- * Class RequestState
+ * Class UserDetail
  * @package momopsdk\Common\Models
  */
 class UserDetail extends BaseModel

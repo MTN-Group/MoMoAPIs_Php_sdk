@@ -22,14 +22,13 @@ class AccessToken extends BaseProcess
 
     /**
      * Use this API call to generate an Access Token. You can then use the token to authenticate on subsequent API requests until the token expires.
-     * To generate the access token, a Consumer Key and a Consumer Secret is required
+     * To generate the access token, a User Id and a api key is required
      *
      */
     public function __construct($userId, $apiKey, $tokenIdentifier, $sSubKey)
     {
         CommonUtil::validateArgument($userId, 'userId');
         CommonUtil::validateArgument($apiKey, 'apiKey');
-        // $this->setUp(self::SYNCHRONOUS_PROCESS);
         $this->userId = $userId;
         $this->apiKey = $apiKey;
         $this->tokenIdentifier = $tokenIdentifier;
