@@ -65,7 +65,7 @@ class RetrieveRequestToPay extends BaseProcess
         $request = RequestUtil::get(API::REQUEST_TO_PAY_STATUS)
             ->setUrlParams(['{X-Reference-Id}' => $this->refId])
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
-            ->httpHeader(Header::SUBSCRIPTION_KEY, $this->subKey)
+            ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
             ->setReferenceId($this->refId)
             ->setSubscriptionKey($this->subKey)
             ->build();

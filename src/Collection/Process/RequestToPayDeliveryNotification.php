@@ -67,7 +67,6 @@ class RequestToPayDeliveryNotification extends BaseProcess
         $this->notificationMessage = $notificationMessage;
         $this->subKey = $sCollectionSubKey;
         $this->targetEnv = $targetEnvironment;
-        $this->setUp(self::SYNCHRONOUS_PROCESS);
         return $this;
     }
 
@@ -77,19 +76,18 @@ class RequestToPayDeliveryNotification extends BaseProcess
      */
     public function execute()
     {
-        $request = RequestUtil::get(API::REQUEST_TO_PAY_DELIVERY_NOTIFICATION)
+        $request = RequestUtil::post(API::REQUEST_TO_PAY_DELIVERY_NOTIFICATION)
             ->setUrlParams([
                 '{referenceId}' => $this->refId
             ])
             ->httpHeader(Header::NOTIFICATION, $this->notificationMessage)
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
-            ->httpHeader(Header::SUBSCRIPTION_KEY, $this->subKey)
+            ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
             ->setSubscriptionKey($this->subKey)
-            ->setReferenceId($this->refId)
             ->build();
         $response = $this->makeRequest($request);
-        print_r($response);
-        die;
+        // print_r($response);
+        // die;
         return $this->parseResponse($response, new CallbackResponse());
     }
 }

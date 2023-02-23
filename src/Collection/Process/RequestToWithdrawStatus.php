@@ -58,7 +58,7 @@ class RequestToWithdrawStatus extends BaseProcess
         $request = RequestUtil::get(API::REQUEST_TO_WITHDRAW_STATUS)
             ->setUrlParams(['{referenceId}' => $this->refId])
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
-            ->httpHeader(Header::SUBSCRIPTION_KEY, $this->subKey)
+            ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
             ->setSubscriptionKey($this->subKey)
             ->setReferenceId($this->refId)
             ->build();

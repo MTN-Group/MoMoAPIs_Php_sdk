@@ -68,7 +68,7 @@ class GetBasicUserInfo extends BaseProcess
                 '{accountHolderMSISDN}' => $this->msisdn
             ])
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
-            ->httpHeader(Header::SUBSCRIPTION_KEY, $this->subKey)
+            ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
             ->setSubscriptionKey($this->subKey)
             ->build();
         $response = $this->makeRequest($request);

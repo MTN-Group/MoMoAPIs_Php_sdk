@@ -63,7 +63,7 @@ class RequestToWithdrawV1 extends BaseProcess
         $referenceId = GUID::create();
         $request = RequestUtil::post(API::REQUEST_TO_WITHDRAW_V1, json_encode($this->transaction))
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
-            ->httpHeader(Header::SUBSCRIPTION_KEY, $this->subKey)
+            ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
             ->setReferenceId($referenceId)
             ->setSubscriptionKey($this->subKey)
             ->build();
