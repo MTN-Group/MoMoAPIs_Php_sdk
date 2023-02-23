@@ -7,7 +7,7 @@ use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
-use momopsdk\Disbursement\Models\StatusDetail;
+use momopsdk\Disbursement\Models\ResponseModel;
 use momopsdk\Disbursement\Models\DepositModel;
 
 class CreateDepositV2 extends BaseProcess
@@ -27,7 +27,9 @@ class CreateDepositV2 extends BaseProcess
      */
     public $aReq;
 
-    public function __construct($oDeposit, $sSubsKey, $sTargetEnvironment, $sCallBackUrl)
+    public $subType;
+
+    public function __construct($oDeposit, $sSubsKey, $sTargetEnvironment, $sCallBackUrl, $subType)
     {
         CommonUtil::validateArgument(
             $sSubsKey,
@@ -38,6 +40,7 @@ class CreateDepositV2 extends BaseProcess
         $this->subscriptionKey = $sSubsKey;
         $this->targetEnvironment = $sTargetEnvironment;
         $this->aReq = $oDeposit;
+        $this->subType = $subType;
         return $this;
        
     }
@@ -49,17 +52,19 @@ class CreateDepositV2 extends BaseProcess
      */
     public function execute()
     {
-        $request = RequestUtil::post(API::GET_DEPOSIT_V2, json_encode($this->aReq))
-            ->httpHeader(Header::X_REFERENCE_ID, $this->referenceId)
+        $request = RequestUtil::post(
+            str_replace('{subscriptionType}', $this->subType, API::GET_DEPOSIT_V2),
+            json_encode($this->aReq))
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnvironment)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subscriptionKey)
-            ->setSubscriptionKey($this->subscriptionKey);
+            ->setSubscriptionKey($this->subscriptionKey)
+            ->setReferenceId($this->referenceId);
         if ($this->callBackUrl != null)
         {
             $request = $request->httpHeader(Header::X_CALLBACK_URL, $this->callBackUrl);
         }
         $request = $request->build();
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new StatusDetail());
+        return $this->parseResponse($response, new ResponseModel());
     }
 }
