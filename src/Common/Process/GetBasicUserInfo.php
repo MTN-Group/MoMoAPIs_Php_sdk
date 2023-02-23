@@ -1,6 +1,6 @@
 <?php
 
-namespace momopsdk\Collection\Process;
+namespace momopsdk\Common\Process;
 
 use momopsdk\Collection\Models\StatusResponse;
 use momopsdk\Common\Constants\API;
@@ -12,7 +12,7 @@ use momopsdk\Common\Models\CallbackResponse;
 
 /**
  * Class GetBasicUserInfo
- * @package momopsdk\Collection\Process
+ * @package momopsdk\Common\Process
  */
 class GetBasicUserInfo extends BaseProcess
 {
@@ -32,15 +32,20 @@ class GetBasicUserInfo extends BaseProcess
     private $targetEnv;
 
     /**
+     * Subscription Type
+     */
+    public $subType;
+
+    /**
      * Used to het the personal information of the account holder
      *
      * @param string $accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment
      * @return this
      */
-    public function __construct($accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment)
+    public function __construct($sAccountHolderMSISDN, $sCollectionSubKey, $sTargetEnvironment, $subType)
     {
         CommonUtil::validateArgument(
-            $accountHolderMSISDN,
+            $sAccountHolderMSISDN,
             'accountHolderMSISDN',
             CommonUtil::TYPE_STRING
         );
@@ -49,10 +54,11 @@ class GetBasicUserInfo extends BaseProcess
             'CollectionSubKey',
             CommonUtil::TYPE_STRING
         );
-        $this->msisdn = $accountHolderMSISDN;
+        $this->msisdn = $sAccountHolderMSISDN;
         $this->setUp(self::SYNCHRONOUS_PROCESS);
         $this->subKey = $sCollectionSubKey;
-        $this->targetEnv = $targetEnvironment;
+        $this->targetEnv = $sTargetEnvironment;
+        $this->subType = $subType;
         return $this;
     }
 
@@ -63,7 +69,7 @@ class GetBasicUserInfo extends BaseProcess
      */
     public function execute()
     {
-        $request = RequestUtil::get(API::GET_BASIC_USER_INFO)
+        $request = RequestUtil::get(str_replace('{subscriptionType}', $this->subType, API::GET_BASIC_USER_INFO))
             ->setUrlParams([
                 '{accountHolderMSISDN}' => $this->msisdn
             ])

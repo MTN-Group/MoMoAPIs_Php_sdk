@@ -28,8 +28,9 @@ try {
     /**
      * Construct request object and set desired parameters
      */
-
-    $request = Collection::requestToWithdrawV2($transaction, $sCollectionSubKey, $targetEnvironment);
+    $sCallbackUrl = "https://webhook.site/37b4b85e-8c15-4fe5-9076-b7de3071b85d";
+    $sContentType = "application/json";
+    $request = Collection::requestToWithdrawV2($transaction, $sCollectionSubKey, $targetEnvironment, $sCallbackUrl, $sContentType);
 
     /**
      * Choose notification method can be either Callback or Polling

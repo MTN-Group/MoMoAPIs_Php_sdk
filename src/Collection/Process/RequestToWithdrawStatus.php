@@ -36,16 +36,16 @@ class RequestToWithdrawStatus extends BaseProcess
      * @param string $referenceId
      * @return this
      */
-    public function __construct($referenceId, $sCollectionSubKey, $targetEnvironment)
+    public function __construct($sReferenceId, $sCollectionSubKey, $sTargetEnvironment)
     {
         CommonUtil::validateArgument(
-            $referenceId,
+            $sReferenceId,
             'User Reference ID',
             CommonUtil::TYPE_STRING
         );
-        $this->refId = $referenceId;
+        $this->refId = $sReferenceId;
         $this->subKey = $sCollectionSubKey;
-        $this->targetEnv = $targetEnvironment;
+        $this->targetEnv = $sTargetEnvironment;
         return $this;
     }
 

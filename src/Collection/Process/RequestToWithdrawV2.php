@@ -35,21 +35,28 @@ class RequestToWithdrawV2 extends BaseProcess
     private $targetEnv;
 
     /**
+     * Content type
+     */
+    private $contentType;
+
+    /**
      * Initiates a request to withdraw.
      * @param Transaction $transaction
      * @param string $sCollectionSubKey, $targetEnvironment
      * @return this
      */
-    public function __construct($transaction, $sCollectionSubKey, $targetEnvironment)
+    public function __construct($oTransaction, $sCollectionSubKey, $sTargetEnvironment, $sCallbackUrl, $sContentType)
     {
         CommonUtil::validateArgument(
             $sCollectionSubKey,
             'CollectionSubKey',
             CommonUtil::TYPE_STRING
         );
-        $this->transaction = $transaction;
+        $this->setUp(self::ASYNCHRONOUS_PROCESS, $sCallbackUrl);
+        $this->transaction = $oTransaction;
         $this->subKey = $sCollectionSubKey;
-        $this->targetEnv = $targetEnvironment;
+        $this->targetEnv = $sTargetEnvironment;
+        $this->contentType = $sContentType;
         return $this;
     }
 
@@ -64,8 +71,14 @@ class RequestToWithdrawV2 extends BaseProcess
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
             ->setReferenceId($referenceId)
-            ->setSubscriptionKey($this->subKey)
-            ->build();
+            ->setSubscriptionKey($this->subKey);
+        if ($this->callBackUrl != null) {
+            $request = $request->httpHeader(Header::X_CALLBACK_URL, $this->callBackUrl);
+        }
+        if ($this->contentType != null) {
+            $request = $request->httpHeader(Header::CONTENT_TYPE, $this->contentType);
+        }
+        $request = $request->build();
         $response = $this->makeRequest($request);
         return $this->parseResponse($response, new RequestToPayResponse());
     }

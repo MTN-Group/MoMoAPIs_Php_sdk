@@ -1,6 +1,6 @@
 <?php
 
-namespace momopsdk\Collection\Process;
+namespace momopsdk\Common\Process;
 
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
@@ -11,7 +11,7 @@ use momopsdk\Collection\Models\StatusResponse;
 
 /**
  * Class ValidateAccountHolder
- * @package momopsdk\Collection\Process
+ * @package momopsdk\Common\Process
  */
 class ValidateAccountHolder extends BaseProcess
 {
@@ -37,22 +37,27 @@ class ValidateAccountHolder extends BaseProcess
     private $targetEnv;
 
     /**
+     * Subscription Type
+     */
+    public $subType;
+
+    /**
      * Get the transaction request status.
      *
-     * @param string $accountHolderId, $accountHolderIdType,
-     * $sCollectionSubKey, $targetEnvironment
+     * @param string $sAccountHolderId, $sAccountHolderIdType,
+     * $sCollectionSubKey, $sTargetEnvironment
      * @return this
      */
-    public function __construct($accountHolderId, $accountHolderIdType, $sCollectionSubKey, $targetEnvironment)
+    public function __construct($sAccountHolderId, $sAccountHolderIdType, $sCollectionSubKey, $sTargetEnvironment, $subType)
     {
         CommonUtil::validateArgument(
-            $accountHolderId,
+            $sAccountHolderId,
             'accountHolderId',
             CommonUtil::TYPE_STRING
         );
 
         CommonUtil::validateArgument(
-            $accountHolderIdType,
+            $sAccountHolderIdType,
             'accountHolderIdType',
             CommonUtil::TYPE_STRING
         );
@@ -64,10 +69,11 @@ class ValidateAccountHolder extends BaseProcess
         );
 
         $this->setUp(self::SYNCHRONOUS_PROCESS);
-        $this->accountHolderId = $accountHolderId;
-        $this->accountHolderIdType = $accountHolderIdType;
+        $this->accountHolderId = $sAccountHolderId;
+        $this->accountHolderIdType = $sAccountHolderIdType;
         $this->subKey = $sCollectionSubKey;
-        $this->targetEnv = $targetEnvironment;
+        $this->targetEnv = $sTargetEnvironment;
+        $this->subType = $subType;
         return $this;
     }
 
@@ -78,7 +84,7 @@ class ValidateAccountHolder extends BaseProcess
     public function execute()
     {
         $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $request = RequestUtil::get(API::VALIDATE_ACCOUNT_HOLDER)
+        $request = RequestUtil::get(str_replace('{subscriptionType}', $this->subType, API::VALIDATE_ACCOUNT_HOLDER))
             ->setUrlParams([
                 '{accountHolderId}' => $this->accountHolderId,
                 '{accountHolderIdType}' => $this->accountHolderIdType

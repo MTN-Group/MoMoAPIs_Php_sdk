@@ -23,12 +23,12 @@ try {
     $transaction->setPartyIdType("0248888736");
     $transaction->setPayerMessage("Paying for product a");
     $transaction->setPayeeNote("Payer note");
-
     /**
      * Construct request object and set desired parameters
      */
-
-    $request = Collection::requestToWithdrawV1($transaction, $sCollectionSubKey, $targetEnvironment);
+    $sCallbackUrl = "https://webhook.site/37b4b85e-8c15-4fe5-9076-b7de3071b85d";
+    $sContentType = "application/json";
+    $request = Collection::requestToWithdrawV1($transaction, $sCollectionSubKey, $targetEnvironment, $sCallbackUrl, $sContentType);
 
     /**
      *Execute the request

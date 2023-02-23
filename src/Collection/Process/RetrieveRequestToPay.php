@@ -33,13 +33,13 @@ class RetrieveRequestToPay extends BaseProcess
     /**
      * Get the transaction request status.
      *
-     * @param string $referenceId
+     * @param string $sReferenceId, $sCollectionSubKey, $sTargetEnvironment
      * @return this
      */
-    public function __construct($referenceId, $sCollectionSubKey, $targetEnvironment)
+    public function __construct($sReferenceId, $sCollectionSubKey, $sTargetEnvironment)
     {
         CommonUtil::validateArgument(
-            $referenceId,
+            $sReferenceId,
             'User Reference ID',
             CommonUtil::TYPE_STRING
         );
@@ -49,9 +49,9 @@ class RetrieveRequestToPay extends BaseProcess
             CommonUtil::TYPE_STRING
         );
         $this->setUp(self::SYNCHRONOUS_PROCESS);
-        $this->refId = $referenceId;
+        $this->refId = $sReferenceId;
         $this->subKey = $sCollectionSubKey;
-        $this->targetEnv = $targetEnvironment;
+        $this->targetEnv = $sTargetEnvironment;
         return $this;
     }
 

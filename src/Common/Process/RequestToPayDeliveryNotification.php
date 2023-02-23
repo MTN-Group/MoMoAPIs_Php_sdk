@@ -1,6 +1,6 @@
 <?php
 
-namespace momopsdk\Collection\Process;
+namespace momopsdk\Common\Process;
 
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
@@ -11,7 +11,7 @@ use momopsdk\Common\Models\CallbackResponse;
 
 /**
  * Class RequestToPayDeliveryNotification
- * @package momopsdk\Collection\Process
+ * @package momopsdk\Common\Process
  */
 class RequestToPayDeliveryNotification extends BaseProcess
 {
@@ -37,22 +37,42 @@ class RequestToPayDeliveryNotification extends BaseProcess
     private $targetEnv;
 
     /**
+     * Subscription Type
+     */
+    public $subType;
+
+    /**
+     * Delivery notification Message
+     */
+    private $deliveryNotificationMsg;
+
+    /**
+     * Content type
+     */
+    private $contentType;
+
+    /**
+     * Content type
+     */
+    private $language;
+
+    /**
      * Send notification message for a payment request
      *
      * @param string $notificationMessage
      * @param string $referenceId
      * @return this
      */
-    public function __construct($referenceId, $notificationMessage, $sCollectionSubKey, $targetEnvironment)
+    public function __construct($sReferenceId, $sNotificationMessage, $sCollectionSubKey, $sTargetEnvironment, $oDeliveryNotification, $sLanguage, $sContentType, $subType)
     {
         CommonUtil::validateArgument(
-            $notificationMessage,
+            $sNotificationMessage,
             'notificationMessage',
             CommonUtil::TYPE_STRING
         );
 
         CommonUtil::validateArgument(
-            $referenceId,
+            $sReferenceId,
             'ReferenceID',
             CommonUtil::TYPE_STRING
         );
@@ -63,10 +83,20 @@ class RequestToPayDeliveryNotification extends BaseProcess
             CommonUtil::TYPE_STRING
         );
 
-        $this->refId = $referenceId;
-        $this->notificationMessage = $notificationMessage;
+        CommonUtil::validateArgument(
+            $oDeliveryNotification,
+            'Delivery Notification object',
+            CommonUtil::TYPE_OBJECT
+        );
+
+        $this->refId = $sReferenceId;
+        $this->notificationMessage = $sNotificationMessage;
+        $this->deliveryNotificationMsg = $oDeliveryNotification;
         $this->subKey = $sCollectionSubKey;
-        $this->targetEnv = $targetEnvironment;
+        $this->targetEnv = $sTargetEnvironment;
+        $this->contentType = $sContentType;
+        $this->subType = $subType;
+        $this->language = $sLanguage;
         return $this;
     }
 
@@ -76,18 +106,23 @@ class RequestToPayDeliveryNotification extends BaseProcess
      */
     public function execute()
     {
-        $request = RequestUtil::post(API::REQUEST_TO_PAY_DELIVERY_NOTIFICATION)
+        $request = RequestUtil::post(str_replace('{subscriptionType}', $this->subType, API::REQUEST_TO_PAY_DELIVERY_NOTIFICATION), json_encode($this->deliveryNotificationMsg))
             ->setUrlParams([
                 '{referenceId}' => $this->refId
             ])
             ->httpHeader(Header::NOTIFICATION, $this->notificationMessage)
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
-            ->setSubscriptionKey($this->subKey)
-            ->build();
+            ->setReferenceId($this->refId)
+            ->setSubscriptionKey($this->subKey);
+        if ($this->language != null) {
+            $request = $request->httpHeader(Header::LANGUAGE, $this->callBackUrl);
+        }
+        if ($this->contentType != null) {
+            $request = $request->httpHeader(Header::CONTENT_TYPE, $this->contentType);
+        }
+        $request = $request->build();
         $response = $this->makeRequest($request);
-        // print_r($response);
-        // die;
         return $this->parseResponse($response, new CallbackResponse());
     }
 }

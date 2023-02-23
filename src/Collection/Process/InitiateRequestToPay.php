@@ -20,8 +20,6 @@ class InitiateRequestToPay extends BaseProcess
 {
     /**
      * Transaction object
-     *
-     * @var Transaction
      */
     private $transaction;
 
@@ -36,22 +34,33 @@ class InitiateRequestToPay extends BaseProcess
     private $targetEnv;
 
     /**
+     * Content type
+     */
+    private $contentType;
+
+    /**
      * Initiates a Request To Pay.
      *
      * @param string $transaction
      * @return this
      */
-    public function __construct($transaction, $sCollectionSubKey, $targetEnvironment, $callBackUrl = null)
+    public function __construct($oTransaction, $sCollectionSubKey, $sTargetEnvironment, $sCallBackUrl, $sContentType)
     {
         CommonUtil::validateArgument(
             $sCollectionSubKey,
-            'CollectionSubKey',
+            'CollectionSubscriptionKey',
             CommonUtil::TYPE_STRING
         );
-        // $this->setUp(self::ASYNCHRONOUS_PROCESS, $callBackUrl);
-        $this->transaction = $transaction;
+        CommonUtil::validateArgument(
+            $oTransaction,
+            'Transaction',
+            CommonUtil::TYPE_OBJECT
+        );
+        $this->setUp(self::ASYNCHRONOUS_PROCESS, $sCallBackUrl);
+        $this->transaction = $oTransaction;
         $this->subKey = $sCollectionSubKey;
-        $this->targetEnv = $targetEnvironment;
+        $this->targetEnv = $sTargetEnvironment;
+        $this->contentType = $sContentType;
         return $this;
     }
 
@@ -61,13 +70,18 @@ class InitiateRequestToPay extends BaseProcess
      */
     public function execute()
     {
-        $referenceId = GUID::create();
         $request = RequestUtil::post(API::REQUEST_TO_PAY, json_encode($this->transaction))
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
-            ->setReferenceId($referenceId)
-            ->setSubscriptionKey($this->subKey)
-            ->build();
+            ->setReferenceId($this->referenceId)
+            ->setSubscriptionKey($this->subKey);
+        if ($this->callBackUrl != null) {
+            $request = $request->httpHeader(Header::X_CALLBACK_URL, $this->callBackUrl);
+        }
+        if ($this->contentType != null) {
+            $request = $request->httpHeader(Header::CONTENT_TYPE, $this->contentType);
+        }
+        $request = $request->build();
         $response = $this->makeRequest($request);
         return $this->parseResponse($response, new RequestToPayResponse());
     }
