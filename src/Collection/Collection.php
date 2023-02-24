@@ -27,9 +27,21 @@ class Collection
      * @param string $sCollectionSubKey, $sTargetEnvironment, $sCallBackUrl, sContentType
      * @return object InitiateRequestToPay
      */
-    public static function requestToPay($oTransaction, $sCollectionSubKey, $sTargetEnvironment, $sCallBackUrl = null, $sContentType = null)
+    public static function requestToPay(
+        $oTransaction,
+        $sCollectionSubKey,
+        $sTargetEnvironment,
+        $sCallBackUrl = null,
+        $sContentType = null
+    )
     {
-        return new InitiateRequestToPay($oTransaction, $sCollectionSubKey, $sTargetEnvironment, $sCallBackUrl, $sContentType);
+        return new InitiateRequestToPay(
+            $oTransaction,
+            $sCollectionSubKey,
+            $sTargetEnvironment,
+            $sCallBackUrl,
+            $sContentType
+        );
     }
 
     /**
@@ -49,9 +61,20 @@ class Collection
      * @return object ValidateAccountHolder
      *
      */
-    public static function validateAccountHolderStatus($sAccountHolderId, $sAccountHolderIdType, $sCollectionSubKey, $sTargetEnvironment)
+    public static function validateAccountHolderStatus(
+        $sAccountHolderId,
+        $sAccountHolderIdType,
+        $sCollectionSubKey,
+        $sTargetEnvironment
+    )
     {
-        return new ValidateAccountHolder($sAccountHolderId, $sAccountHolderIdType, $sCollectionSubKey, $sTargetEnvironment, Collection::SUBTYPE);
+        return new ValidateAccountHolder(
+            $sAccountHolderId,
+            $sAccountHolderIdType,
+            $sCollectionSubKey,
+            $sTargetEnvironment,
+            Collection::SUBTYPE
+        );
     }
 
     /**
@@ -73,9 +96,21 @@ class Collection
      * @return object RequestToWithdrawV1
      *
      */
-    public static function requestToWithdrawV1($oTransaction, $sCollectionSubKey, $sTargetEnvironment, $sCallbackUrl = null, $sContentType = null)
+    public static function requestToWithdrawV1(
+        $oTransaction,
+        $sCollectionSubKey,
+        $sTargetEnvironment,
+        $sCallbackUrl = null,
+        $sContentType = null
+    )
     {
-        return new RequestToWithdrawV1($oTransaction, $sCollectionSubKey, $sTargetEnvironment, $sCallbackUrl, $sContentType);
+        return new RequestToWithdrawV1(
+            $oTransaction,
+            $sCollectionSubKey,
+            $sTargetEnvironment,
+            $sCallbackUrl,
+            $sContentType
+        );
     }
 
     /**
@@ -86,9 +121,21 @@ class Collection
      * @return object RequestToWithdrawV2
      *
      */
-    public static function requestToWithdrawV2($oTransaction, $sCollectionSubKey, $sTargetEnvironment, $sCallbackUrl = null, $sContentType = null)
+    public static function requestToWithdrawV2(
+        $oTransaction,
+        $sCollectionSubKey,
+        $sTargetEnvironment,
+        $sCallbackUrl = null,
+        $sContentType = null
+    )
     {
-        return new RequestToWithdrawV2($oTransaction, $sCollectionSubKey, $sTargetEnvironment, $sCallbackUrl, $sContentType);
+        return new RequestToWithdrawV2(
+            $oTransaction,
+            $sCollectionSubKey,
+            $sTargetEnvironment,
+            $sCallbackUrl,
+            $sContentType
+        );
     }
 
     /**
@@ -108,9 +155,26 @@ class Collection
      * @return object RequestToPayDeliveryNotification
      *
      */
-    public static function requestToPayDeliveryNotification($sReferenceId, $sNotificationMessage, $sCollectionSubKey, $sTargetEnvironment, $oDeliveryNotification, $sLanguage, $sContentType = null)
+    public static function requestToPayDeliveryNotification(
+        $sReferenceId,
+        $sNotificationMessage,
+        $sCollectionSubKey,
+        $sTargetEnvironment,
+        $oDeliveryNotification,
+        $sLanguage,
+        $sContentType = null
+    )
     {
-        return new RequestToPayDeliveryNotification($sReferenceId, $sNotificationMessage, $sCollectionSubKey, $sTargetEnvironment, $oDeliveryNotification, $sLanguage, $sContentType, Collection::SUBTYPE);
+        return new RequestToPayDeliveryNotification(
+            $sReferenceId,
+            $sNotificationMessage,
+            $sCollectionSubKey,
+            $sTargetEnvironment,
+            $oDeliveryNotification,
+            $sLanguage,
+            $sContentType,
+            Collection::SUBTYPE
+        );
     }
 
     /**
@@ -121,6 +185,11 @@ class Collection
      */
     public static function getBasicUserinfo($sAccountHolderMSISDN, $sCollectionSubKey, $sTargetEnvironment)
     {
-        return new GetBasicUserInfo($sAccountHolderMSISDN, $sCollectionSubKey, $sTargetEnvironment, Collection::SUBTYPE);
+        return new GetBasicUserInfo(
+            $sAccountHolderMSISDN,
+            $sCollectionSubKey,
+            $sTargetEnvironment,
+            Collection::SUBTYPE
+        );
     }
 }

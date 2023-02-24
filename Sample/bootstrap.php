@@ -15,7 +15,8 @@ try {
     $sCollectionSubKey = $env['collection_subscription_key'];
     $targetEnvironment = $env['target_environment'];
     $sDisbursementSubKey = $env['disbursement_subscription_key'];
-
+    $sRemittanceSubKey = $env['remittance_subscription_key'];
+    
     MobileMoney::initialize(
         $sEnvironment,
         $env['reference_id'],

@@ -26,7 +26,7 @@ class DisbursementTransaction
      * @param $sSubKey, $sTargetEnvironment, $sRefId
      * @return object
      */
-    public function getDepositStatus($sSubKey, $sTargetEnvironment, $sRefId)
+    public static function getDepositStatus($sSubKey, $sTargetEnvironment, $sRefId)
     {
         return new GetDepositStatus($sSubKey, $sTargetEnvironment, $sRefId, DisbursementTransaction::SUBTYPE);
     }
@@ -36,7 +36,7 @@ class DisbursementTransaction
      * @param $sSubKey, $sTargetEnvironment, $sRefId
      * @return object
      */
-    public function getRefundStatus($sSubKey, $sTargetEnvironment, $sRefId)
+    public static function getRefundStatus($sSubKey, $sTargetEnvironment, $sRefId)
     {
         return new GetRefundStatus($sSubKey, $sTargetEnvironment, $sRefId, DisbursementTransaction::SUBTYPE);
     }
@@ -46,7 +46,7 @@ class DisbursementTransaction
      * @param $sSubKey, $sTargetEnvironment, $sRefId
      * @return object
      */
-    public function getTransferStatus($sSubKey, $sTargetEnvironment, $sRefId)
+    public static function getTransferStatus($sSubKey, $sTargetEnvironment, $sRefId)
     {
         return new GetTransferStatus($sSubKey, $sTargetEnvironment, $sRefId, DisbursementTransaction::SUBTYPE);
     }
@@ -56,9 +56,15 @@ class DisbursementTransaction
      * @param $oDeposit, $sSubKey, $sTargetEnvironment, $sCallBackUrl
      * @return object
      */
-    public function depositV1($oDeposit, $sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
+    public static function depositV1($oDeposit, $sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
     {
-        return new CreateDepositV1($oDeposit, $sSubKey, $sTargetEnvironment, $sCallBackUrl, DisbursementTransaction::SUBTYPE);
+        return new CreateDepositV1(
+            $oDeposit,
+            $sSubKey,
+            $sTargetEnvironment,
+            $sCallBackUrl,
+            DisbursementTransaction::SUBTYPE
+        );
     }
 
      /**
@@ -66,9 +72,15 @@ class DisbursementTransaction
      * @param $oDeposit, $sSubKey, $sTargetEnvironment, $sCallBackUrl
      * @return object
      */
-    public function depositV2($oDeposit, $sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
+    public static function depositV2($oDeposit, $sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
     {
-        return new CreateDepositV2($oDeposit, $sSubKey, $sTargetEnvironment, $sCallBackUrl, DisbursementTransaction::SUBTYPE);
+        return new CreateDepositV2(
+            $oDeposit,
+            $sSubKey,
+            $sTargetEnvironment,
+            $sCallBackUrl,
+            DisbursementTransaction::SUBTYPE
+        );
     }
 
     /**
@@ -76,9 +88,15 @@ class DisbursementTransaction
      * @param
      * @return object
      */
-    public function refundV1($oRefund, $sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
+    public static function refundV1($oRefund, $sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
     {
-        return new CreateRefundV1($oRefund, $sSubKey, $sTargetEnvironment, $sCallBackUrl, DisbursementTransaction::SUBTYPE);
+        return new CreateRefundV1(
+            $oRefund,
+            $sSubKey,
+            $sTargetEnvironment,
+            $sCallBackUrl,
+            DisbursementTransaction::SUBTYPE
+        );
     }
 
     /**
@@ -86,18 +104,30 @@ class DisbursementTransaction
      * @param
      * @return object
      */
-    public function refundV2($oRefund, $sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
+    public static function refundV2($oRefund, $sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
     {
-        return new CreateRefundV2($oRefund, $sSubKey, $sTargetEnvironment, $sCallBackUrl, DisbursementTransaction::SUBTYPE);
+        return new CreateRefundV2(
+            $oRefund,
+            $sSubKey,
+            $sTargetEnvironment,
+            $sCallBackUrl,
+            DisbursementTransaction::SUBTYPE
+        );
     }
 
     /**
      * Function to transfer functionality
-     * @param
+     * @param $oTransferData, $sSubKey, $sTargetEnvironment, $sCallBackUrl
      * @return object
      */
-    public function transfer($oTransferData, $sSubKey, $sTargetEnvironment, $sCallBackUrl)
+    public static function transfer($oTransferData, $sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
     {
-        return new Transfer($oTransferData, $sSubKey, $sTargetEnvironment, $sCallBackUrl, DisbursementTransaction::SUBTYPE);
+        return new Transfer(
+            $oTransferData,
+            $sSubKey,
+            $sTargetEnvironment,
+            $sCallBackUrl,
+            DisbursementTransaction::SUBTYPE
+        );
     }
 }

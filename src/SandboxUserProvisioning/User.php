@@ -18,7 +18,7 @@ class User
      * @param string $sSubKey
      * @return
      */
-    public function getUserDetails($sSubKey, $sRefId)
+    public static function getUserDetails($sSubKey, $sRefId)
     {
         return new GetApiUserDetails($sSubKey, $sRefId);
     }
@@ -28,7 +28,7 @@ class User
      * @param string $sSubKey
      * @return
      */
-    public function createApiKey($sSubKey, $sRefId)
+    public static function createApiKey($sSubKey, $sRefId)
     {
         return new GetApiKey($sSubKey, $sRefId);
     }
