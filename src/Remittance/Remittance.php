@@ -5,6 +5,9 @@ namespace momopsdk\Remittance;
 use momopsdk\Common\Process\GetBalance;
 use momopsdk\Common\Process\GetTransferStatus;
 use momopsdk\Common\Process\Transfer;
+use momopsdk\Common\Process\ValidateAccountHolder;
+use momopsdk\Common\Process\RequestToPayDeliveryNotification;
+use momopsdk\Common\Process\GetBasicUserInfo;
 
 class Remittance
 {
@@ -15,7 +18,7 @@ class Remittance
      * @param $sSubKey, $sTargetEnvironment
      * @return object
      */
-    public function getAccountBalance($sSubKey, $sTargetEnvironment)
+    public static function getAccountBalance($sSubKey, $sTargetEnvironment)
     {
         return new GetBalance($sSubKey, $sTargetEnvironment, Remittance::SUBTYPE);
     }
@@ -25,7 +28,7 @@ class Remittance
      * @param $oTransferData, $sSubKey, $sTargetEnvironment, $sCallBackUrl
      * @return object
      */
-    public function transfer($oTransferData, $sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
+    public static function transfer($oTransferData, $sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
     {
         return new Transfer(
            $oTransferData, $sSubKey,
@@ -39,8 +42,51 @@ class Remittance
      * @param $sSubKey, $sTargetEnvironment, $sRefId
      * @return object
      */
-    public function getTransferStatus($sSubKey, $sTargetEnvironment, $sRefId)
+    public static function getTransferStatus($sSubKey, $sTargetEnvironment, $sRefId)
     {
         return new GetTransferStatus($sSubKey, $sTargetEnvironment, $sRefId, Remittance::SUBTYPE);
+    }
+    
+    /**
+     * Function to validate account holder status
+     * @param $sAccountHolderId, $sAccountHolderIdType, $sSubKey, $sTargetEnvironment
+     * @return object
+     */
+    public static function validateAccountHolderStatus(
+       $sAccountHolderId, $sAccountHolderIdType,
+       $sSubKey, $sTargetEnvironment
+    )
+    {
+        return new ValidateAccountHolder(
+           $sAccountHolderId, $sAccountHolderIdType,
+           $sSubKey, $sTargetEnvironment, Remittance::SUBTYPE
+        );
+    }
+
+    /**
+     * Function to Request to pay delivery notification
+     * @param $sReferenceId, $sNotificationMessage, $sSubKey, $sTargetEnvironment, $oDeliveryNotification, $sLanguage, $sContentType
+     * @return object
+     */
+    public static function requestToPayDeliveryNotification($sReferenceId, $sNotificationMessage, $sSubKey,
+       $sTargetEnvironment, $oDeliveryNotification, $sLanguage, $sContentType = null
+    )
+    {
+        return new RequestToPayDeliveryNotification($sReferenceId, $sNotificationMessage,
+           $sSubKey, $sTargetEnvironment, $oDeliveryNotification, $sLanguage, $sContentType, Remittance::SUBTYPE
+        );
+    }
+
+    /**
+     * For getting information about the user
+     * @param string $sAccountHolderMSISDN, $sSubKey, $sTargetEnvironment
+     * @return object GetBasicUserInfo
+     *
+     */
+    public static function getBasicUserinfo($sAccountHolderMSISDN, $sSubKey, $sTargetEnvironment)
+    {
+        return new GetBasicUserInfo($sAccountHolderMSISDN, $sSubKey,
+           $sTargetEnvironment, Remittance::SUBTYPE
+        );
     }
 }
