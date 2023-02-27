@@ -47,7 +47,7 @@ try {
 ### Example Output
 `202 ACCEPTED`
 ```php
-momopsdk\Disbursement\Models\StatusDetail Object
+momopsdk\Disbursement\Models\ResponseModel Object
 (
     [result] => 
     [referenceId] => 43cc6904-b98b-438c-8e4c-a915601d8ce5

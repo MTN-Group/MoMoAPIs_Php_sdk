@@ -11,6 +11,9 @@ use momopsdk\Disbursement\Process\CreateDepositV2;
 use momopsdk\Disbursement\Process\CreateRefundV1;
 use momopsdk\Disbursement\Process\CreateRefundV2;
 use momopsdk\Common\Process\Transfer;
+use momopsdk\Common\Process\ValidateAccountHolder;
+use momopsdk\Common\Process\RequestToPayDeliveryNotification;
+use momopsdk\Common\Process\GetBasicUserInfo;
 
 class DisbursementTransaction
 {
@@ -127,6 +130,73 @@ class DisbursementTransaction
             $sSubKey,
             $sTargetEnvironment,
             $sCallBackUrl,
+            DisbursementTransaction::SUBTYPE
+        );
+    }
+
+
+    /**
+     * For sending additional Notification to an End User
+     * @param string $sReferenceId, $sNotificationMessage, $sCollectionSubKey, $sTargetEnvironment, $oDeliveryNotification
+     * @return object RequestToPayDeliveryNotification
+     *
+     */
+    public static function requestToPayDeliveryNotification(
+        $sReferenceId,
+        $sNotificationMessage,
+        $sSubKey,
+        $sTargetEnvironment,
+        $oDeliveryNotification,
+        $sLanguage,
+        $sContentType = null
+    )
+    {
+        return new RequestToPayDeliveryNotification(
+            $sReferenceId,
+            $sNotificationMessage,
+            $sSubKey,
+            $sTargetEnvironment,
+            $oDeliveryNotification,
+            $sLanguage,
+            $sContentType,
+            DisbursementTransaction::SUBTYPE
+        );
+    }
+
+    /**
+     * For getting information about the user
+     * @param string $sAccountHolderMSISDN, $sSubKey, $sTargetEnvironment
+     * @return object GetBasicUserInfo
+     *
+     */
+    public static function getBasicUserinfo($sAccountHolderMSISDN, $sSubKey, $sTargetEnvironment)
+    {
+        return new GetBasicUserInfo(
+            $sAccountHolderMSISDN,
+            $sSubKey,
+            $sTargetEnvironment,
+            DisbursementTransaction::SUBTYPE
+        );
+    }
+
+    /**
+     * For validating account holder status
+     * @param string $sAccountHolderId, $sAccountHolderIdType, $sSubKey, $sTargetEnvironment
+     * @return object ValidateAccountHolder
+     *
+     */
+    public static function validateAccountHolderStatus(
+        $sAccountHolderId,
+        $sAccountHolderIdType,
+        $sSubKey,
+        $sTargetEnvironment
+    )
+    {
+        return new ValidateAccountHolder(
+            $sAccountHolderId,
+            $sAccountHolderIdType,
+            $sSubKey,
+            $sTargetEnvironment,
             DisbursementTransaction::SUBTYPE
         );
     }
