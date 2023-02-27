@@ -204,6 +204,11 @@ class DisbursementTransaction
 
     public static function getUserInfoWithConsent($sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
     {
-        return new GetUserInfoWithConsent($sSubKey, $sTargetEnvironment, DisbursementTransaction::SUBTYPE, $sCallBackUrl);
+        return new GetUserInfoWithConsent(
+            $sSubKey,
+            $sTargetEnvironment,
+            DisbursementTransaction::SUBTYPE,
+            $sCallBackUrl
+        );
     }
 }
