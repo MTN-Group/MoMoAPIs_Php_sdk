@@ -21,7 +21,6 @@ class GetBalance extends BaseProcess
      */
     private $targetEnvironment;
 
-
     /**
      * Subscription Type
      */
