@@ -39,5 +39,15 @@ class API
         GET_DEPOSIT_V2 = '/{subscriptionType}/v2_0/deposit',
         CREATE_REFUND_V1 = '/{subscriptionType}/v1_0/refund',
         CREATE_REFUND_V2 = '/{subscriptionType}/v2_0/refund',
-        CREATE_TRANSFER = '/{subscriptionType}/v1_0/transfer';
+        CREATE_TRANSFER = '/{subscriptionType}/v1_0/transfer',
+
+        DISBURSEMENT_BC_AUTHORIZE = '/disbursement/v1_0/bc-authorize',
+        COLLECTION_BC_AUTHORIZE = '/collection/v1_0/bc-authorize',
+        REMITTANCE_BC_AUTHORIZE = '/remittance/v1_0/bc-authorize',
+        GET_USER_INFO_WITH_CONSENT = '/{subscriptionType}/oauth2/v1_0/userinfo',
+        
+        //oauth2 2 token urls
+        DISBURSEMENT_OAUTH2ACCESS_TOKEN = '/disbursement/oauth2/token/',
+        REMITTANCE_OAUTH2ACCESS_TOKEN = '/remittance/oauth2/token/',
+        COLLECTION_OAUTH2ACCESS_TOKEN = '/collection/oauth2/token/';
 }

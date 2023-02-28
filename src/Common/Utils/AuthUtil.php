@@ -12,6 +12,7 @@ use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Models\AuthToken;
 use momopsdk\Common\Utils\EncDecUtil;
 use momopsdk\Common\Process\AccessToken;
+use momopsdk\Common\Process\Oauth2AccessToken;
 
 class AuthUtil
 {
@@ -46,7 +47,9 @@ class AuthUtil
                     MobileMoney::getUserId(),
                     MobileMoney::getApiKey(),
                     $request->tokenIdentifier,
-                    $request->getSubscriptionKey()
+                    $request->getSubscriptionKey(),
+                    MobileMoney::getTokenType(),
+                    MobileMoney::getAuthReqId()
                 );
                 $request->httpHeader(
                     Header::AUTHORIZATION,
@@ -78,39 +81,67 @@ class AuthUtil
             : true;
     }
 
-    public static function updateAccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey)
+    public static function updateAccessToken(
+        $userId,
+        $apiKey,
+        $tokenIdentifier,
+        $sSubKey,
+        $sTokenType,
+        $authReqId = null
+    )
     {
-        $accessTokenObj = self::generateAccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey);
-        AuthorizationCache::push($accessTokenObj, $tokenIdentifier);
+        $accessTokenObj = self::generateAccessToken(
+            $userId,
+            $apiKey,
+            $tokenIdentifier,
+            $sSubKey,
+            $sTokenType,
+            $authReqId
+        );
+        if ($sTokenType == null) {
+            $sTokenType = 'Basic';
+        }
+        AuthorizationCache::push($accessTokenObj, $tokenIdentifier, $sTokenType);
         MobileMoney::setAccessToken($accessTokenObj);
         return $accessTokenObj;
     }
 
-    public static function generateAccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey)
+    public static function generateAccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey, $sTokenType, $authReqId)
     {
-        $authRequest = new AccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey);
+        if ($sTokenType == null) {
+            $sTokenType = 'Basic';
+        }
+        if ($sTokenType == 'Bearer') {
+            $authRequest = new Oauth2AccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey, $authReqId);
+        } else {
+            $authRequest = new AccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey);
+        }
         $authResponse = $authRequest->execute();
-
+        
         $accessTokenObj = new AuthToken();
         $accessTokenObj
             ->setAuthToken($authResponse->access_token)
             ->setExpiresIn($authResponse->expires_in)
             ->setCreatedAt(time())
-            ->setTokenIdentifier($tokenIdentifier);
+            ->setTokenIdentifier($tokenIdentifier)
+            ->setTokenType($sTokenType);
         return $accessTokenObj;
     }
 
-    public static function getAccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey)
+    public static function getAccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey, $sTokenType, $authReqId)
     {
-        $token = self::updateAccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey);
-        // Check if we already have accessToken in memory
-        $token = self::getAccessTokenFromMemory();
-        if ($token && self::checkExpiredToken($token)) {
-            $token = null;
+        if ($sTokenType != 'Bearer') {
+            // Check if we already have accessToken in memory
+            $token = self::getAccessTokenFromMemory();
+            if ($token && self::checkExpiredToken($token)) {
+                $token = null;
+            }
         }
-
+        if ($sTokenType == null) {
+            $sTokenType = 'Basic';
+        }
         // Check for persisted data first
-        $token = AuthorizationCache::pull($tokenIdentifier);
+        $token = AuthorizationCache::pull($tokenIdentifier, $sTokenType);
         // Check if Access Token is not null and has not expired.
         if ($token != null && self::checkExpiredToken($token)) {
             $token = null;
@@ -119,6 +150,8 @@ class AuthUtil
         if (
             $token != null && property_exists($token, "tokenIdentifier") &&
             $token->tokenIdentifier == $tokenIdentifier &&
+            property_exists($token, "tokenType") &&
+            $token->tokenType == $sTokenType &&
             !(self::checkExpiredToken($token))
         ) {
             return $token;
@@ -128,7 +161,7 @@ class AuthUtil
         // If accessToken is Null, obtain a new token
         if ($token == null) {
             // Get a new one by making calls to API
-            $token = self::updateAccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey);
+            $token = self::updateAccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey, $sTokenType, $authReqId);
         }
         return $token;
     }

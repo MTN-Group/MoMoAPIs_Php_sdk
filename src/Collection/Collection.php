@@ -11,6 +11,7 @@ use momopsdk\Collection\Process\RetrieveRequestToPay;
 use momopsdk\Common\Process\ValidateAccountHolder;
 use momopsdk\Collection\Process\RequestToWithdrawStatus;
 use momopsdk\Common\Process\RequestToPayDeliveryNotification;
+use momopsdk\Common\Process\GetUserInfoWithConsent;
 
 /**
  * Class Collection
@@ -190,6 +191,16 @@ class Collection
             $sCollectionSubKey,
             $sTargetEnvironment,
             Collection::SUBTYPE
+        );
+    }
+
+    public static function getUserInfoWithConsent($sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
+    {
+        return new GetUserInfoWithConsent(
+            $sSubKey,
+            $sTargetEnvironment,
+            Collection::SUBTYPE,
+            $sCallBackUrl
         );
     }
 }

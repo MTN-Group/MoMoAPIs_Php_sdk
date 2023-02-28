@@ -79,6 +79,9 @@ class MobileMoney
     private static $baseUrl;
 
 
+    public static $authReqId;
+
+    public static $tokenType;
     /**
      * Initialize SDK
      *
@@ -280,5 +283,25 @@ class MobileMoney
         } elseif ($environment === self::PRODUCTION) {
             self::$baseUrl = API::PRODUCTION_BASE_URL;
         }
+    }
+
+    public function setAuthReqId($authReqId)
+    {
+        self::$authReqId = $authReqId;
+    }
+
+    public function setTokenType($tokenType)
+    {
+        self::$tokenType = $tokenType;
+    }
+
+    public function getTokenType()
+    {
+        return self::$tokenType;
+    }
+
+    public function getAuthReqId()
+    {
+        return self::$authReqId;
     }
 }
