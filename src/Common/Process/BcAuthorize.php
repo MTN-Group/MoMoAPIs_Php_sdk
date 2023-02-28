@@ -59,6 +59,9 @@ class BcAuthorize extends BaseProcess
             case 'collection':
                 $apiUrl = API::COLLECTION_BC_AUTHORIZE;
                 break;
+            case 'remittance':
+                $apiUrl = API::REMITTANCE_BC_AUTHORIZE;
+                break;
             default:
                 # code...
                 break;
