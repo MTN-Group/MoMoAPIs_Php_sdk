@@ -43,6 +43,7 @@ class API
 
         DISBURSEMENT_BC_AUTHORIZE = '/disbursement/v1_0/bc-authorize',
         COLLECTION_BC_AUTHORIZE = '/collection/v1_0/bc-authorize',
+        REMITTANCE_BC_AUTHORIZE = '/remittance/v1_0/bc-authorize',
         GET_USER_INFO_WITH_CONSENT = '/{subscriptionType}/oauth2/v1_0/userinfo',
         
         //oauth2 2 token urls
