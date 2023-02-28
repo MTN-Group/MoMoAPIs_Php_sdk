@@ -17,7 +17,7 @@ abstract class AuthorizationCache
      * @param string $clientId
      * @return mixed|null
      */
-    public static function pull($clientId, $authType = 'Basic')
+    public static function pull($clientId, $authType)
     {
         $tokens = null;
         $cachePath = self::cachePath();
@@ -35,7 +35,8 @@ abstract class AuthorizationCache
                     $obj->setAuthToken($tokens[$clientId][$authType]['authToken'])
                         ->setExpiresIn($tokens[$clientId][$authType]['expiresIn'])
                         ->setCreatedAt($tokens[$clientId][$authType]['createdAt'])
-                        ->setTokenIdentifier($tokens[$clientId][$authType]['clientId']);
+                        ->setTokenIdentifier($tokens[$clientId][$authType]['clientId'])
+                        ->setTokenType($authType);
                     return $obj;
                     // If client Id is found, just send in that data only
                     return new AuthToken((object) $tokens[$clientId]);
@@ -58,7 +59,7 @@ abstract class AuthorizationCache
      * @param      $tokenExpiresIn
      * @throws \Exception
      */
-    public static function push(AuthToken $authObj, $clientId, $authType = 'Basic')
+    public static function push(AuthToken $authObj, $clientId, $authType)
     {
         $cachePath = self::cachePath();
         if (
@@ -71,7 +72,7 @@ abstract class AuthorizationCache
         }
 
         // Reads all the existing persisted data
-        $tokens = self::pull($clientId);
+        $tokens = self::pull($clientId, $authType);
         $tokens = $tokens ? $tokens : [];
         
         if (!is_array($tokens)) {

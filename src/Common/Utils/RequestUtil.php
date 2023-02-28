@@ -461,7 +461,10 @@ class RequestUtil
             $this->_url != API::COLLECTION_ACCESS_TOKEN &&
             $this->_url != API::CREATE_USER &&
             $this->_url != API::GET_USER_INFORMATION &&
-            $this->_url != API::GET_API_KEY
+            $this->_url != API::GET_API_KEY &&
+            $this->_url != API::DISBURSEMENT_OAUTH2ACCESS_TOKEN &&
+            $this->_url != API::REMITTANCE_OAUTH2ACCESS_TOKEN &&
+            $this->_url != API::COLLECTION_OAUTH2ACCESS_TOKEN
         ) {
             $sProductName = explode('/', $this->_url)[1];
             switch ($sProductName) {
@@ -682,5 +685,16 @@ class RequestUtil
     public function getSubscriptionKey()
     {
         return $this->subscriptionKey;
+    }
+
+    public function setTokenType($tokenType)
+    {
+        $this->tokenType = $tokenType;
+        return $this;
+    }
+
+    public function getTokenType()
+    {
+        return $this->tokenType;
     }
 }

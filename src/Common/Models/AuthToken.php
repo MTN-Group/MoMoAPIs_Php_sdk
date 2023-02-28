@@ -14,6 +14,7 @@ class AuthToken extends BaseModel
     private $expiresIn;
     private $createdAt;
     public $tokenIdentifier;
+    public $tokenType;
 
     public function setAuthToken($authToken)
     {
@@ -50,6 +51,15 @@ class AuthToken extends BaseModel
     public function getTokenIdentifier()
     {
         return $this->tokenIdentifier;
+    }
+    public function setTokenType($tokenType)
+    {
+        $this->tokenType = $tokenType;
+        return $this;
+    }
+    public function getTokenType()
+    {
+        return $this->tokenType;
     }
 
     public function jsonSerialize()

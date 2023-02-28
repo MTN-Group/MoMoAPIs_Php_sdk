@@ -14,6 +14,7 @@ use momopsdk\Common\Process\Transfer;
 use momopsdk\Common\Process\ValidateAccountHolder;
 use momopsdk\Common\Process\RequestToPayDeliveryNotification;
 use momopsdk\Common\Process\GetBasicUserInfo;
+use momopsdk\Common\Process\GetUserInfoWithConsent;
 
 class DisbursementTransaction
 {
@@ -199,5 +200,10 @@ class DisbursementTransaction
             $sTargetEnvironment,
             DisbursementTransaction::SUBTYPE
         );
+    }
+
+    public static function getUserInfoWithConsent($sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
+    {
+        return new GetUserInfoWithConsent($sSubKey, $sTargetEnvironment, DisbursementTransaction::SUBTYPE, $sCallBackUrl);
     }
 }
