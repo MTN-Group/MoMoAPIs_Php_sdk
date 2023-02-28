@@ -8,6 +8,7 @@ use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Common\Constants\MobileMoney;
+use momopsdk\Common\Models\UserDetail;
 
 /**
  * Class GetUserInfoWithConsent
@@ -73,6 +74,6 @@ class GetUserInfoWithConsent extends BaseProcess
             ->build();
         $response = $this->makeRequest($request);
         print_R($response);die;
-        return $this->parseResponse($response);
+        return $this->parseResponse($response, new UserDetail());
     }
 }
