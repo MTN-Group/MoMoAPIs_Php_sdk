@@ -15,6 +15,7 @@ use stdClass;
 
 abstract class ProcessTestCase extends TestCase
 {
+    use ArraySubsetAsserts;
     /**
      *
      * @var array
@@ -141,7 +142,9 @@ abstract class ProcessTestCase extends TestCase
 
     public function testCheckSuccessResponse()
     {
+
         $mockObj = $this->buildMockObject(function ($request) {
+
             return $this->buildSuccessMockResponse(
                 $request,
                 $this->mockResponseObject

@@ -97,6 +97,10 @@ class RequestUtil
     protected $subscriptionKey;
 
     /**
+     * Subscription Key
+     */
+    protected $tokenType;
+    /**
      * GET request
      *
      * @param   string  $url
@@ -424,9 +428,13 @@ class RequestUtil
             case 'POST':
                 // Set options
                 $this->options([
-                    'CURLOPT_CUSTOMREQUEST' => 'POST',
-                    'CURLOPT_POSTFIELDS' => $this->_params[0]
+                    'CURLOPT_CUSTOMREQUEST' => 'POST'
                 ]);
+                if (isset($this->_params[0])) {
+                    $this->options([
+                        'CURLOPT_POSTFIELDS' => $this->_params[0]
+                    ]);
+                }
                 if (!$this->_contentType) {
                     $this->option(
                         'CURLOPT_HTTPHEADER',
@@ -438,9 +446,13 @@ class RequestUtil
             case 'PATCH':
                 // Set options
                 $this->options([
-                    'CURLOPT_CUSTOMREQUEST' => 'PATCH',
-                    'CURLOPT_POSTFIELDS' => $this->_params[0]
+                    'CURLOPT_CUSTOMREQUEST' => 'PATCH'
                 ]);
+                if (isset($this->_params[0])) {
+                    $this->options([
+                        'CURLOPT_POSTFIELDS' => $this->_params[0]
+                    ]);
+                }
                 if (!$this->_contentType) {
                     $this->option(
                         'CURLOPT_HTTPHEADER',
