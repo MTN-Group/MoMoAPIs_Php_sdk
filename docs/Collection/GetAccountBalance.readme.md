@@ -1,6 +1,6 @@
 # Get the account balance in the sandbox environment
 
-1. `getAccountBalance() create a GET request to end point /v1_0/account/balance and get the  balance of the account in the sandbox environment.`
+1. `getAccountBalance(sCollectionSubKey, $targetEnvironment) create a GET request to end point /v1_0/account/balance and get the  balance of the account in the sandbox environment.`
 
 > `End user will get result as 200 OK with account balace and currency details.`
 

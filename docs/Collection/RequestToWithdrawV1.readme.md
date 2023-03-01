@@ -1,6 +1,6 @@
-# Create a request for withdrawel for consumer in the sandbox environment
+# Used to request a withdrawal (cash-out) from a consumer (Payer) in the sandbox environment
 
-1.	`requestToWithdrawV1($transaction, $sCollectionSubKey, $targetEnvironment) create a withdrawel request for the consumer. It creates a POST request to end point v1_0/requesttowithdraw and initiate a withdrawel request in the sandbox environment.`
+1.	`requestToWithdrawV1($transaction, $sCollectionSubKey, $targetEnvironment) create a withdrawel request for the consumer. It creates a POST request to end point v1_0/requesttowithdraw and initiate a withdrawel request in the sandbox environment.The payer will be asked to authorize the withdrawal. The transaction will be executed once the payer has authorized the withdrawal.`
 
 > `End user will get result as 202 Accepted if the request to withdraw is sucessful.`
 

@@ -1,4 +1,4 @@
-# Initiate a payment request in the sandbox environment
+# This operation is used to send additional Notification to an End User
 
 1.`requestToPayDeliveryNotification($referenceId, $notificationMessage, $sCollectionSubKey, $targetEnvironment) creates a POST request to end point /collection/v1_0/requesttopay/{referenceId}/deliverynotification and send additional Notification to an End User in the sandbox environment.`
 
