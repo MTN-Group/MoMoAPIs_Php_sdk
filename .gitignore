@@ -1,3 +1,4 @@
 config.env
 /vendor/
 /var/
+.phpunit.result.cache

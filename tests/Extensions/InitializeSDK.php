@@ -21,8 +21,7 @@ class InitializeSDK implements BeforeFirstTestHook, AfterLastTestHook
             $_ENV['reference_id'],
             $_ENV['momo_api_key']
         );
-        MobileMoney::setCallbackUrl($_ENV['callback_url']);
-        MobileMoney::setSecurityLevel(SecurityLevel::DEVELOPMENT);
+        MobileMoney::setSecurityLevel(SecurityLevel::STANDARD);
     }
 
     public function executeAfterLastTest(): void
