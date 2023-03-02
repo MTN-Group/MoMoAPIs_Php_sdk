@@ -11,7 +11,7 @@ use momopsdk\Common\Models\BaseModel;
 class GetAccBalance extends BaseModel
 {
     /**
-     * Reference Id
+     * Result
      */
     public $result;
 
