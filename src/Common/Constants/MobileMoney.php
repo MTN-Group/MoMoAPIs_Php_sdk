@@ -295,12 +295,12 @@ class MobileMoney
         self::$tokenType = $tokenType;
     }
 
-    public function getTokenType()
+    public static function getTokenType()
     {
         return self::$tokenType;
     }
 
-    public function getAuthReqId()
+    public static function getAuthReqId()
     {
         return self::$authReqId;
     }
