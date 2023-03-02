@@ -423,10 +423,17 @@ class RequestUtil
 
             case 'POST':
                 // Set options
-                $this->options([
-                    'CURLOPT_CUSTOMREQUEST' => 'POST',
-                    'CURLOPT_POSTFIELDS' => $this->_params[0]
-                ]);
+                if (isset($this->_params[0]))  {
+                    $this->options([
+                        'CURLOPT_CUSTOMREQUEST' => 'POST',
+                        'CURLOPT_POSTFIELDS' => $this->_params[0]
+                    ]);
+                } else {
+                    $this->options([
+                        'CURLOPT_CUSTOMREQUEST' => 'POST',
+                        'CURLOPT_POSTFIELDS' => ''
+                    ]);
+                }
                 if (!$this->_contentType) {
                     $this->option(
                         'CURLOPT_HTTPHEADER',

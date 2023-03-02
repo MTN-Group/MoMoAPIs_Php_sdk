@@ -27,17 +27,17 @@ class AuthUtil
 
             case SecurityLevel::DEVELOPMENT:
                 self::validateCredentials();
-                $request->httpHeader(
-                    Header::X_API_KEY,
-                    MobileMoney::getApiKey()
-                );
-                $request->httpHeader(
-                    Header::AUTHORIZATION,
-                    EncDecUtil::getBasicAuthHeader(
-                        MobileMoney::getConsumerKey(),
-                        MobileMoney::getConsumerSecret()
-                    )
-                );
+                // $request->httpHeader(
+                //     Header::X_API_KEY,
+                //     MobileMoney::getApiKey()
+                // );
+                // $request->httpHeader(
+                //     Header::AUTHORIZATION,
+                //     EncDecUtil::getBasicAuthHeader(
+                //         MobileMoney::getConsumerKey(),
+                //         MobileMoney::getConsumerSecret()
+                //     )
+                // );
                 return $request;
                 break;
 

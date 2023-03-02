@@ -1,6 +1,10 @@
 {
     "name": "mtn/momoapi-php-sdk",
     "require": {
+        "phpunit/phpunit": "^9.6",
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "require-dev": {
         "php": ">=5.4.0",
         "ext-curl": "*",
         "ext-json": "*"

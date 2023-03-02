@@ -8,6 +8,7 @@ use momopsdk\Common\Process\Transfer;
 use momopsdk\Common\Process\ValidateAccountHolder;
 use momopsdk\Common\Process\RequestToPayDeliveryNotification;
 use momopsdk\Common\Process\GetBasicUserInfo;
+use momopsdk\Common\Process\GetUserInfoWithConsent;
 
 class Remittance
 {
@@ -87,6 +88,16 @@ class Remittance
     {
         return new GetBasicUserInfo($sAccountHolderMSISDN, $sSubKey,
            $sTargetEnvironment, Remittance::SUBTYPE
+        );
+    }
+
+    public static function getUserInfoWithConsent($sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
+    {
+        return new GetUserInfoWithConsent(
+            $sSubKey,
+            $sTargetEnvironment,
+            Remittance::SUBTYPE,
+            $sCallBackUrl
         );
     }
 }
