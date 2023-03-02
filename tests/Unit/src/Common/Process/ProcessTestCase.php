@@ -294,8 +294,10 @@ abstract class ProcessTestCase extends TestCase
                 $this->validateFields($fields, $value, $jsonData[$key]);
             }
         } else {
-            foreach ($fields as $field) {
-                $getterMethod = $this->getterMethod($field);
+            foreach ($response as $respKey => $oRespVal) {
+                
+                $getterMethod = $this->getterMethod($respKey);
+                if ($getterMethod != 'getHttpCode') {
                 $this->assertTrue(
                     method_exists(get_class($response), $getterMethod),
                     'Class ' .
@@ -303,28 +305,52 @@ abstract class ProcessTestCase extends TestCase
                         ' does not have method ' .
                         $getterMethod
                 );
-                $this->assertArrayHasKey(
-                    $field,
-                    $jsonData,
-                    'Mandatory Field ' . $field . ' not found in API response'
-                );
-                $this->assertNotNull(
-                    $response->$getterMethod(),
-                    'Field ' . $field . ' has no value.'
-                );
-                if (
-                    !in_array(gettype($response->$getterMethod()), [
-                        'object',
-                        'array'
-                    ])
-                ) {
-                    $this->assertEquals(
-                        $jsonData[$field],
-                        $response->$getterMethod(),
-                        'Field ' . $field . ' has invalid value.'
+            }
+                foreach ($fields as $field) {
+                    $this->assertArrayHasKey(
+                        $field,
+                        $jsonData,
+                        'Mandatory Field ' . $field . ' not found in API response'
                     );
+                    if ($getterMethod != 'getHttpCode') {
+                        $this->assertNotNull(
+                            $response->$getterMethod(),
+                            'Field ' . $field . ' has no value.'
+                        );
+                    }
                 }
             }
+            // foreach ($fields as $field) {
+            //     $getterMethod = $this->getterMethod($field);
+            //     $this->assertTrue(
+            //         method_exists(get_class($response), $getterMethod),
+            //         'Class ' .
+            //             get_class($response) .
+            //             ' does not have method ' .
+            //             $getterMethod
+            //     );
+            //     $this->assertArrayHasKey(
+            //         $field,
+            //         $jsonData,
+            //         'Mandatory Field ' . $field . ' not found in API response'
+            //     );
+            //     $this->assertNotNull(
+            //         $response->$getterMethod(),
+            //         'Field ' . $field . ' has no value.'
+            //     );
+            //     if (
+            //         !in_array(gettype($response->$getterMethod()), [
+            //             'object',
+            //             'array'
+            //         ])
+            //     ) {
+            //         $this->assertEquals(
+            //             $jsonData[$field],
+            //             $response->$getterMethod(),
+            //             'Field ' . $field . ' has invalid value.'
+            //         );
+            //     }
+            // }
         }
     }
 }

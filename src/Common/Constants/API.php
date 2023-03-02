@@ -32,6 +32,7 @@ class API
 
 
         GET_ACCOUNT_BALANCE = '/{subscriptionType}/v1_0/account/balance',
+        GET_ACCOUNT_BALANCE_IN_SPECIFIC_CURRENCY = '/{subscriptionType}/v1_0/account/balance/{currency}',
         GET_DEPOSIT_STATUS = '/{subscriptionType}/v1_0/deposit/{referenceId}',
         GET_REFUND_STATUS = '/{subscriptionType}/v1_0/refund/{referenceId}',
         GET_TRANSFER_STATUS = '/{subscriptionType}/v1_0/transfer/{referenceId}',
