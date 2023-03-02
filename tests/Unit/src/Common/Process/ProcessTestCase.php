@@ -95,7 +95,7 @@ abstract class ProcessTestCase extends TestCase
         );
     }
 
-    public function testCheckProcessType()
+    public function testCheckPrcoessType()
     {
         $this->assertEquals(
             $this->processType,
