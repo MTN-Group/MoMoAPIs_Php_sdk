@@ -1,0 +1,13 @@
+{    
+    "financialTransactionId": 363440463,
+    "externalId": 83453,
+    "amount": 100,
+    "currency": "UGX",
+    "payee": {
+      "partyIdType": "MSISDN",
+      "partyId": 4609274685.0
+    },
+    "payerMessage": "Payer message here",
+    "payeeNote": "None",
+    "status": "SUCCESSFUL"
+  }
