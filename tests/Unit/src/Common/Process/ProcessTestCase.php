@@ -97,6 +97,7 @@ abstract class ProcessTestCase extends TestCase
 
     public function testCheckPrcoessType()
     {
+
         $this->assertEquals(
             $this->processType,
             $this->reqObj->getProcessType(),
@@ -158,10 +159,12 @@ abstract class ProcessTestCase extends TestCase
                 $response['data']
             );
         } else {
+
             $this->assertInstanceOf(
-                $this->processType == BaseProcess::ASYNCHRONOUS_PROCESS
-                    ? RequestState::class
-                    : $this->responseType,
+                // $this->processType == BaseProcess::ASYNCHRONOUS_PROCESS
+                //     ? RequestState::class
+                // :
+                $this->responseType,
                 $response
             );
         }
@@ -198,9 +201,10 @@ abstract class ProcessTestCase extends TestCase
         if ($this->processType == BaseProcess::ASYNCHRONOUS_PROCESS) {
             $jsonData = $this->arrayResponse
                 ? $this->buildListResponse(
-                    MockResponse::get('RequestState.json')
+                    MockResponse::get($mockResponse)
                 )
-                : MockResponse::get('RequestState.json');
+                : MockResponse::get($mockResponse);
+
             return $response
                 ->setResult($jsonData)
                 ->setHttpCode(202)
@@ -289,23 +293,25 @@ abstract class ProcessTestCase extends TestCase
 
     private function validateFields($fields, $response, $jsonData)
     {
+
         if (is_array($response)) {
             foreach ($response as $key => $value) {
                 $this->validateFields($fields, $value, $jsonData[$key]);
             }
         } else {
             foreach ($response as $respKey => $oRespVal) {
-                
+
                 $getterMethod = $this->getterMethod($respKey);
+
                 if ($getterMethod != 'getHttpCode') {
-                $this->assertTrue(
-                    method_exists(get_class($response), $getterMethod),
-                    'Class ' .
-                        get_class($response) .
-                        ' does not have method ' .
-                        $getterMethod
-                );
-            }
+                    $this->assertTrue(
+                        method_exists(get_class($response), $getterMethod),
+                        'Class ' .
+                            get_class($response) .
+                            ' does not have method ' .
+                            $getterMethod
+                    );
+                }
                 foreach ($fields as $field) {
                     $this->assertArrayHasKey(
                         $field,

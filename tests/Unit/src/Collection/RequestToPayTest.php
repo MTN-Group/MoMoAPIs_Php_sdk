@@ -3,14 +3,12 @@
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Common\Constants\MobileMoney;
 use momopsdk\Collection\Models\Transaction;
-use momopsdk\Collection\Models\StatusResponse;
+use momopsdk\Collection\Models\RequestToPayResponse;
 use momopsdk\Collection\Process\InitiateRequestToPay;
 use momopsdkTest\Unit\src\Common\Process\ProcessTestCase;
 
 class RequestToPayTest extends ProcessTestCase
 {
-
-    private $subType = 'collection';
 
     protected function setUp(): void
     {
@@ -28,10 +26,11 @@ class RequestToPayTest extends ProcessTestCase
             'partyId' => '0248888736'
         ];
         $transaction->setPayer($payer);
-        $callbackUrl = "http://webhook.site.com/345656";
+        $callbackUrl = "https://webhook.site/";
         $contentType = "application/json";
         $env = parse_ini_file(__DIR__ . './../../../../../config.env');
-        $this->constructorArgs = [$transaction, $env['collection_subscription_key'], $env['target_environment'], $this->subType, $callbackUrl, $contentType];
+        $this->constructorArgs =
+            [$transaction, $env['collection_subscription_key'], $env['target_environment'], $callbackUrl, $contentType];
         $this->requestMethod = 'POST';
         $this->requestUrl =
             MobileMoney::getBaseUrl() .
@@ -41,9 +40,8 @@ class RequestToPayTest extends ProcessTestCase
             $this->className,
             $this->constructorArgs
         );
-        $this->requestOptions = ['X-Callback-URL: http://webhook.site.com/345656'];
         $this->processType = BaseProcess::ASYNCHRONOUS_PROCESS;
-        $this->mockResponseObject = 'BasicUserInfo.json';
+        $this->mockResponseObject = 'RequestToPayResponse.json';
         $this->responseType = RequestToPayResponse::class;
     }
 }

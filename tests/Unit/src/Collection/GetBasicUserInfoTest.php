@@ -9,13 +9,12 @@ use momopsdkTest\Unit\src\Common\Process\ProcessTestCase;
 class GetBasicUserInfoTest extends ProcessTestCase
 {
 
-    private $subType = 'collection';
-    private $sAccountHolderMSISDN = '0248888736';
-
     protected function setUp(): void
     {
+        $subType = 'collection';
+        $sAccountHolderMSISDN = '0248888736';
         $env = parse_ini_file(__DIR__ . './../../../../../config.env');
-        $this->constructorArgs = [$this->sAccountHolderMSISDN, $env['collection_subscription_key'], $env['target_environment'], $this->subType];
+        $this->constructorArgs = [$sAccountHolderMSISDN, $env['collection_subscription_key'], $env['target_environment'], $subType];
         $this->requestMethod = 'GET';
         $this->requestUrl =
             MobileMoney::getBaseUrl() .
