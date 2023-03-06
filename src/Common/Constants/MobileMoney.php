@@ -285,12 +285,12 @@ class MobileMoney
         }
     }
 
-    public function setAuthReqId($authReqId)
+    public static function setAuthReqId($authReqId)
     {
         self::$authReqId = $authReqId;
     }
 
-    public function setTokenType($tokenType)
+    public static function setTokenType($tokenType)
     {
         self::$tokenType = $tokenType;
     }
@@ -303,5 +303,10 @@ class MobileMoney
     public static function getAuthReqId()
     {
         return self::$authReqId;
+    }
+
+    public static function destroyTokenType()
+    {
+        self::$tokenType = null;
     }
 }
