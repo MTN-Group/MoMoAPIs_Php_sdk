@@ -13,7 +13,7 @@ class GetBasicUserInfoTest extends ProcessTestCase
     {
         $subType = 'collection';
         $sAccountHolderMSISDN = '0248888736';
-        $env = parse_ini_file(__DIR__ . './../../../../../config.env');
+        $env = parse_ini_file(__DIR__ . './../../../../config.env');
         $this->constructorArgs = [$sAccountHolderMSISDN, $env['collection_subscription_key'], $env['target_environment'], $subType];
         $this->requestMethod = 'GET';
         $this->requestUrl =

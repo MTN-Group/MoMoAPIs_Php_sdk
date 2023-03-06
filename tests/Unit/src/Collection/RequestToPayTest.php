@@ -28,7 +28,7 @@ class RequestToPayTest extends ProcessTestCase
         $transaction->setPayer($payer);
         $callbackUrl = "https://webhook.site/";
         $contentType = "application/json";
-        $env = parse_ini_file(__DIR__ . './../../../../../config.env');
+        $env = parse_ini_file(__DIR__ . './../../../../config.env');
         $this->constructorArgs =
             [$transaction, $env['collection_subscription_key'], $env['target_environment'], $callbackUrl, $contentType];
         $this->requestMethod = 'POST';

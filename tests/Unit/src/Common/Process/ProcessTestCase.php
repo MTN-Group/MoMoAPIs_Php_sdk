@@ -152,7 +152,6 @@ abstract class ProcessTestCase extends TestCase
             );
         });
         $response = $mockObj->execute();
-
         if ($this->arrayResponse) {
             $this->assertContainsOnlyInstancesOf(
                 $this->responseType,
@@ -282,6 +281,7 @@ abstract class ProcessTestCase extends TestCase
                 );
             }
         } else {
+
             return $this->validateFields(
                 array_keys($jsonData),
                 $response,
@@ -298,6 +298,7 @@ abstract class ProcessTestCase extends TestCase
                 $this->validateFields($fields, $value, $jsonData[$key]);
             }
         } else {
+
             $this->assertNotEmpty(
                 $response
             );
@@ -318,12 +319,14 @@ abstract class ProcessTestCase extends TestCase
                     );
                 }
                 foreach ($fields as $field) {
+
                     // $this->assertArrayHasKey(
                     //     $field,
                     //     $jsonData,
                     //     'Mandatory Field ' . $field . ' not found in API response'
                     // );
                     if ($getterMethod != 'getHttpCode') {
+
                         $this->assertNotNull(
                             $response->$getterMethod(),
                             'Field ' . $field . ' has no value.'
