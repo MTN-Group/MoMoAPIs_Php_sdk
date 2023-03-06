@@ -73,7 +73,7 @@ class GetUserInfoWithConsent extends BaseProcess
             ->setSubscriptionKey($this->subKey)
             ->build();
         $response = $this->makeRequest($request);
-        print_R($response);die;
+        MobileMoney::destroyTokenType();
         return $this->parseResponse($response, new UserDetail());
     }
 }

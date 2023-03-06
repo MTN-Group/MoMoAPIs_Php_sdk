@@ -32,11 +32,13 @@ abstract class AuthorizationCache
                     array_key_exists($clientId, $tokens)
                 ) {
                     $obj = new AuthToken;
-                    $obj->setAuthToken($tokens[$clientId][$authType]['authToken'])
-                        ->setExpiresIn($tokens[$clientId][$authType]['expiresIn'])
-                        ->setCreatedAt($tokens[$clientId][$authType]['createdAt'])
-                        ->setTokenIdentifier($tokens[$clientId][$authType]['clientId'])
-                        ->setTokenType($authType);
+                    if (isset($tokens[$clientId][$authType])) {
+                        $obj->setAuthToken($tokens[$clientId][$authType]['authToken'])
+                            ->setExpiresIn($tokens[$clientId][$authType]['expiresIn'])
+                            ->setCreatedAt($tokens[$clientId][$authType]['createdAt'])
+                            ->setTokenIdentifier($tokens[$clientId][$authType]['clientId'])
+                            ->setTokenType($authType);
+                    }
                     return $obj;
                     // If client Id is found, just send in that data only
                     return new AuthToken((object) $tokens[$clientId]);
