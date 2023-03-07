@@ -15,6 +15,7 @@ use stdClass;
 
 abstract class ProcessTestCase extends TestCase
 {
+    use ArraySubsetAsserts;
     /**
      *
      * @var array
