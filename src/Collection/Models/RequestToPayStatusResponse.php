@@ -16,27 +16,27 @@ class RequestToPayStatusResponse extends BaseModel
      */
     public $result;
 
-    /**
-     * @var string
-     */
-    public $referenceId;
+    // /**
+    //  * @var string
+    //  */
+    // public $referenceId;
 
-    /**
-     * @param string|null $httpCode
-     */
-    public function setReferenceId($referenceId)
-    {
-        $this->referenceId = $referenceId;
-        return $this;
-    }
+    // /**
+    //  * @param string|null $httpCode
+    //  */
+    // public function setReferenceId($referenceId)
+    // {
+    //     $this->referenceId = $referenceId;
+    //     return $this;
+    // }
 
-    /**
-     * @return string|null
-     */
-    public function getReferenceId()
-    {
-        return $this->referenceId;
-    }
+    // /**
+    //  * @return string|null
+    //  */
+    // public function getReferenceId()
+    // {
+    //     return $this->referenceId;
+    // }
 
     /**
      * @return array|null

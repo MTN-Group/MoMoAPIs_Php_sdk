@@ -4,7 +4,6 @@ namespace momopsdkTest\Unit\src\Common\Process;
 
 use PHPUnit\Framework\TestCase;
 use momopsdkTest\Extensions\PropertyAccessor;
-use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 use momopsdk\Common\Exceptions\MobileMoneyException;
 use momopsdk\Common\Models\RequestState;
 use momopsdk\Common\Models\Response;
@@ -15,7 +14,7 @@ use stdClass;
 
 abstract class ProcessTestCase extends TestCase
 {
-    use ArraySubsetAsserts;
+
     /**
      *
      * @var array
@@ -305,10 +304,10 @@ abstract class ProcessTestCase extends TestCase
             $this->assertIsObject(
                 $response
             );
+
             foreach ($response as $respKey => $oRespVal) {
 
                 $getterMethod = $this->getterMethod($respKey);
-
                 if ($getterMethod != 'getHttpCode') {
                     $this->assertTrue(
                         method_exists(get_class($response), $getterMethod),

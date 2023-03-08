@@ -16,7 +16,7 @@ class RequestToPayDeliveryNotificationTest extends ProcessTestCase
     {
 
         $deliveryNotification = new DeliveryNotification();
-        $env = parse_ini_file(__DIR__ . './../../../../config.env');
+        $env = parse_ini_file(__DIR__ . './../../../../../config.env');
         $deliveryNotification->setnotificationMessage('Pay for product by a mrudul delivery notification');
         $notificationMessage = 'Pay for product by a mrudul delivery notification';
         $contentType = "application/json";

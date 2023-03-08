@@ -79,7 +79,7 @@ class ValidateAccountHolder extends BaseProcess
 
     /**
      * Function to execute API call to validate account holder status
-     * @return RequestToPayResponse
+     * @return StatusResponse
      */
     public function execute()
     {

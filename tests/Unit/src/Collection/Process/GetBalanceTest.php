@@ -13,7 +13,7 @@ class GetBalanceTest extends ProcessTestCase
 
     protected function setUp(): void
     {
-        $env = parse_ini_file(__DIR__ . './../../../../config.env');
+        $env = parse_ini_file(__DIR__ . './../../../../../config.env');
         $this->constructorArgs = [$env['collection_subscription_key'], $env['target_environment'], $this->subType];
         $this->requestMethod = 'GET';
         $this->requestUrl =
