@@ -10,20 +10,17 @@ use momopsdk\Common\Models\BaseModel;
  */
 class ResponseState extends BaseModel
 {
-    /**
-     * Reference Id
-     */
-    public $referenceId;
+    
+    public $result;
 
-
-    public function getReferenceId()
+    public function getResult()
     {
-        return $this->referenceId;
+        return $this->result;
     }
 
-    public function setReferenceId($referenceId)
+    public function setResult($result)
     {
-        $this->referenceId = $referenceId;
+        $this->result = $result;
         return $this;
     }
 }

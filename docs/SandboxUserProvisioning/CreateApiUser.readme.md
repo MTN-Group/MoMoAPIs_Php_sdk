@@ -31,10 +31,11 @@ try {
 ```php
 momopsdk\Common\Models\ResponseState Object
 (
-    [referenceId] => c34d4077-ea8d-4a50-bf76-dbfd37d8bfb6
-    [hydratorStrategies:protected] => 
-    [availableCount:protected] => 
+    [result] => 
+    [referenceId] => 29c8f1ec-b41b-4c5b-a8cf-633a1da0a782
+    [httpCode] => 201
 )
+
 
 ```
 
