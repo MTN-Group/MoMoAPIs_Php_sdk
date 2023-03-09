@@ -45,7 +45,7 @@ class RequestToPayDeliveryNotificationDisbursementTest extends ProcessTestCase
             $this->className,
             $this->constructorArgs
         );
-        $this->mockResponseObject = 'RequestToPayDeliveryNotificationDisbursement.json';
+        $this->mockResponseObject = 'RequestToPayDeliveryNotification.json';
         $this->responseType = CallbackResponse::class;
     }
 }

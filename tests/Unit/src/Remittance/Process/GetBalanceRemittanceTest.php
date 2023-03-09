@@ -3,7 +3,7 @@
 use momopsdk\Common\Constants\MobileMoney;
 use momopsdk\Common\Process\GetBalance;
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Disbursement\Models\GetAccBalance;
+use momopsdk\Common\Models\GetAccBalance;
 use momopsdkTest\Unit\src\Common\Process\ProcessTestCase;
 use momopsdkTest\Unit\src\mocks\MockResponse;
 

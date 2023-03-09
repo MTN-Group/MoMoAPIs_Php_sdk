@@ -46,7 +46,7 @@ class TransferDisbursementTest extends ProcessTestCase
             $this->className,
             $this->constructorArgs
         );
-        $this->mockResponseObject = 'TransferDisbursement.json';
+        $this->mockResponseObject = 'Transfer.json';
         $this->responseType = ResponseModel::class;
     }
 }
