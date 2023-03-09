@@ -19,7 +19,7 @@ class RequestToPayResponse extends BaseModel
     /**
      * @var string
      */
-    public $referenceId;
+    public $result;
 
     /**
      * @return string|null
@@ -41,17 +41,17 @@ class RequestToPayResponse extends BaseModel
     /**
      * @param string|null $httpCode
      */
-    public function setReferenceId($referenceId)
+    public function setResult($result)
     {
-        $this->referenceId = $referenceId;
+        $this->result = $result;
         return $this;
     }
 
     /**
      * @return string|null
      */
-    public function getReferenceId()
+    public function getResult()
     {
-        return $this->referenceId;
+        return $this->result;
     }
 }

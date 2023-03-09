@@ -76,7 +76,7 @@ abstract class AuthorizationCache
         // Reads all the existing persisted data
         $tokens = self::pull($clientId, $authType);
         $tokens = $tokens ? $tokens : [];
-        
+
         if (!is_array($tokens)) {
             $token = [];
             $token[$clientId][$authType] = [

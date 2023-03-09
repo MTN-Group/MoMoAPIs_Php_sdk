@@ -4,10 +4,10 @@ use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Common\Constants\MobileMoney;
 use momopsdk\Collection\Models\Transaction;
 use momopsdk\Collection\Models\RequestToPayResponse;
-use momopsdk\Collection\Process\InitiateRequestToPay;
+use momopsdk\Collection\Process\RequestToWithdrawV2;
 use momopsdkTest\Unit\src\Common\Process\ProcessTestCase;
 
-class RequestToPayTest extends ProcessTestCase
+class RequestToWithdrawV2Test extends ProcessTestCase
 {
 
     protected function setUp(): void
@@ -28,14 +28,14 @@ class RequestToPayTest extends ProcessTestCase
         $transaction->setPayer($payer);
         $callbackUrl = "https://webhook.site/";
         $contentType = "application/json";
-        $env = parse_ini_file(__DIR__ . './../../../../config.env');
+        $env = parse_ini_file(__DIR__ . './../../../../../config.env');
         $this->constructorArgs =
             [$transaction, $env['collection_subscription_key'], $env['target_environment'], $callbackUrl, $contentType];
         $this->requestMethod = 'POST';
         $this->requestUrl =
             MobileMoney::getBaseUrl() .
-            '/collection/v1_0/requesttopay';
-        $this->className = InitiateRequestToPay::class;
+            '/collection/v2_0/requesttowithdraw';
+        $this->className = RequestToWithdrawV2::class;
         $this->reqObj = $this->instantiateClass(
             $this->className,
             $this->constructorArgs

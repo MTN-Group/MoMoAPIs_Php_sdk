@@ -13,7 +13,7 @@ class RequestToPayStatusTest extends ProcessTestCase
     {
 
         $referenceId = '9ffb31ab-a7bc-494d-8ab0-76589c773719';
-        $env = parse_ini_file(__DIR__ . './../../../../config.env');
+        $env = parse_ini_file(__DIR__ . './../../../../../config.env');
         $this->constructorArgs = [$referenceId, $env['collection_subscription_key'], $env['target_environment']];
         $this->requestMethod = 'GET';
         $this->requestUrl =
