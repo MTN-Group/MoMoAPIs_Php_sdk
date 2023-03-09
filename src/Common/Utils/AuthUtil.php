@@ -27,17 +27,6 @@ class AuthUtil
 
             case SecurityLevel::DEVELOPMENT:
                 self::validateCredentials();
-                // $request->httpHeader(
-                //     Header::X_API_KEY,
-                //     MobileMoney::getApiKey()
-                // );
-                // $request->httpHeader(
-                //     Header::AUTHORIZATION,
-                //     EncDecUtil::getBasicAuthHeader(
-                //         MobileMoney::getConsumerKey(),
-                //         MobileMoney::getConsumerSecret()
-                //     )
-                // );
                 return $request;
                 break;
 
@@ -178,28 +167,25 @@ class AuthUtil
                 return true;
                 break;
             case SecurityLevel::DEVELOPMENT:
+                return true;
+                break;
             case SecurityLevel::STANDARD:
-                //     CommonUtil::validateArgument(
-                //         MobileMoney::getConsumerKey(),
-                //         'consumerKey',
-                //         CommonUtil::TYPE_STRING
-                //     );
-                //     CommonUtil::validateArgument(
-                //         MobileMoney::getConsumerSecret(),
-                //         'consumerSecret',
-                //         CommonUtil::TYPE_STRING
-                //     );
-                //     CommonUtil::validateArgument(
-                //         MobileMoney::getApiKey(),
-                //         'apiKey',
-                //         CommonUtil::TYPE_STRING
-                //     );
-                //     return true;
-                //     break;
+                    CommonUtil::validateArgument(
+                        MobileMoney::getUserId(),
+                        'UserId',
+                        CommonUtil::TYPE_STRING
+                    );
+                    CommonUtil::validateArgument(
+                        MobileMoney::getApiKey(),
+                        'ApiKey',
+                        CommonUtil::TYPE_STRING
+                    );
+                    return true;
+                    break;
 
-                // case SecurityLevel::ENHANCED:
+                case SecurityLevel::ENHANCED:
                 //     //TBD
-                //     return true;
+                    return true;
                 break;
             default:
                 throw new \momopsdk\Common\Exceptions\MobileMoneyException(

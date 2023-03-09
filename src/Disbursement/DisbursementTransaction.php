@@ -15,6 +15,7 @@ use momopsdk\Common\Process\ValidateAccountHolder;
 use momopsdk\Common\Process\RequestToPayDeliveryNotification;
 use momopsdk\Common\Process\GetBasicUserInfo;
 use momopsdk\Common\Process\GetUserInfoWithConsent;
+use momopsdk\Common\Process\GetBalanceInSpecificCurrency;
 
 class DisbursementTransaction
 {
@@ -209,6 +210,16 @@ class DisbursementTransaction
             $sTargetEnvironment,
             DisbursementTransaction::SUBTYPE,
             $sCallBackUrl
+        );
+    }
+
+    public function getAccountBalanceInSpecificCurrency($sSubKey, $sTargetEnvironment, $sCurrency)
+    {
+        return new GetBalanceInSpecificCurrency(
+            $sSubKey,
+            $sTargetEnvironment,
+            $sCurrency,
+            DisbursementTransaction::SUBTYPE
         );
     }
 }
