@@ -23,7 +23,7 @@ class CallbackResponse extends BaseModel
     /**
      * @var string
      */
-    public $referenceId;
+    // public $referenceId;
 
 
     /**
@@ -60,20 +60,20 @@ class CallbackResponse extends BaseModel
         return $this;
     }
 
-    /**
-     * @param string|null $httpCode
-     */
-    public function setReferenceId($referenceId)
-    {
-        $this->referenceId = $referenceId;
-        return $this;
-    }
+    // /**
+    //  * @param string|null $httpCode
+    //  */
+    // public function setReferenceId($referenceId)
+    // {
+    //     $this->referenceId = $referenceId;
+    //     return $this;
+    // }
 
-    /**
-     * @return string|null
-     */
-    public function getReferenceId()
-    {
-        return $this->referenceId;
-    }
+    // /**
+    //  * @return string|null
+    //  */
+    // public function getReferenceId()
+    // {
+    //     return $this->referenceId;
+    // }
 }

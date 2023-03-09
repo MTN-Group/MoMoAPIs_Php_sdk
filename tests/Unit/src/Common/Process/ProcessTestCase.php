@@ -4,6 +4,7 @@ namespace momopsdkTest\Unit\src\Common\Process;
 
 use PHPUnit\Framework\TestCase;
 use momopsdkTest\Extensions\PropertyAccessor;
+use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 use momopsdk\Common\Exceptions\MobileMoneyException;
 use momopsdk\Common\Models\RequestState;
 use momopsdk\Common\Models\Response;
@@ -14,7 +15,7 @@ use stdClass;
 
 abstract class ProcessTestCase extends TestCase
 {
-
+    use ArraySubsetAsserts;
     /**
      *
      * @var array
@@ -159,9 +160,6 @@ abstract class ProcessTestCase extends TestCase
         } else {
 
             $this->assertInstanceOf(
-                // $this->processType == BaseProcess::ASYNCHRONOUS_PROCESS
-                //     ? RequestState::class
-                //     :
                 $this->responseType,
                 $response
             );
@@ -196,18 +194,6 @@ abstract class ProcessTestCase extends TestCase
         $mockResponse = 'RequestState.json'
     ) {
         $response = new Response();
-        // if ($this->processType == BaseProcess::ASYNCHRONOUS_PROCESS) {
-        //     $jsonData = $this->arrayResponse
-        //         ? $this->buildListResponse(
-        //             MockResponse::get('RequestState.json')
-        //         )
-        //         : MockResponse::get('RequestState.json');
-        //     return $response
-        //         ->setResult($jsonData)
-        //         ->setHttpCode(202)
-        //         ->setReferenceId('123456789')
-        //         ->setRequestObj($request);
-        // } else {
         $jsonData = $this->arrayResponse
             ? $this->buildListResponse(MockResponse::get($mockResponse))
             : MockResponse::get($mockResponse);
@@ -215,7 +201,6 @@ abstract class ProcessTestCase extends TestCase
             ->setResult($jsonData)
             ->setHttpCode(200)
             ->setRequestObj($request);
-        // }
     }
 
     private function buildFailureMockResponse($request)
@@ -318,12 +303,6 @@ abstract class ProcessTestCase extends TestCase
                     );
                 }
                 foreach ($fields as $field) {
-
-                    // $this->assertArrayHasKey(
-                    //     $field,
-                    //     $jsonData,
-                    //     'Mandatory Field ' . $field . ' not found in API response'
-                    // );
                     if ($getterMethod != 'getHttpCode') {
 
                         $this->assertNotNull(
@@ -333,37 +312,6 @@ abstract class ProcessTestCase extends TestCase
                     }
                 }
             }
-            // foreach ($fields as $field) {
-            //     $getterMethod = $this->getterMethod($field);
-            //     $this->assertTrue(
-            //         method_exists(get_class($response), $getterMethod),
-            //         'Class ' .
-            //             get_class($response) .
-            //             ' does not have method ' .
-            //             $getterMethod
-            //     );
-            //     $this->assertArrayHasKey(
-            //         $field,
-            //         $jsonData,
-            //         'Mandatory Field ' . $field . ' not found in API response'
-            //     );
-            //     $this->assertNotNull(
-            //         $response->$getterMethod(),
-            //         'Field ' . $field . ' has no value.'
-            //     );
-            //     if (
-            //         !in_array(gettype($response->$getterMethod()), [
-            //             'object',
-            //             'array'
-            //         ])
-            //     ) {
-            //         $this->assertEquals(
-            //             $jsonData[$field],
-            //             $response->$getterMethod(),
-            //             'Field ' . $field . ' has invalid value.'
-            //         );
-            //     }
-            // }
         }
     }
 }

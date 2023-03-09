@@ -38,10 +38,10 @@ momopsdk\Common\Models\UserDetail Object
             [targetEnvironment] => sandbox
         )
 
-    [hydratorStrategies:protected] => 
-    [availableCount:protected] => 
-    [referenceId] => c34d4077-ea8d-4a50-bf76-dbfd37d8bfb6
+    [referenceId] => d0091568-0e09-4d1f-b682-a22d0a7e3b52
+    [httpCode] => 200
 )
+
 
 ```
 

@@ -37,7 +37,7 @@ try {
 
 `200 OK`
 ```php
-momopsdk\Collection\Models\StatusResponse Object
+momopsdk\Common\Models\GetAccBalance Object
 (
     [result] => stdClass Object
         (

@@ -8,11 +8,7 @@ namespace momopsdk\Common\Constants;
  */
 class API
 {
-    const SANDBOX_BASE_URL = 'https://sandbox.momodeveloper.mtn.com',
-        PRODUCTION_BASE_URL = '',
-
-
-        CREATE_USER = '/v1_0/apiuser',
+    const CREATE_USER = '/v1_0/apiuser',
         GET_USER_INFORMATION = '/v1_0/apiuser/{X-Reference-Id}',
         GET_API_KEY = '/v1_0/apiuser/{X-Reference-Id}/apikey',
         REQUEST_TO_PAY = '/collection/v1_0/requesttopay',

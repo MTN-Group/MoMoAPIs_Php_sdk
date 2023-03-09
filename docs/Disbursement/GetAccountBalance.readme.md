@@ -28,7 +28,7 @@ try {
 ### Example Output
 `200 OK`
 ```php
-momopsdk\Disbursement\Models\GetAccBalance Object
+momopsdk\Common\Models\GetAccBalance Object
 (
     [result] => stdClass Object
         (

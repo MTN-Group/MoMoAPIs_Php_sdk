@@ -105,8 +105,9 @@ class ResponseUtil
                 } else {
                     $data = $obj->hydrate($request, null);
                     if ($response->getReferenceId()) {
-                        $data->referenceId = $request->getReferenceId();
+                        $data->referenceId = $response->getReferenceId();
                     }
+                    $data->httpCode = $response->getHttpCode();
                 }
                 return $data;
                 break;
