@@ -2,14 +2,11 @@
 
 namespace momopsdk\Collection\Process;
 
-
-use momopsdk\Common\Utils\GUID;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
 use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Collection\Models\Transaction;
 use momopsdk\Collection\Models\RequestToPayResponse;
 
 /**

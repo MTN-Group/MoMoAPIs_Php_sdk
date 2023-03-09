@@ -277,12 +277,9 @@ class MobileMoney
      */
     public static function setEnvironment($environment)
     {
+        $env = parse_ini_file(__DIR__ . './../../../config.env');
         self::$environment = $environment;
-        if ($environment === self::SANDBOX) {
-            self::$baseUrl = API::SANDBOX_BASE_URL;
-        } elseif ($environment === self::PRODUCTION) {
-            self::$baseUrl = API::PRODUCTION_BASE_URL;
-        }
+        self::$baseUrl = $env['base_url'];
     }
 
     public static function setAuthReqId($authReqId)

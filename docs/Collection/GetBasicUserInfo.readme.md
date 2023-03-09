@@ -1,8 +1,8 @@
 # Get information about the user created in the sandbox environment
 
-1.	`getBasicUserinfo($accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment) creates a GET request to end point /collection/v1_0/accountholder/msisdn/{accountHolderMSISDN}/basicuserinfo and returns the informations about the user. The accountHolderMSISDN will be the partyId of the payer user.`
+1.	`getBasicUserinfo($accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment) creates a GET request to end point /collection/v1_0/accountholder/msisdn/{accountHolderMSISDN}/basicuserinfo. This operation returns personal information of the account holder. The operation does not need any consent by the account holder..It requires the accountHolderMSISDN, that will be the partyId of the payer user.`
 
-> `End user will get basic user info of the account holder.`
+> `Returns personal information of the account holder.`
 
 ### Usage/Examples
 

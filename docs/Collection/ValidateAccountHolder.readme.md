@@ -1,6 +1,6 @@
 # Validate the account holder status in the sandbox environment
 
-1. `validateAccountHolderStatus($accountHolderId, $accountHolderIdType, $sCollectionSubKey, $targetEnvironment) create a GET request to end point /v1_0/accountholder/{accountHolderIdType}/{accountHolderId}/active and get statsus of the account holder in the sandbox environment.`
+1. `validateAccountHolderStatus($accountHolderId, $accountHolderIdType, $sCollectionSubKey, $targetEnvironment) create a GET request to end point /v1_0/accountholder/{accountHolderIdType}/{accountHolderId}/active and check if an account holder is registered and active in the system.`
 
 > `End user will get result as 200 OK True if account holder is registered and active, false if the account holder is not active or not found.`
 

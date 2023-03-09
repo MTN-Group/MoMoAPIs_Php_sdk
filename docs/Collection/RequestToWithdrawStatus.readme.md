@@ -1,6 +1,6 @@
-# Shows the status of initiated payment request in the sandbox environment
+# Shows the status of a request to withdraw in the sandbox environment
 
-1.	`requestToWithdrawTransactionStatus($referenceId, $sCollectionSubKey, $targetEnvironment) get the status of transaction withdraw request. It creates a GET request to end point /collection/v1_0/requesttowithdraw/{referenceId} and get the status of the created payment request in the sandbox environment and it requires to pass reference id of transaction withdraw request in the header url to get result. Reference id used when creating the request to withdraw.`
+1.	`requestToWithdrawTransactionStatus($referenceId, $sCollectionSubKey, $targetEnvironment) creates a GET request to end point /collection/v1_0/requesttowithdraw/{referenceId} and get the status of the created payment request in the sandbox environment and it requires to pass reference id of transaction withdraw request in the header url to get result. Reference id used when creating the request to withdraw.`
 
 > `End user will get result as 200 OK. Note that a failed request to pay will be returned with this status too. The 'status' of the RequestToPayResult can be used to determine the outcome of the request. The 'reason' field can be used to retrieve a cause in case of failure.`
 

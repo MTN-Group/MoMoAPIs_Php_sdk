@@ -5,20 +5,16 @@ use momopsdk\Common\Process\GetBalance;
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Disbursement\Models\GetAccBalance;
 use momopsdkTest\Unit\src\Common\Process\ProcessTestCase;
-use momopsdkTest\Unit\src\mocks\MockResponse;
+
 
 class GetBalanceTest extends ProcessTestCase
 {
-
-    private $sSubsKey = 'cf123ce1c20540ff958a8e725468324f';
-
-    private $sTargetEnvironmentlter = 'sandbox';
-
     private $subType = 'collection';
 
     protected function setUp(): void
     {
-        $this->constructorArgs = [$this->sSubsKey, $this->sTargetEnvironmentlter, $this->subType];
+        $env = parse_ini_file(__DIR__ . './../../../../../config.env');
+        $this->constructorArgs = [$env['collection_subscription_key'], $env['target_environment'], $this->subType];
         $this->requestMethod = 'GET';
         $this->requestUrl =
             MobileMoney::getBaseUrl() .

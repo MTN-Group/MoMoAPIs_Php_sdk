@@ -1,6 +1,6 @@
-# Initiate a payment request in the sandbox environment
+# Initiate a payment request from a consumer
 
-1.	`requestToPay($transaction) create a payment request for the user. It creates a POST request to end point /v1_0/requesttopay and initiate a payment request in the sandbox environment.`
+1.	`requestToPay($transaction) create a payment request from a consumer (Payer).. It creates a POST request to end point /v1_0/requesttopay and initiate a payment request in the sandbox environment.The payer will be asked to authorize the payment. The transaction will be executed once the payer has authorized the payment. The requesttopay will be in status PENDING until the transaction is authorized or declined by the payer or it is timed out by the system. Status of the transaction can be validated by using the GET /requesttopay/<resourceId>`
 
 > `End user will get result as 202 Accepted if the request to payment is sucessful.`
 

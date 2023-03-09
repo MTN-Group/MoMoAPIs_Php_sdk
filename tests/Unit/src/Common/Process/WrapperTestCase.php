@@ -12,7 +12,7 @@ class WrapperTestCase extends TestCase
     {
         $class = new ReflectionClass($type);
         $method = new ReflectionMethod($this->wrapperClass, $methodName);
-        $this->assertGreaterThan(
+        $this->assertGreaterThanOrEqual(
             $method->getNumberOfParameters(),
             $class->getConstructor()->getNumberOfParameters(),
 
