@@ -15,5 +15,9 @@
             "momopsdk\\": "src/",
             "momopsdkTest\\": "tests/"
         }
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit --testdox tests",
+        "unit-test": "./vendor/bin/phpunit --testdox --testsuite UnitTest"
     }
 }
