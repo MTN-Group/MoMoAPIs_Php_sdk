@@ -229,7 +229,7 @@ momopsdk\Common\Models\Error Object
     <td>string $sCollectionSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
-    <td rowspan="3">Get Account Balance In Specific Currency</td>
+    <td>Get Account Balance In Specific Currency</td>
     <td><a href="docs/Collection/GetAccountBalanceInSpecificCurrency.readme.md">Get Account Balance In Specific Currency</a></td>
     <td>Get the balance of the account in specific currency</td>
     <td>string $sSubsKey, string $sTargetEnvironment, string $sCurrency</td>
