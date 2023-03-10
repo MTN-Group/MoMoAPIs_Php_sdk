@@ -223,84 +223,70 @@ momopsdk\Common\Models\Error Object
 </thead>
 <tbody>
   <tr>
-    <td>Payee-Initiated Merchant Payment</td>
-    <td><a href="docs/merchantPayment/createMerchantTransaction.Readme.md">Payee Initiated Merchant Payment</a></td>
-    <td>createMerchantTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
+    <td>Get Account Balance</td>
+    <td><a href="docs/Collection/GetAccountBalance.readme.md">Get Account Balance</a></td>
+    <td>Get the balance of the account</td>
+    <td>string $sCollectionSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
-    <td rowspan="3">Payee-Initiated Merchant Payment using the Polling Method</td>
-    <td><a href="docs/merchantPayment/createMerchantTransaction.Readme.md">Payee Initiated Merchant Payment</a></td>
-    <td>createMerchantTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
+    <td rowspan="3">Get Account Balance In Specific Currency</td>
+    <td><a href="docs/Collection/GetAccountBalanceInSpecificCurrency.readme.md">Get Account Balance In Specific Currency</a></td>
+    <td>Get the balance of the account in specific currency</td>
+    <td>string $sSubsKey, string $sTargetEnvironment, string $sCurrency</td>
   </tr>
   <tr>
-    <td><a href="docs/merchantPayment/viewRequestState.Readme.md">Poll to Determine the Request State</a></td>
-    <td>viewRequestState</td>
-    <td>string $serverCorrelationId</td>
+    <td>Get Basic User Info</td>
+    <td><a href="docs/Collection/GetBasicUserInfo.readme.md">Get Basic User Info</a></td>
+    <td>returns personal information of the account holder</td>
+    <td>string $accountHolderMSISDN, string $sCollectionSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
-    <td>Optional <a href="docs/merchantPayment/viewTransaction.Readme.md">Retrieve a Transaction</a></td>
-    <td>viewTransaction</td>
-    <td>string $transactionReference</td>
+    <td>Get User Info With Consent</td>
+    <td><a href="docs/Collection/GetUserInfoWithConsent.readme.md">Get User Info With Consent</a></td>
+    <td>claim a consent by the account holder for the requested scopes</td>
+    <td>string $sCollectionSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
-    <td>Payer-Initiated Merchant Payment</td>
-    <td><a href="docs/merchantPayment/createMerchantTransaction.Readme.md">Payer Initiated Merchant Payment</a></td>
-    <td>createMerchantTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
+    <td>Request To Pay</td>
+    <td><a href="docs/Collection/RequestToPay.readme.md">Request To Pay</a></td>
+    <td>This operation is used to request a payment from a consumer (Payer). The payer will be asked to authorize the payment. The transaction will be executed once the payer has authorized the payment.</td>
+    <td>Transaction $transaction, string $sCollectionSubKey, string $targetEnvironment, string $callBackUrl=null, string $contentType=null</td>
   </tr>
   <tr>
-    <td rowspan="3">Payee-Initiated Merchant Payment using a Pre-authorised Payment Code</td>
-    <td><a href="docs/merchantPayment/createAuthorisationCode.Readme.md">Obtain an Authorisation Code</a></td>
-    <td>createAuthorisationCode</td>
-    <td>array $accountIdentifier, AuthorisationCode $authorisationCode</td>
+    <td>Request To Pay Delivery Notification</td>
+    <td><a href="docs/Collection/RequestToPayDeliveryNotification.readme.md">Request To Pay Delivery Notification</a></td>
+    <td>This operation is used to send additional Notification to an End User.</td>
+    <td>string $referenceId, string $notificationMessage, string $sCollectionSubKey, string $targetEnvironment,DeliveryNotification $deliveryNotification, string $callbackUrl, string $contentType</td>
   </tr>
   <tr>
-    <td><a href="docs/merchantPayment/createMerchantTransaction.Readme.md">Perform a Merchant Payment</a></td>
-    <td>createMerchantTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
+    <td>Request To Pay Transaction Status</td>
+    <td><a href="docs/Collection/RequestToPayTransactionStatus.readme.md">Request To Pay Transaction Status</a></td>
+    <td>This operation is used to get the status of a request to pay.</td>
+    <td>string $referenceId, string $sCollectionSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
-    <td>Optional <a href="docs/merchantPayment/viewAuthorisationCode.Readme.md">View An Authorisation Code</a></td>
-    <td>viewAuthorisationCode</td>
-    <td>string $accountIdentifier, string $authorisationCode</td>
+    <td>Request To Withdraw Transaction Status</td>
+    <td><a href="docs/Collection/RequestToWithdrawStatus.readme.md">Request To Withdraw Transaction Status</a></td>
+    <td>Used to get the status of a request to withdraw</td>
+    <td>string $referenceId, string $sCollectionSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
-    <td>Merchant Payment Refund</td>
-    <td><a href="docs/merchantPayment/createRefundTransaction.Readme.md">Perform a Merchant Payment Refund</a></td>
-    <td>createRefundTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl=null</td>
+    <td>Request To Withdraw V1</td>
+    <td><a href="docs/Collection/RequestToWithdrawV1.readme.md">Request To Withdraw V1</a></td>
+    <td>Used to request a withdrawal (cash-out) from a consumer (Payer). </td>
+    <td>Transaction $transaction, string $sCollectionSubKey, string $targetEnvironment, string $sCallbackUrl, string $sContentType</td>
   </tr>
   <tr>
-    <td>Merchant Payment Reversal</td>
-    <td><a href="docs/merchantPayment/createReversal.Readme.md">Perform a Merchant Payment Reversal</a></td>
-    <td>createReversal</td>
-    <td>string $transactionReference, Reversal $reversal=null, string $callBackUrl=null</td>
+    <td>Request To Withdraw V2</td>
+    <td><a href="docs/Collection/RequestToWithdrawV2.readme.md">Request To Withdraw V2</a></td>
+    <td>Used to request a withdrawal (cash-out) from a consumer (Payer). </td>
+    <td>Transaction $transaction, string $sCollectionSubKey, string $targetEnvironment, string $sCallbackUrl, string $sContentType</td>
   </tr>
   <tr>
-    <td>Obtain a Merchant Balance</td>
-    <td><a href="docs/merchantPayment/viewAccountBalance.Readme.md">Get an Account Balance</a></td>
-    <td>viewAccountBalance</td>
-    <td>array $accountIdentifier</td>
-  </tr>
-  <tr>
-    <td>Retrieve Payments for a Merchant</td>
-    <td><a href="docs/merchantPayment/viewAccountTransactions.Readme.md">Retrieve a Set of Transactions for an Account</a></td>
-    <td>viewAccountTransactions</td>
-    <td>array $accountIdentifier, array $filter=null</td>
-  </tr>
-  <tr>
-    <td>Check for Service Availability</td>
-    <td><a href="docs/merchantPayment/viewServiceAvailability.Readme.md">Check for Service Availability</a></td>
-    <td>viewServiceAvailability</td>
-    <td>NA</td>
-  </tr>
-  <tr>
-    <td>Retrieve a Missing API Response</td>
-    <td><a href="docs/merchantPayment/viewResponse.Readme.md">Retrieve a Missing Response</a></td>
-    <td>viewResponse</td>
-    <td>string $clientCorrelationId, Object $objRef=null</td>
+    <td>Validate Account Holder Status</td>
+    <td><a href="docs/Collection/ValidateAccountHolder.readme.md">Validate Account Holder Status</a></td>
+    <td>Used to check if an account holder is registered and active in the system </td>
+    <td>string $accountHolderId, string $accountHolderIdType, string $sCollectionSubKey, string $targetEnvironment</td>
   </tr>
 </tbody>
 </table>
