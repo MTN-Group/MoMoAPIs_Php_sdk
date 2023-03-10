@@ -330,7 +330,7 @@ momopsdk\Common\Models\Error Object
   </tr>
   <tr>
     <td>Get Basic User Info</td>
-    <td><a href="docs/Disbursement/GetBasicUserInfo.Readme.md">Get Basic User Info</a></td>
+    <td><a href="docs/Disbursement/GetBasicUserInfo.readme.md">Get Basic User Info</a></td>
     <td>getBasicUserinfo</td>
     <td>string $accountHolderMSISDN, string $sDisbursementSubKey, string $targetEnvironment</td>
   </tr>
@@ -372,7 +372,7 @@ momopsdk\Common\Models\Error Object
   </tr>
   <tr>
     <td>Request To Pay Delivery Notification</td>
-    <td><a href="docs/Disbursement/RequesttoPayDeliveryNotification.readme.md">Request To Pay Delivery Notification</a></td>
+    <td><a href="docs/Disbursement/RequestToPayDeliveryNotification.readme.md">Request To Pay Delivery Notification</a></td>
     <td>requestToPayDeliveryNotification</td>
     <td>string $referenceId, string $notificationMessage, string $sDisbursementSubKey, string $targetEnvironment, DeliveryNotification $deliveryNotification, string $language, string $contentType</td>
   </tr>
@@ -411,7 +411,7 @@ momopsdk\Common\Models\Error Object
   </tr>
   <tr>
     <td>Get Basic User Info</td>
-    <td><a href="/docs/Remittance/GetBasicUserinfo.readme.md">Get Basic User Info</a></td>
+    <td><a href="/docs/Remittance/GetBasicUserInfo.readme.md">Get Basic User Info</a></td>
     <td>getBasicUserinfo</td>
     <td>string $accountHolderMSISDN, string $sRemittanceSubKey, string $targetEnvironment</td>
   </tr>
@@ -430,7 +430,7 @@ momopsdk\Common\Models\Error Object
 
  <tr>
     <td>Request To Pay Delivery Notification</td>
-    <td><a href="/docs/Remittance/RequesttoPayDeliveryNotification.readme.md">Request To Pay Delivery Notification</a></td>
+    <td><a href="/docs/Remittance/RequestToPayDeliveryNotification.readme.md">Request To Pay Delivery Notification</a></td>
     <td>requestToPayDeliveryNotification</td>
     <td>string $referenceId, string $notificationMessage, string $sRemittanceSubKey, string $targetEnvironment, DeliveryNotification $deliveryNotification, string $language, string $contentType</td>
   </tr>
