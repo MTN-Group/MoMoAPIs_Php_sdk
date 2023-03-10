@@ -210,7 +210,7 @@ momopsdk\Common\Models\Error Object
 -   [Remittance](#remittance)
 -   [Sandbox User Provisioning](#sandbox-user-provisioning)
 
-### Collections
+### Collection
 
 <table>
 <thead>
