@@ -2,13 +2,12 @@
 
 namespace momopsdk\Common\Process;
 
-use momopsdk\Collection\Models\StatusResponse;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
 use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Common\Models\CallbackResponse;
+use momopsdk\Common\Models\UserDetail;
 
 /**
  * Class GetBasicUserInfo
@@ -65,7 +64,7 @@ class GetBasicUserInfo extends BaseProcess
 
     /**
      * Function to execute sending of additional Notification to an End User
-     * @return CallbackResponse
+     * @return UserDetail
      */
     public function execute()
     {
@@ -78,6 +77,6 @@ class GetBasicUserInfo extends BaseProcess
             ->setSubscriptionKey($this->subKey)
             ->build();
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new StatusResponse());
+        return $this->parseResponse($response, new UserDetail());
     }
 }

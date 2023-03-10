@@ -27,6 +27,17 @@ class AuthUtil
 
             case SecurityLevel::DEVELOPMENT:
                 self::validateCredentials();
+                $request->httpHeader(
+                    Header::AUTHORIZATION,
+                    EncDecUtil::getBasicAuthHeader(
+                        MobileMoney::getUserId(),
+                        MobileMoney::getApiKey()
+                    )
+                )
+                ->httpHeader(
+                    Header::CONTENT_TYPE,
+                    'application/json'
+                );
                 return $request;
                 break;
 
