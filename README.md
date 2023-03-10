@@ -28,6 +28,7 @@ This document contains the following sections:
     -   [Integration tests](#integration-tests)
     -   [Execute all tests (unit + integration)](#execute-all-tests-unit--integration)
 -   [Samples](#samples)
+-   [Folder Permissions](#folder-permissions)
 
 ## Requirements
 
@@ -551,10 +552,14 @@ cp config.env.sample config.env
 e.g.
 
 ```
-    consumer_key = <your_consumer_key_here>
-    consumer_secret = <your_consumer_secret_here>
-    api_key = <your_api_key_here>
-    callback_url = <your_callback_url_here>
+    reference_id = <User Id here>
+    collection_subscription_key = <Collection subscription key obtained from user profile>
+    disbursement_subscription_key = <Disbursement subscription key obtained from user profile>
+    remittance_subscription_key = <Remittance subscription key obtained from user profile>
+    momo_api_key = <User API key>
+    base_url = <Sandbox base url here>
+    production_base_url = <Production base url here>
+    target_environment = <Your Target environment here>
 ```
 
 -   Run each sample directly from the command line. For example:
@@ -562,3 +567,7 @@ e.g.
 ```
 php sample/Disbursements/DepositV1.php
 ```
+
+## Folder Permissions
+
+Provide permission to the server user in the root folder of the SDK inorder to create authorization cache file. Authorization cache created in path 'var/auth.cache'.
