@@ -225,67 +225,67 @@ momopsdk\Common\Models\Error Object
   <tr>
     <td>Get Account Balance</td>
     <td><a href="docs/Collection/GetAccountBalance.readme.md">Get Account Balance</a></td>
-    <td>Get the balance of the account</td>
+    <td>getAccountBalance</td>
     <td>string $sCollectionSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
     <td>Get Account Balance In Specific Currency</td>
     <td><a href="docs/Collection/GetAccountBalanceInSpecificCurrency.readme.md">Get Account Balance In Specific Currency</a></td>
-    <td>Get the balance of the account in specific currency</td>
+    <td></td>
     <td>string $sSubsKey, string $sTargetEnvironment, string $sCurrency</td>
   </tr>
   <tr>
     <td>Get Basic User Info</td>
     <td><a href="docs/Collection/GetBasicUserInfo.readme.md">Get Basic User Info</a></td>
-    <td>returns personal information of the account holder</td>
+    <td>getBasicUserinfo</td>
     <td>string $accountHolderMSISDN, string $sCollectionSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
     <td>Get User Info With Consent</td>
     <td><a href="docs/Collection/GetUserInfoWithConsent.readme.md">Get User Info With Consent</a></td>
-    <td>claim a consent by the account holder for the requested scopes</td>
+    <td>getUserInfoWithConsent</td>
     <td>string $sCollectionSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
     <td>Request To Pay</td>
     <td><a href="docs/Collection/RequestToPay.readme.md">Request To Pay</a></td>
-    <td>This operation is used to request a payment from a consumer (Payer). The payer will be asked to authorize the payment. The transaction will be executed once the payer has authorized the payment.</td>
+    <td>requestToPay</td>
     <td>Transaction $transaction, string $sCollectionSubKey, string $targetEnvironment, string $callBackUrl=null, string $contentType=null</td>
   </tr>
   <tr>
     <td>Request To Pay Delivery Notification</td>
     <td><a href="docs/Collection/RequestToPayDeliveryNotification.readme.md">Request To Pay Delivery Notification</a></td>
-    <td>This operation is used to send additional Notification to an End User.</td>
+    <td>requestToPayDeliveryNotification</td>
     <td>string $referenceId, string $notificationMessage, string $sCollectionSubKey, string $targetEnvironment,DeliveryNotification $deliveryNotification, string $callbackUrl, string $contentType</td>
   </tr>
   <tr>
     <td>Request To Pay Transaction Status</td>
     <td><a href="docs/Collection/RequestToPayTransactionStatus.readme.md">Request To Pay Transaction Status</a></td>
-    <td>This operation is used to get the status of a request to pay.</td>
+    <td>requestToPayTransactionStatus</td>
     <td>string $referenceId, string $sCollectionSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
     <td>Request To Withdraw Transaction Status</td>
     <td><a href="docs/Collection/RequestToWithdrawStatus.readme.md">Request To Withdraw Transaction Status</a></td>
-    <td>Used to get the status of a request to withdraw</td>
+    <td>requestToWithdrawTransactionStatus</td>
     <td>string $referenceId, string $sCollectionSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
     <td>Request To Withdraw V1</td>
     <td><a href="docs/Collection/RequestToWithdrawV1.readme.md">Request To Withdraw V1</a></td>
-    <td>Used to request a withdrawal (cash-out) from a consumer (Payer). </td>
+    <td>requestToWithdrawV1</td>
     <td>Transaction $transaction, string $sCollectionSubKey, string $targetEnvironment, string $sCallbackUrl, string $sContentType</td>
   </tr>
   <tr>
     <td>Request To Withdraw V2</td>
     <td><a href="docs/Collection/RequestToWithdrawV2.readme.md">Request To Withdraw V2</a></td>
-    <td>Used to request a withdrawal (cash-out) from a consumer (Payer). </td>
+    <td>requestToWithdrawV2</td>
     <td>Transaction $transaction, string $sCollectionSubKey, string $targetEnvironment, string $sCallbackUrl, string $sContentType</td>
   </tr>
   <tr>
     <td>Validate Account Holder Status</td>
     <td><a href="docs/Collection/ValidateAccountHolder.readme.md">Validate Account Holder Status</a></td>
-    <td>Used to check if an account holder is registered and active in the system </td>
+    <td>validateAccountHolderStatus</td>
     <td>string $accountHolderId, string $accountHolderIdType, string $sCollectionSubKey, string $targetEnvironment</td>
   </tr>
 </tbody>
@@ -306,85 +306,85 @@ momopsdk\Common\Models\Error Object
   <tr>
     <td>Deposit V1</td>
     <td><a href="docs/Disbursement/DepositV1.readme.md">Deposit V1 </a></td>
-    <td>Deposit operation is used to deposit an amount from the owner’s account to a payee account</td>
+    <td>depositV1</td>
     <td>DepositModel $oReqDataObject, string $sDisbursementSubKey, string targetEnvironment, string $callbackUrl</td>
   </tr>
   <tr>
     <td>Deposit V2</td>
     <td><a href="docs/Disbursement/DepositV2.readme.md">Deposit V2</a></td>
-    <td>Deposit operation is used to deposit an amount from the owner’s account to a payee account</td>
+    <td>depositV2</td>
     <td>DepositModel $oReqDataObject, string $sDisbursementSubKey, string targetEnvironment, string $callbackUrl</td>
   </tr>
   <tr>
     <td>Get Account Balance</td>
     <td><a href="docs/Disbursement/GetAccountBalance.readme.md">Get Account Balance</a></td>
-    <td>Get the balance of the account.</td>
+    <td>getAccountBalance</td>
     <td>string $sDisbursementSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
     <td>Get Account Balance In Specific Currency</td>
     <td><a href="docs/Disbursement/GetAccountBalanceInSpecificCurrency.readme.md">Get Account Balance In Specific Currency</a></td>
-    <td>Get the balance of the account in specific currency</td>
+    <td>getAccountBalanceInSpecificCurrency</td>
     <td>string $sDisbursementSubKey, string $targetEnvironment, 'EUR'</td>
   </tr>
   <tr>
     <td>Get Basic User Info</td>
     <td><a href="docs/Disbursement/GetBasicUserInfo.Readme.md">Get Basic User Info</a></td>
-    <td>This operation returns personal information of the account holder.</td>
+    <td>getBasicUserinfo</td>
     <td>string $accountHolderMSISDN, string $sDisbursementSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
     <td>Get Deposit Status</td>
     <td><a href="docs/Disbursement/GetDepositStatus.readme.md">Get Deposit Status</a></td>
-    <td>Used to get the status of a deposit</td>
+    <td>getDepositStatus</td>
     <td>string $sDisbursementSubKey, string $targetEnvironment, string $sRefId</td>
   </tr>
   <tr>
     <td>GetRefundStatus</td>
     <td><a href="docs/Disbursement/GetRefundStatus.readme.md">GetRefundStatus</a></td>
-    <td>Used to get the status of a refund</td>
+    <td>getRefundStatus</td>
     <td>string $sDisbursementSubKey, string $targetEnvironment, string $sRefId</td>
   </tr>
   <tr>
     <td>Get Transfer Status</td>
     <td><a href="docs/Disbursement/GetTransferStatus.readme.md">Get Transfer Status</a></td>
-    <td>Used to get the status of a transfer</td>
+    <td>getTransferStatus</td>
     <td>string $sDisbursementSubKey, string $targetEnvironment, string $sRefId</td>
   </tr>
   <tr>
     <td>Get User Info With Consent</td>
     <td><a href="docs/Disbursement/GetUserInfoWithConsent.readme.md">Get User Info With Consent</a></td>
-    <td>Used to claim a consent by the account holder for the requested scopes.</td>
+    <td>getUserInfoWithConsent</td>
     <td> string $sDisbursementSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
     <td>Refund V1</td>
     <td><a href="docs/Disbursement/RefundV1.readme.md">Refund V1</a></td>
-    <td>Refund operation is used to refund an amount from the owner’s account to a payee account.</td>
+    <td>refundV1</td>
     <td>RefundModel $oReqDataObject, string $sDisbursementSubKey, string $targetEnvironment, string $callbackUrl</td>
   </tr>
   <tr>
     <td>Refund V2</td>
     <td><a href="docs/Disbursement/RefundV2.readme.md">Refund V2</a></td>
-    <td>Refund operation is used to refund an amount from the owner’s account to a payee account.</td>
+    <td>refundV2</td>
     <td>RefundModel $oReqDataObject, string $sDisbursementSubKey, string $targetEnvironment, string $callbackUrl</td>
   </tr>
   <tr>
     <td>Request To Pay Delivery Notification</td>
     <td><a href="docs/Disbursement/RequesttoPayDeliveryNotification.readme.md">Request To Pay Delivery Notification</a></td>
-    <td>used to send additional Notification to an End User.</td>
+    <td>requestToPayDeliveryNotification</td>
     <td>string $referenceId, string $notificationMessage, string $sDisbursementSubKey, string $targetEnvironment, DeliveryNotification $deliveryNotification, string $language, string $contentType</td>
   </tr>
   <tr>
     <td>Transfer</td>
     <td><a href="docs/Disbursement/Transfer.readme.md">Transfer</a></td>
-    <td>Used to transfer an amount from the own account to a payee account</td>
+    <td>transfer</td>
     <td>DepositModel $oReqDataObject, string $sDisbursementSubKey, string $targetEnvironment, string $callbackUrl</td>
   </tr>
   <tr>
     <td>Validate Account Holder Status</td>
     <td><a href="docs/Disbursement/ValidateAccountHolderStatus.readme.md">Validate Account Holder Status</a></td>
-    <td>Used to check if an account holder is registered and active in the system.</td>
+    <td>validateAccountHolderStatus</td>
     <td></td>
   </tr>
 </tbody>
@@ -405,71 +405,51 @@ momopsdk\Common\Models\Error Object
   <tr>
     <td>Get Account Balance</td>
     <td><a href="/docs/Remittance/GetAccountBalance.readme.md">Get Account Balance</a></td>
-    <td>Get the balance of the account.</td>
-    <td>string$sRemittanceSubKey, string $targetEnvironment</td>
+    <td>getAccountBalance</td>
+    <td>string $sRemittanceSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
-    <td><a href="/docs/internationalTransfer/createInternationalTransaction.Readme.md">Perform an International Transfer</a></td>
-    <td>createInternationalTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
+    <td>Get Basic User Info</td>
+    <td><a href="/docs/Remittance/GetBasicUserinfo.readme.md">Get Basic User Info</a></td>
+    <td>getBasicUserinfo</td>
+    <td>string $accountHolderMSISDN, string $sRemittanceSubKey, string $targetEnvironment</td>
   </tr>
   <tr>
-    <td>Optional <a href="/docs/internationalTransfer/viewQuotation.Readme.md">View A Quotation</a></td>
-    <td>viewQuotation</td>
-    <td>String quotationReference</td>
+    <td>Get Transfer Status</td>
+    <td><a href="/docs/Remittance/GetTransferStatus.readme.md">Get Transfer Status</a></td>
+    <td>getTransferStatus</td>
+    <td>string $sRemittanceSubKey, string $targetEnvironment, string $sRefId</td>
   </tr>
   <tr>
-    <td rowspan="3">Bilateral International Transfer</td>
-    <td><a href="/docs/internationalTransfer/createQuotation.Readme.md">Request a International Transfer Quotation</a></td>
-    <td>createQuotation</td>
-    <td>Quotation quotation, string $callBackUrl = null</td>
+    <td>Get User Info With Consent</td>
+    <td><a href="/docs/Remittance/GetUserInfoWithConsent.readme.md">Get User Info With Consent</a></td>
+    <td>getUserInfoWithConsent</td>
+    <td>string $sRemittanceSubKey, string $targetEnvironment</td>
   </tr>
 
  <tr>
-    <td><a href="/docs/internationalTransfer/createInternationalTransaction.Readme.md">Perform an International Transfer</a></td>
-    <td>createInternationalTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
+    <td>Request To Pay Delivery Notification</td>
+    <td><a href="/docs/Remittance/RequesttoPayDeliveryNotification.readme.md">Request To Pay Delivery Notification</a></td>
+    <td>requestToPayDeliveryNotification</td>
+    <td>string $referenceId, string $notificationMessage, string $sRemittanceSubKey, string $targetEnvironment, DeliveryNotification $deliveryNotification, string $language, string $contentType</td>
   </tr>
   <tr>
-    <td>Optional <a href="/docs/internationalTransfer/viewQuotation.Readme.md">View A Quotation</a></td>
-    <td>viewQuotation</td>
-    <td>String quotationReference</td>
+    <td>Transfer</td>
+    <td><a href="/docs/Remittance/Transfer.readme.md">Transfer</a></td>
+    <td>transfer</td>
+    <td>DepositModel $oReqDataObject, string $sRemittanceSubKey, string $targetEnvironment, string $callbackUrl</td>
   </tr>
   <tr>
   <tr>
-    <td>International Transfer Reversal</td>
-    <td><a href="/docs/internationalTransfer/createReversal.Readme.md">Perform a Transaction Reversal</a></td>
-    <td>createReversal</td>
-    <td>string $transactionReference, Reversal $reversal=null, string $callBackUrl=null</td>
-  </tr>
-  <tr>
-    <td>Obtain an FSP Balance</td>
-    <td><a href="/docs/internationalTransfer/viewAccountBalance.Readme.md">Get an Account Balance</a></td>
-    <td>viewAccountBalance</td>
-    <td>array $accountIdentifier</td>
-  </tr>
-  <tr>
-    <td>Retrieve Transactions for an FSP</td>
-    <td><a href="/docs/internationalTransfer/viewAccountTransactions.Readme.md">Retrieve a Set of Transactions for an Account</a></td>
-    <td>viewAccountTransactions</td>
-    <td>array $accountIdentifier, array $filter=null</td>
-  </tr>
-  <tr>
-    <td>Check for Service Availability</td>
-    <td><a href="/docs/internationalTransfer/viewServiceAvailability.Readme.md">Check for Service Availability</a></td>
-    <td>viewServiceAvailability</td>
-    <td>NA</td>
-  </tr>
-  <tr>
-    <td>Retrieve a Missing API Response</td>
-    <td><a href="/docs/internationalTransfer/viewResponse.Readme.md">Retrieve a Missing Response</a></td>
-    <td>viewResponse</td>
-    <td>string $clientCorrelationId, Object $objRef=null</td>
+    <td>Validate Account Holder Status</td>
+    <td><a href="/docs/Remittance/ValidateAccountHolderStatus.readme.md">Validate Account Holder Status</a></td>
+    <td>validateAccountHolderStatus</td>
+    <td>string $validateAccountHolderStatus, string $accountHolderIdType, string $sRemittanceSubKey, string $targetEnvironment</td>
   </tr>
 </tbody>
 </table>
 
-### P2P Transfers
+### Sandbox User Provisioning
 
 <table>
 <thead>
@@ -482,430 +462,26 @@ momopsdk\Common\Models\Error Object
 </thead>
 <tbody>
   <tr>
-    <td rowspan="3">P2P Transfer via Switch</td>
-    <td><a href="/docs/p2pTransfer/viewAccountName.Readme.md">Retrieve the Name of the Recipient</a></td>
-    <td>viewAccountName</td>
-    <td>array $accountIdentifier</td>
+    <td>Create user</td>
+    <td><a href="/docs/SandboxUserProvisioning/CreateApiUser.readme.md">Create Api User</a></td>
+    <td>createUser</td>
+    <td>array $aData, string $sCollectionSubKey</td>
   </tr>
   <tr>
-    <td><a href="/docs/p2pTransfer/createQuotation.Readme.md">Request a P2P Quotation</a></td>
-    <td>createQuotation</td>
-    <td>Quotation quotation, string $callBackUrl = null</td>
+    <td>Get User Details</td>
+    <td><a href="/docs/SandboxUserProvisioning/GetApiUserDetails.readme.md">Get User Details</a></td>
+    <td>getUserDetails</td>
+    <td>string $sCollectionSubKey, string $sRefId</td>
   </tr>
   <tr>
-    <td><a href="/docs/p2pTransfer/createTransferTransaction.Readme.md">Perform a P2P Transfer</a></td>
-    <td>createTransferTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td rowspan="2">Bilateral P2P Transfer</td>
-    <td><a href="/docs/p2pTransfer/viewAccountName.Readme.md">Retrieve the Name of the Recipient</a></td>
-    <td>viewAccountName</td>
-    <td>array $accountIdentifier</td>
-  </tr>
-  <tr>
-    <td><a href="/docs/p2pTransfer/createTransferTransaction.Readme.md">Perform a P2P Transfer</a></td>
-    <td>createTransferTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td rowspan="3">‘On-us’ P2P Transfer Initiated by a Third Party Provider</td>
-    <td><a href="/docs/p2pTransfer/viewAccountName.Readme.md">Retrieve the Name of the Recipient</a></td>
-    <td>viewAccountName</td>
-    <td>array $accountIdentifier</td>
-  </tr>
-  <tr>
-    <td><a href="/docs/p2pTransfer/createQuotation.Readme.md">Request a P2P Quotation</a></td>
-    <td>createQuotation</td>
-    <td>Quotation quotation, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td><a href="/docs/p2pTransfer/createTransferTransaction.Readme.md">Perform a P2P Transfer</a></td>
-    <td>createTransferTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td>P2P Transfer Reversal</td>
-    <td><a href="/docs/p2pTransfer/createReversal.Readme.md">Perform a Transaction Reversal</a></td>
-    <td>createReversal</td>
-    <td>string $transactionReference, Reversal $reversal=null, string $callBackUrl=null</td>
-  </tr>
-  <tr>
-    <td>Obtain an FSP Balance</td>
-    <td><a href="/docs/p2pTransfer/viewAccountBalance.Readme.md">Get an Account Balance</a></td>
-    <td>viewAccountBalance</td>
-    <td>array $accountIdentifier</td>
-  </tr>
-   <tr>
-    <td>Retrieve Transactions for an FSP</td>
-    <td><a href="/docs/p2pTransfer/viewAccountTransactions.Readme.md">Retrieve a Set of Transactions for an Account</a></td>
-    <td>viewAccountTransactions</td>
-    <td>array $accountIdentifier, array $filter=null</td>
-  </tr>
-  <tr>
-    <td>Check for Service Availability</td>
-    <td><a href="/docs/p2pTransfer/viewServiceAvailability.Readme.md">Check for Service Availability</a></td>
-    <td>viewServiceAvailability</td>
-    <td>NA</td>
-  </tr>
-  <tr>
-    <td>Retrieve a Missing API Response</td>
-    <td><a href="/docs/p2pTransfer/viewResponse.Readme.md">Retrieve a Missing Response</a></td>
-    <td>viewResponse</td>
-    <td>string $clientCorrelationId, Object $objRef=null</td>
+    <td>Create API key</td>
+    <td><a href="/docs/SandboxUserProvisioning/GetApiKey.readme.md">Create API key</a></td>
+    <td>createApiKey</td>
+    <td>string $sCollectionSubKey, string $sRefId</td>
   </tr>
 </tbody>
 </table>
 
-### Recurring Payments
-
-<table>
-<thead>
-  <tr>
-    <th>Scenarios</th>
-    <th>API</th>
-    <th>Function</th>
-    <th>Parameters</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>Setup a Recurring Payment</td>
-    <td><a href="/docs/recurringPayment/createAccountDebitMandate.Readme.md">Setup a Recurring Payment</a></td>
-    <td>createAccountDebitMandate</td>
-    <td>array $accountIdentifier, DebitMandate $debitMandate, $callBackUrl = null</td>
-  </tr>
-
-  <tr>
-    <td>Take a Recurring Payment</td>
-    <td><a href="/docs/recurringPayment/createMerchantTransaction.Readme.md">Take a Recurring Payment</a></td>
-    <td>createMerchantTransaction</td>
-    <td>NA</td>
-  </tr>
-
-  <tr>
-    <td rowspan="3">Take a Recurring Payment using the Polling Method</td>
-    <td><a href="/docs/recurringPayment/createMerchantTransaction.Readme.md">Take a Recurring Payment</a></td>
-    <td>createMerchantTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td><a href="/docs/recurringPayment/viewRequestState.Readme.md">Poll to Determine the Request State</a></td>
-    <td>viewRequestState</td>
-    <td>string serverCorrelationId</td>
-  </tr>
-  <tr>
-    <td><a href="/docs/recurringPayment/viewTransaction.Readme.md">Retrieve a Transaction</a></td>
-    <td>viewTransaction</td>
-    <td>string $transactionReference</td>
-  </tr>
-
-  <tr>
-    <td>Recurring Payment Refund</td>
-    <td><a href="/docs/recurringPayment/createRefundTransaction.Readme.md">Perform a Recurring Payment Refund</a></td>
-    <td>createRefundTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl=null</td>
-  </tr>
-
-  <tr>
-    <td>Recurring Payment Reversal</td>
-    <td><a href="/docs/recurringPayment/createReversal.Readme.md">Perform a Merchant Payment Reversal</a></td>
-    <td>createReversal</td>
-    <td>string $transactionReference, Reversal $reversal=null, string $callBackUrl=null</td>
-  </tr>
-
-  <tr>
-    <td>Payer sets up a Recurring Payment using MMP Channel</td>
-    <td><a href="/docs/recurringPayment/createAccountDebitMandate.Readme.md">Setup a Recurring Payment</a></td>
-    <td>createAccountDebitMandate</td>
-    <td>array $accountIdentifier, DebitMandate $debitMandate, $callBackUrl = null</td>
-  </tr>
-
-  <tr>
-    <td>Obtain a Service Provider Balance</td>
-    <td><a href="/docs/recurringPayment/viewAccountBalance.Readme.md">Get an Account Balance</a></td>
-    <td>viewAccountBalance</td>
-    <td>array $accountIdentifier</td>
-  </tr>
-
-  <tr>
-    <td>Retrieve Payments for a Service Provider</td>
-    <td><a href="/docs/recurringPayment/viewAccountTransactions.Readme.md">Retrieve a Set of Transactions for an Account</a></td>
-    <td>viewAccountTransactions</td>
-    <td>array $accountIdentifier, array $filter=null</td>
-  </tr>
-
-  <tr>
-    <td>Check for Service Availability</td>
-    <td><a href="/docs/recurringPayment/viewServiceAvailability.Readme.md">Check for Service Availability</a></td>
-    <td>viewServiceAvailability</td>
-    <td>NA</td>
-  </tr>
-
-  <tr>
-    <td>Retrieve a Missing API Response</td>
-    <td><a href="/docs/recurringPayment/viewResponse.Readme.md">Retrieve a Missing Response</a></td>
-    <td>viewResponse</td>
-    <td>string $clientCorrelationId, Object $objRef=null</td>
-  </tr>
-</tbody>
-</table>
-
-### Account Linking
-
-<table>
-<thead>
-  <tr>
-    <th>Scenarios</th>
-    <th>API</th>
-    <th>Function</th>
-    <th>Parameters</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>Setup an Account Link</td>
-    <td><a href="/docs/accountLinking/createAccountLink.Readme.md">Establish an Account to Account Link</a></td>
-    <td>createAccountLink</td>
-    <td>array $accountIdentifier, Link $link</td>
-  </tr>
-  <tr>
-    <td>Perform a Transfer for a Linked Account</td>
-    <td><a href="/docs/accountLinking/createTransferTransaction.Readme.md">Use a Link to make a Transfer</a></td>
-    <td>createTransferTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td rowspan="3">Perform a Transfer using an Account Link via the Polling Method</td>
-    <td><a href="/docs/accountLinking/createTransferTransaction.Readme.md">Use a Link to make a Transfer</a></td>
-    <td>createTransferTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td><a href="docs/accountLinking/viewRequestState.Readme.md">Poll to Determine the Request State</a></td>
-    <td>viewRequestState</td>
-    <td>string $serverCorrelationId</td>
-  </tr>
-  <tr>
-    <td><a href="docs/accountLinking/viewTransaction.Readme.md">Retrieve a Transaction</a></td>
-    <td>viewTransaction</td>
-    <td>string $transactionReference</td>
-  </tr>
-  <tr>
-    <td>Perform a Transfer Reversal</td>
-    <td><a href="/docs/accountLinking/createReversal.Readme.md">Perform a Transaction Reversal</a></td>
-    <td>createReversal</td>
-    <td>string $transactionReference, Reversal $reversal=null, string $callBackUrl=null</td>
-  </tr>
-  <tr>
-    <td>Obtain a Financial Service Provider Balance</td>
-    <td><a href="/docs/accountLinking/viewAccountBalance.Readme.md">Get an Account Balance</a></td>
-    <td>viewAccountBalance</td>
-    <td>array $accountIdentifier</td>
-  </tr>
-   <tr>
-    <td>Retrieve Transfers for a Financial Service Provider</td>
-    <td><a href="/docs/accountLinking/viewAccountTransactions.Readme.md">Retrieve a Set of Transactions for an Account</a></td>
-    <td>viewAccountTransactions</td>
-    <td>array $accountIdentifier, array $filter=null</td>
-  </tr>
-  <tr>
-    <td>Check for Service Availability</td>
-    <td><a href="/docs/accountLinking/viewServiceAvailability.Readme.md">Check for Service Availability</a></td>
-    <td>viewServiceAvailability</td>
-    <td>NA</td>
-  </tr>
-  <tr>
-    <td rowspan="2">Retrieve a Missing API Response</td>
-    <td><a href="/docs/accountLinking/viewResponse.Readme.md">Retrieve a Missing Response</a></td>
-    <td>viewResponse</td>
-    <td>string $clientCorrelationId, Object $objRef=null</td>
-  </tr>
-</tbody>
-</table>
-
-### Bill Payments
-
-<table>
-<thead>
-  <tr>
-    <th>Scenarios</th>
-    <th>API</th>
-    <th>Function</th>
-    <th>Parameters</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>Successful Retrieval of Bills</td>
-    <td><a href="/docs/billPayment/viewAccountBills.Readme.md">Retrieve a Set of Bills</a></td>
-    <td>viewAccountBills</td>
-    <td>array $accountIdentifier, array $filter = null</td>
-  </tr>
-  <tr>
-    <td rowspan="2">Make a Successful Bill Payment with Callback</td>
-    <td><a href="/docs/billPayment/createBillTransaction.Readme.md">Create a Bill Transaction</a></td>
-    <td>createBillTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td><a href="/docs/billPayment/createBillPayment.Readme.md">Make a Bill Payment</a></td>
-    <td>createBillPayment</td>
-    <td>array $accountIdentifier, string $billReference, BillPay $billPay, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td rowspan="3">Make a Bill Payment with Polling</td>
-    <td><a href="/docs/billPayment/createBillPayment.Readme.md">Make a Bill Payment</a></td>
-    <td>createBillPayment</td>
-    <td>array $accountIdentifier, string $billReference, BillPay $billPay, string $callBackUrl = null</td>
-  </tr>
-   <tr>
-    <td><a href="/docs/billPayment/viewRequestState.Readme.md">Poll to Determine the Request State</a></td>
-    <td>viewRequestState</td>
-    <td>string $serverCorrelationId</td>
-  </tr>
-  <tr>
-    <td><a href="/docs/billPayment/viewBillPayment.Readme.md">Retrieve Bill Payments for a Given Bill</a></td>
-    <td>viewBillPayment</td>
-    <td>array $accountIdentifier, string $billReference, array $filter=null</td>
-  </tr>
-   <tr>
-    <td>Retrieval of Bill Payments</td>
-    <td><a href="/docs/billPayment/viewBillPayment.Readme.md">Retrieve a Set of Bill Payments</a></td>
-    <td>viewBillPayment</td>
-    <td>array $accountIdentifier, string $billReference, array $filter=null</td>
-  </tr>
-  <tr>
-    <td>Check for Service Availability</td>
-    <td><a href="/docs/billPayment/viewServiceAvailability.Readme.md">Check for Service Availability</a></td>
-    <td>viewServiceAvailability</td>
-    <td>NA</td>
-  </tr>
-  <tr>
-    <td>Retrieve a Missing API Response</td>
-    <td><a href="/docs/billPayment/viewBillPayment.Readme.md">Retrieve a Missing Response</a></td>
-    <td>viewResponse</td>
-    <td>string $clientCorrelationId, Object $objRef=null</td>
-  </tr>
-</tbody>
-</table>
-
-### Agent Services
-
-<table>
-<thead>
-  <tr>
-    <th>Scenarios</th>
-    <th>API</th>
-    <th>Function</th>
-    <th>Parameters</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td>Agent-initiated Cash-out</td>
-    <td><a href="docs/agentService/createWithdrawalTransaction.Readme.md">Agent Initiated Cash-Out</a></td>
-    <td>createWithdrawalTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td rowspan="3">Agent-initiated Cash-out using the Polling Method</td>
-    <td><a href="docs/agentService/createWithdrawalTransaction.Readme.md">Agent Initiated Cash-out</a></td>
-    <td>createWithdrawalTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td><a href="docs/agentService/viewRequestState.Readme.md">Poll to Determine the Request State</a></td>
-    <td>viewRequestState</td>
-    <td>string $serverCorrelationId</td>
-  </tr>
-  <tr>
-    <td><a href="docs/agentService/viewTransaction.Readme.md">Retrieve a Transaction</a></td>
-    <td>viewTransaction</td>
-    <td>string $transactionReference</td>
-  </tr>
-  <tr>
-    <td>Customer-initiated Cash-out</td>
-    <td><a href="docs/agentService/createWithdrawalTransaction.Readme.md">Customer Initiated Cash-Out</a></td>
-    <td>createWithdrawalTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td rowspan="3">Customer Cash-out at an ATM using an Authorisation Code</td>
-    <td><a href="docs/agentService/createAuthorisationCode.Readme.md">Obtain an Authorisation Code</a></td>
-    <td>createAuthorisationCode</td>
-    <td>array $accountIdentifier, AuthorisationCode $authorisationCode</td>
-  </tr>
-  <tr>
-    <td><a href="docs/agentService/createWithdrawalTransaction.Readme.md">ATM Initiated Cash-Out</a></td>
-    <td>createWithdrawalTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td><a href="docs/agentService/viewAuthorisationCode.Readme.md">Retrieve Authorisation Code</a></td>
-    <td>viewAuthorisationCode</td>
-    <td>string $accountIdentifier, string $authorisationCode</td>
-  </tr>
-  <tr>
-    <td rowspan="2">Agent-initiated Customer Cash-in</td>
-    <td><a href="docs/agentService/viewAccountName.Readme.md">Retrieve the Name of the Depositing Customer</a></td>
-    <td>viewAccountName</td>
-    <td>array $accountIdentifier</td>
-  </tr>
-  <tr>
-    <td><a href="docs/agentService/createDepositTransaction.Readme.md">Agent Initiated Cash-in</a></td>
-    <td>createDepositTransaction</td>
-    <td>Transaction $transaction, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td>Cash-out Reversal</td>
-    <td><a href="docs/agentService/createReversal.Readme.md">Perform a Transaction Reversal</a></td>
-    <td>createReversal</td>
-    <td>string $transactionReference, Reversal $reversal=null, string $callBackUrl=null</td>
-  </tr>
-  <tr>
-    <td>Register a Customer Mobile Money Account</td>
-    <td><a href="docs/agentService/createAccount.Readme.md">Create a Mobile Money Account</a></td>
-    <td>createAccount</td>
-    <td>Account $account, string $callBackUrl = null</td>
-  </tr>
-  <tr>
-    <td rowspan="2">Verify the KYC of a Customer</td>
-    <td><a href="docs/agentService/viewAccount.Readme.md">Retrieve Account Information</a></td>
-    <td>viewAccount</td>
-    <td>array $accountIdentifier</td>
-  </tr>
-  <tr>
-    <td><a href="docs/agentService/updateAccountIdentity.Readme.md">Update KYC Verification Status</a></td>
-    <td>updateAccountIdentity</td>
-    <td>array $accountIdentifier, String identityId, array $patchData, string $callBackUrl=null</td>
-  </tr>
-  <tr>
-    <td>Obtain an Agent Balance</td>
-    <td><a href="docs/agentService/viewAccountBalance.Readme.md">Obtain an Agent Balance</a></td>
-    <td>viewAccountBalance</td>
-    <td>array $accountIdentifier</td>
-  </tr>
-  <tr>
-    <td>Retrieve Transactions for an Agent</td>
-    <td><a href="docs/agentService/viewAccountTransactions.Readme.md">Retrieve a Set of Transactions for an Account</a></td>
-    <td>viewAccountTransactions</td>
-    <td>array $accountIdentifier, array $filter=null</td>
-  </tr>
-  <tr>
-    <td>Check for Service Availability</td>
-    <td><a href="docs/agentService/viewServiceAvailability.Readme.md">Check for Service Availability</a></td>
-    <td>viewServiceAvailability</td>
-    <td>NA</td>
-  </tr>
-  <tr>
-  <td>Retrieve a Missing API Response</td>
-    <td><a href="docs/agentService/viewResponse.Readme.md">Retrieve a Missing Response</a></td>
-    <td>viewResponse</td>
-    <td>string $clientCorrelationId, Object $objRef=null</td>
-  </tr>
-</tbody>
-</table>
 
 ## Tests
 
@@ -922,13 +498,13 @@ These tests are located in `tests/Unit` and are responsible for ensuring each cl
 To run unit tests,
 
 ```shell
-composer run unit-tests
+composer run unit-test
 ```
 
 To run tests individually (be sure not to be pointing to an integration test file):
 
 ```shell
-composer run unit-tests path/to/class/file
+composer run unit-test path/to/class/file
 ```
 
 ### Integration tests
@@ -960,8 +536,8 @@ The sample code snippets are all completely independent and self-contained. You 
 -   Clone this repository:
 
 ```
-git clone git@github.com:gsmainclusivetechlab/mmapi-php-sdk.git
-cd mmapi-php-sdk
+git clone git@github.com:gsmainclusivetechlab/momoapi-php-sdk.git
+cd momoapi-php-sdk
 ```
 
 -   Create config.env file for API credentials:
@@ -984,5 +560,5 @@ e.g.
 -   Run each sample directly from the command line. For example:
 
 ```
-php sample/MerchantPayment/InitiatePayment.php
+php sample/Disbursements/DepositV1.php
 ```
