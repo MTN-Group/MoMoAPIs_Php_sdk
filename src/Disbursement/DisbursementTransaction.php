@@ -151,7 +151,8 @@ class DisbursementTransaction
         $oDeliveryNotification,
         $sLanguage,
         $sContentType = null
-    ) {
+    )
+    {
         return new RequestToPayDeliveryNotification(
             $sReferenceId,
             $sNotificationMessage,
@@ -191,7 +192,8 @@ class DisbursementTransaction
         $sAccountHolderIdType,
         $sSubKey,
         $sTargetEnvironment
-    ) {
+    )
+    {
         return new ValidateAccountHolder(
             $sAccountHolderId,
             $sAccountHolderIdType,

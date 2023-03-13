@@ -232,7 +232,7 @@ momopsdk\Common\Models\Error Object
   <tr>
     <td>Get Account Balance In Specific Currency</td>
     <td><a href="docs/Collection/GetAccountBalanceInSpecificCurrency.readme.md">Get Account Balance In Specific Currency</a></td>
-    <td></td>
+    <td>getAccountBalanceInSpecificCurrency</td>
     <td>string $sSubsKey, string $sTargetEnvironment, string $sCurrency</td>
   </tr>
   <tr>
@@ -486,7 +486,7 @@ momopsdk\Common\Models\Error Object
 
 ## Tests
 
-The `tests` folder contains the test cases. These are logically divided in unit and integration tests. Integration tests require an active `consumer key`, `consumer secret` and `api key`.
+The `tests` folder contains the test cases. These are logically divided in unit and integration tests. Integration tests require an active `consumer key`, `consumer secret` and `api key`. To run tests provide necessary permission to the system user in the root folder to create the cache file. Auth cache will be created in the path /var/auth.cache. 
 
 1. Install [Composer](https://getcomposer.org/download/)
 2. From the root of the sdk-php project, run `composer install --dev` to install the dependencies
