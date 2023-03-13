@@ -6,7 +6,6 @@ use momopsdk\Disbursement\DisbursementTransaction;
 try {
 
     $request = DisbursementTransaction::getAccountBalanceInSpecificCurrency($sDisbursementSubKey, $targetEnvironment, 'EUR');
-
     $response = $request->execute();
     print_r($response);
 } catch (Throwable $e) {
