@@ -560,6 +560,8 @@ e.g.
     base_url = <Sandbox base url here>
     production_base_url = <Production base url here>
     target_environment = <Your Target environment here>
+    oauth2_token_data = <form data to be submitted for the generation of API token>
+    bc_authorize_form_data = <form data for the bc-authorize api>
 ```
 
 -   Run each sample directly from the command line. For example:
