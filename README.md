@@ -565,7 +565,7 @@ e.g.
 -   Run each sample directly from the command line. For example:
 
 ```
-php sample/Disbursements/DepositV1.php
+php -f sample/Disbursements/DepositV1.php
 ```
 
 ## Folder Permissions
