@@ -72,7 +72,7 @@ class DisbursementTransaction
         );
     }
 
-     /**
+    /**
      * Function to deposit owner's account to payee account
      * @param $oDeposit, $sSubKey, $sTargetEnvironment, $sCallBackUrl
      * @return object
@@ -151,8 +151,7 @@ class DisbursementTransaction
         $oDeliveryNotification,
         $sLanguage,
         $sContentType = null
-    )
-    {
+    ) {
         return new RequestToPayDeliveryNotification(
             $sReferenceId,
             $sNotificationMessage,
@@ -192,8 +191,7 @@ class DisbursementTransaction
         $sAccountHolderIdType,
         $sSubKey,
         $sTargetEnvironment
-    )
-    {
+    ) {
         return new ValidateAccountHolder(
             $sAccountHolderId,
             $sAccountHolderIdType,
@@ -213,7 +211,7 @@ class DisbursementTransaction
         );
     }
 
-    public function getAccountBalanceInSpecificCurrency($sSubKey, $sTargetEnvironment, $sCurrency)
+    public static function getAccountBalanceInSpecificCurrency($sSubKey, $sTargetEnvironment, $sCurrency)
     {
         return new GetBalanceInSpecificCurrency(
             $sSubKey,
