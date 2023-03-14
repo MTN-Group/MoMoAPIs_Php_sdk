@@ -3,7 +3,7 @@
 use momopsdk\Common\Process\GetBasicUserInfo;
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Common\Constants\MobileMoney;
-use momopsdk\Collection\Models\StatusResponse;
+use momopsdk\Common\Models\UserDetail;
 use momopsdkTest\Unit\src\Common\Process\ProcessTestCase;
 
 class GetBasicUserInfoTest extends ProcessTestCase
@@ -26,6 +26,6 @@ class GetBasicUserInfoTest extends ProcessTestCase
         );
         $this->processType = BaseProcess::SYNCHRONOUS_PROCESS;
         $this->mockResponseObject = 'BasicUserInfo.json';
-        $this->responseType = StatusResponse::class;
+        $this->responseType = UserDetail::class;
     }
 }
