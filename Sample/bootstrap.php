@@ -22,6 +22,7 @@ try {
         $env['momo_api_key']
     );
     MobileMoney::setSecurityLevel(SecurityLevel::STANDARD);
+    MobileMoney::setCallbackUrl("https://www.example.com");
 } catch (MobileMoneyException $exception) {
     prettyPrint($exception->getMessage());
 }
