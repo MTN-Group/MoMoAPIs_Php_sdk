@@ -55,7 +55,8 @@ class Oauth2AccessToken extends BaseProcess
                 # code...
                 break;
         }
-        $data = 'grant_type=urn:openid:params:grant-type:ciba&auth_req_id={auth_req_id}';
+        $env = parse_ini_file(__DIR__ . './../../../config.env');
+        $data = $env['oauth2_token_data'];
         $request = RequestUtil::post(
             $apiUrl, str_replace('{auth_req_id}', $this->authReqId, $data)
         )

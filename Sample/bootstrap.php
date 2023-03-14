@@ -11,18 +11,16 @@ use momopsdk\Common\Exceptions\MobileMoneyException;
 
 //Initialize SDK
 try {
-    $sEnvironment = $env['environment'];
     $sCollectionSubKey = $env['collection_subscription_key'];
     $targetEnvironment = $env['target_environment'];
     $sDisbursementSubKey = $env['disbursement_subscription_key'];
     $sRemittanceSubKey = $env['remittance_subscription_key'];
     
     MobileMoney::initialize(
-        $sEnvironment,
+        MobileMoney::SANDBOX,
         $env['reference_id'],
         $env['momo_api_key']
     );
-    // MobileMoney::setCallbackUrl($env['callback_url']);
     MobileMoney::setSecurityLevel(SecurityLevel::STANDARD);
 } catch (MobileMoneyException $exception) {
     prettyPrint($exception->getMessage());
