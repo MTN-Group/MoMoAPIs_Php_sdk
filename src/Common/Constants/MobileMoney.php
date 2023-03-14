@@ -52,7 +52,7 @@ class MobileMoney
     /**
      * @var string
      */
-    private static $securityLevel = SecurityLevel::DEVELOPMENT;
+    private static $securityLevel = SecurityLevel::STANDARD;
 
     /**
      * callback url on which MMP will respond for api calls
@@ -176,7 +176,11 @@ class MobileMoney
     public static function getBaseUrl()
     {
         $env = parse_ini_file(__DIR__ . './../../../config.env');
-        return $env['base_url'];
+        if (self::$environment === self::SANDBOX) {
+            return $env['base_url'];
+        } elseif (self::$environment === self::PRODUCTION) {
+            return $env['production_base_url'];
+        }
     }
 
     /**
@@ -279,7 +283,11 @@ class MobileMoney
     {
         $env = parse_ini_file(__DIR__ . './../../../config.env');
         self::$environment = $environment;
-        self::$baseUrl = $env['base_url'];
+        if ($environment === self::SANDBOX) {
+            self::$baseUrl = $env['base_url'];
+        } elseif ($environment === self::PRODUCTION) {
+            self::$baseUrl = $env['production_base_url'];
+        }
     }
 
     public static function setAuthReqId($authReqId)

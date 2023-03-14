@@ -51,8 +51,8 @@ class GetUserInfoWithConsent extends BaseProcess
      */
     public function execute()
     {
-        $reqData = "login_hint=ID:msisdn/msisdn&scope=profile&access_type=online";
         $env = parse_ini_file(__DIR__ . './../../../config.env');
+        $reqData = $env['bc_authorize_form_data'];
         //Function to bc-authorize
         $oBcAuth = new BcAuthorize(
            $reqData,

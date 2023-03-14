@@ -20,7 +20,7 @@ try {
      * Construct request object and set desired parameters
      */
     $referenceId = '06bc2597-5c93-4e37-878e-489dc75b8113';
-    $request = Collection::requestToWithdrawTransactionStatus($referenceId, , $sCollectionSubKey, $targetEnvironment);
+    $request = Collection::requestToWithdrawTransactionStatus($referenceId, $sCollectionSubKey, $targetEnvironment);
 
     /**
      *Execute the request

@@ -2,16 +2,17 @@
 
 namespace momopsdk\Collection;
 
-use momopsdk\Common\Process\GetBasicUserInfo;
 use momopsdk\Common\Process\GetBalance;
+use momopsdk\Common\Process\GetBasicUserInfo;
+use momopsdk\Common\Process\ValidateAccountHolder;
+use momopsdk\Common\Process\GetUserInfoWithConsent;
 use momopsdk\Collection\Process\RequestToWithdrawV1;
 use momopsdk\Collection\Process\RequestToWithdrawV2;
 use momopsdk\Collection\Process\InitiateRequestToPay;
 use momopsdk\Collection\Process\RetrieveRequestToPay;
-use momopsdk\Common\Process\ValidateAccountHolder;
 use momopsdk\Collection\Process\RequestToWithdrawStatus;
+use momopsdk\Common\Process\GetBalanceInSpecificCurrency;
 use momopsdk\Common\Process\RequestToPayDeliveryNotification;
-use momopsdk\Common\Process\GetUserInfoWithConsent;
 
 /**
  * Class Collection
@@ -34,8 +35,7 @@ class Collection
         $sTargetEnvironment,
         $sCallBackUrl = null,
         $sContentType = null
-    )
-    {
+    ) {
         return new InitiateRequestToPay(
             $oTransaction,
             $sCollectionSubKey,
@@ -67,8 +67,7 @@ class Collection
         $sAccountHolderIdType,
         $sCollectionSubKey,
         $sTargetEnvironment
-    )
-    {
+    ) {
         return new ValidateAccountHolder(
             $sAccountHolderId,
             $sAccountHolderIdType,
@@ -103,8 +102,7 @@ class Collection
         $sTargetEnvironment,
         $sCallbackUrl = null,
         $sContentType = null
-    )
-    {
+    ) {
         return new RequestToWithdrawV1(
             $oTransaction,
             $sCollectionSubKey,
@@ -128,8 +126,7 @@ class Collection
         $sTargetEnvironment,
         $sCallbackUrl = null,
         $sContentType = null
-    )
-    {
+    ) {
         return new RequestToWithdrawV2(
             $oTransaction,
             $sCollectionSubKey,
@@ -164,8 +161,7 @@ class Collection
         $oDeliveryNotification,
         $sLanguage,
         $sContentType = null
-    )
-    {
+    ) {
         return new RequestToPayDeliveryNotification(
             $sReferenceId,
             $sNotificationMessage,
@@ -194,6 +190,12 @@ class Collection
         );
     }
 
+    /**
+     * For getting information about the user with consent
+     * @param string $sSubKey, $sTargetEnvironment, $sCallBackUrl
+     * @return object GetUserInfoWithConsent
+     *
+     */
     public static function getUserInfoWithConsent($sSubKey, $sTargetEnvironment, $sCallBackUrl = null)
     {
         return new GetUserInfoWithConsent(
@@ -201,6 +203,22 @@ class Collection
             $sTargetEnvironment,
             Collection::SUBTYPE,
             $sCallBackUrl
+        );
+    }
+
+    /**
+     * For getting account balance in specific currency
+     * @param string $sSubKey, $sTargetEnvironment, $sCurrency
+     * @return object GetBasicUserInfo
+     *
+     */
+    public static function getAccountBalanceInSpecificCurrency($sSubKey, $sTargetEnvironment, $sCurrency)
+    {
+        return new GetBalanceInSpecificCurrency(
+            $sSubKey,
+            $sTargetEnvironment,
+            $sCurrency,
+            Collection::SUBTYPE
         );
     }
 }
