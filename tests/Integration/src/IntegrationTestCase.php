@@ -2,7 +2,6 @@
 
 namespace momopsdkTest\Integration\src;
 
-// use mmpsdk\Common\Common;
 use momopsdk\Common\Enums\NotificationMethod;
 use momopsdk\Common\Process\BaseProcess;
 use PHPUnit\Framework\TestCase;
@@ -149,20 +148,11 @@ abstract class IntegrationTestCase extends TestCase
             $jsonData = json_decode($rawResponse->getResult(), true);
             $this->assertNotNull($jsonData, 'Invalid JSON Response from API');
         }
-        // if (!empty($jsonData)) {
-        //     $this->validateResponse($response, $jsonData);
-        // }
-        switch ($this->getResponseInstanceType()) {
-            case \momopsdk\Disbursement\Models\ResponseModel::class:
-                $this->validateFields(
-                    ['result', 'httpCode'],
-                    $response,
-                    $jsonData
-                );
-                break;
-            default:
-                break;
-        }
+        $this->validateFields(
+            ['result', 'httpCode'],
+            $response,
+            $jsonData
+        );
     }
 
     private function getterMethod($attribute)
@@ -184,7 +174,6 @@ abstract class IntegrationTestCase extends TestCase
             $this->assertIsObject(
                 $response
             );
-            // print_R($fields);die("sdsds");
             foreach ($fields as $field) {
                 $getterMethod = $this->getterMethod($field);
                 if ($getterMethod != 'getHttpCode') {
