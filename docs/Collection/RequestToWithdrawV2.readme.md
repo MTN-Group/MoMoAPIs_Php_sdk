@@ -42,10 +42,7 @@ try {
     $sContentType = "application/json";
     $request = Collection::requestToWithdrawV2($transaction, $sCollectionSubKey, $targetEnvironment, $sCallbackUrl, $sContentType);
 
-    /**
-     * Choose notification method can be either Callback or Polling
-     */
-    $request->setNotificationMethod(NotificationMethod::POLLING);
+
 
     /**
      *Execute the request
@@ -62,7 +59,7 @@ try {
 ### Example Output
 `202 Accepted`
 ```php
-momopsdk\Collection\Models\RequestToPayResponse Object
+momopsdk\Collection\Models\RequestToWithdraw Object
 (
     [httpCode] => 202
     [referenceId] => 7e8be910-0294-443c-920a-b58988124541

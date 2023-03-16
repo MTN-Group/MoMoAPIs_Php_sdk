@@ -3,7 +3,7 @@
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Common\Constants\MobileMoney;
 use momopsdk\Collection\Models\Transaction;
-use momopsdk\Collection\Models\RequestToPayResponse;
+use momopsdk\Collection\Models\RequestToWithdraw;
 use momopsdk\Collection\Process\RequestToWithdrawV2;
 use momopsdkTest\Unit\src\Common\Process\ProcessTestCase;
 
@@ -42,6 +42,6 @@ class RequestToWithdrawV2Test extends ProcessTestCase
         );
         $this->processType = BaseProcess::ASYNCHRONOUS_PROCESS;
         $this->mockResponseObject = 'RequestToPayResponse.json';
-        $this->responseType = RequestToPayResponse::class;
+        $this->responseType = RequestToWithdraw::class;
     }
 }

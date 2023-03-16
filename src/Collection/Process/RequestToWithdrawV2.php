@@ -9,7 +9,7 @@ use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Common\Models\CallbackResponse;
-use momopsdk\Collection\Models\RequestToPayResponse;
+use momopsdk\Collection\Models\RequestToWithdraw;
 
 /**
  * Class RequestToWithdrawV2
@@ -66,11 +66,10 @@ class RequestToWithdrawV2 extends BaseProcess
      */
     public function execute()
     {
-        $referenceId = GUID::create();
         $request = RequestUtil::post(API::REQUEST_TO_WITHDRAW_V2, json_encode($this->transaction))
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
-            ->setReferenceId($referenceId)
+            ->setReferenceId($this->referenceId)
             ->setSubscriptionKey($this->subKey);
         if ($this->callBackUrl != null) {
             $request = $request->httpHeader(Header::X_CALLBACK_URL, $this->callBackUrl);
@@ -80,6 +79,6 @@ class RequestToWithdrawV2 extends BaseProcess
         }
         $request = $request->build();
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new RequestToPayResponse());
+        return $this->parseResponse($response, new RequestToWithdraw());
     }
 }
