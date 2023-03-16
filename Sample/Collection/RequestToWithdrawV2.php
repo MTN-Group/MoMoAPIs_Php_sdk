@@ -32,10 +32,6 @@ try {
     $sContentType = "application/json";
     $request = Collection::requestToWithdrawV2($transaction, $sCollectionSubKey, $targetEnvironment, $sCallbackUrl, $sContentType);
 
-    /**
-     * Choose notification method can be either Callback or Polling
-     */
-    $request->setNotificationMethod(NotificationMethod::POLLING);
 
     /**
      *Execute the request

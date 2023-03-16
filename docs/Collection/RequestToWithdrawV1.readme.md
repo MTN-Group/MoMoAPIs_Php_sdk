@@ -53,7 +53,7 @@ try {
 ### Example Output
 `202 Accepted`
 ```php
-momopsdk\Collection\Models\RequestToPayResponse Object
+momopsdk\Collection\Models\RequestToWithdraw Object
 (
     [httpCode] => 202
     [referenceId] => 09d6bd7d-a253-4ae4-be43-5b2e9277f90a

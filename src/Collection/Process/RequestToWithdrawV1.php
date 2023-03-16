@@ -2,7 +2,7 @@
 
 namespace momopsdk\Collection\Process;
 
-use momopsdk\Collection\Models\RequestToPayResponse;
+use momopsdk\Collection\Models\RequestToWithdraw;
 use momopsdk\Common\Utils\GUID;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
@@ -68,15 +68,14 @@ class RequestToWithdrawV1 extends BaseProcess
 
     /**
      * This operation is used to request a withdrawal(cash-out) from a consumer (Payer).
-     * @return RequestToPayResponse
+     * @return RequestToWithdraw
      */
     public function execute()
     {
-        $referenceId = GUID::create();
         $request = RequestUtil::post(API::REQUEST_TO_WITHDRAW_V1, json_encode($this->transaction))
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
-            ->setReferenceId($referenceId)
+            ->setReferenceId($this->referenceId)
             ->setSubscriptionKey($this->subKey);
         if ($this->callBackUrl != null) {
             $request = $request->httpHeader(Header::X_CALLBACK_URL, $this->callBackUrl);
@@ -86,6 +85,6 @@ class RequestToWithdrawV1 extends BaseProcess
         }
         $request = $request->build();
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new RequestToPayResponse());
+        return $this->parseResponse($response, new RequestToWithdraw());
     }
 }
