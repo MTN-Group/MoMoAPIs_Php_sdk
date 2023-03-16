@@ -3,19 +3,19 @@
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Disbursement\DisbursementTransaction;
 use momopsdkTest\Integration\src\IntegrationTestCase;
-use momopsdk\Common\Process\GetBalance;
-use momopsdk\Common\Models\GetAccBalance;
+use momopsdk\Disbursement\Process\GetRefundStatus;
+use momopsdk\Disbursement\Models\StatusDetail;
 
-class GetAccountBalanceDisbursementIntegrationTest extends IntegrationTestCase
+class RefundStatusIntegrationTest extends IntegrationTestCase
 {
     protected function getProcessInstanceType()
     {
-        return GetBalance::class;
+        return GetRefundStatus::class;
     }
 
     protected function getResponseInstanceType()
     {
-        return GetAccBalance::class;
+        return StatusDetail::class;
     }
 
     protected function getRequestType()
@@ -25,10 +25,12 @@ class GetAccountBalanceDisbursementIntegrationTest extends IntegrationTestCase
 
     protected function setUp(): void
     {
+        $sRefId = '195324cf-ece7-4e88-b296-94fc0082271d';
         $env = parse_ini_file(__DIR__ . './../../../../config.env');
-        $this->request = DisbursementTransaction::getAccountBalance(
+        $this->request = DisbursementTransaction::getRefundStatus(
             $env['disbursement_subscription_key'],
-            $env['target_environment']
+            $env['target_environment'],
+            $sRefId
         );
     }
 }

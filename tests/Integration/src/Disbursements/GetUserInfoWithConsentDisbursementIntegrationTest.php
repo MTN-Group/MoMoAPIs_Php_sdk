@@ -3,19 +3,19 @@
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Disbursement\DisbursementTransaction;
 use momopsdkTest\Integration\src\IntegrationTestCase;
-use momopsdk\Common\Process\GetBalance;
-use momopsdk\Common\Models\GetAccBalance;
+use momopsdk\Common\Process\GetUserInfoWithConsent;
+use momopsdk\Common\Models\UserDetail;
 
-class GetAccountBalanceDisbursementIntegrationTest extends IntegrationTestCase
+class GetUserInfoWithConsentDisbursementIntegrationTest extends IntegrationTestCase
 {
     protected function getProcessInstanceType()
     {
-        return GetBalance::class;
+        return GetUserInfoWithConsent::class;
     }
 
     protected function getResponseInstanceType()
     {
-        return GetAccBalance::class;
+        return UserDetail::class;
     }
 
     protected function getRequestType()
@@ -26,9 +26,11 @@ class GetAccountBalanceDisbursementIntegrationTest extends IntegrationTestCase
     protected function setUp(): void
     {
         $env = parse_ini_file(__DIR__ . './../../../../config.env');
-        $this->request = DisbursementTransaction::getAccountBalance(
+        $sCallBackUrl = "http://webhook.site/c84cd23c-062b-49bb-b206-909bc8625207"; // for bc-authorize
+        $this->request = DisbursementTransaction::getUserInfoWithConsent(
             $env['disbursement_subscription_key'],
-            $env['target_environment']
+            $env['target_environment'],
+            $sCallBackUrl
         );
     }
 }

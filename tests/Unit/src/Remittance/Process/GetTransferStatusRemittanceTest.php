@@ -3,7 +3,7 @@
 use momopsdk\Common\Constants\MobileMoney;
 use momopsdk\Common\Process\GetTransferStatus;
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Disbursement\Models\StatusDetail;
+use momopsdk\Common\Models\TransferStatusDetail;
 use momopsdkTest\Unit\src\Common\Process\ProcessTestCase;
 use momopsdkTest\Unit\src\mocks\MockResponse;
 
@@ -29,6 +29,6 @@ class GetTransferStatusRemittanceTest extends ProcessTestCase
             $this->constructorArgs
         );
         $this->mockResponseObject = 'TransferStatus.json';
-        $this->responseType = StatusDetail::class;
+        $this->responseType = TransferStatusDetail::class;
     }
 }
