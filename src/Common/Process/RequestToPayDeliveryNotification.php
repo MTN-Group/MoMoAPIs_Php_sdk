@@ -116,7 +116,7 @@ class RequestToPayDeliveryNotification extends BaseProcess
             ->setReferenceId($this->refId)
             ->setSubscriptionKey($this->subKey);
         if ($this->language != null) {
-            $request = $request->httpHeader(Header::LANGUAGE, $this->callBackUrl);
+            $request = $request->httpHeader(Header::LANGUAGE, $this->language);
         }
         if ($this->contentType != null) {
             $request = $request->httpHeader(Header::CONTENT_TYPE, $this->contentType);

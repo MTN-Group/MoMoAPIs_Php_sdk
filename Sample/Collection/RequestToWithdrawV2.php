@@ -35,7 +35,7 @@ try {
     /**
      * Choose notification method can be either Callback or Polling
      */
-    $request->setNotificationMethod(NotificationMethod::POLLING);
+    $request->setNotificationMethod(NotificationMethod::CALLBACK);
 
     /**
      *Execute the request

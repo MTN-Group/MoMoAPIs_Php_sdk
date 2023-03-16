@@ -2,18 +2,18 @@
 
 use momopsdk\Collection\Collection;
 use momopsdk\Common\Process\BaseProcess;
-use momopsdkTest\Integration\src\IntegrationTestCase;
-use momopsdk\Collection\Models\RequestToPayResponse;
 use momopsdk\Collection\Models\Transaction;
-use momopsdk\Collection\Process\InitiateRequestToPay;
+use momopsdk\Collection\Models\RequestToPayResponse;
+use momopsdk\Collection\Process\RequestToWithdrawV2;
+use momopsdkTest\Integration\src\IntegrationTestCase;
 
-class InitiateRequestToPayIntegrationTest extends IntegrationTestCase
+class RequestToWithdrawV2IntegrationTest extends IntegrationTestCase
 {
     private static $transaction;
 
     protected function getProcessInstanceType()
     {
-        return InitiateRequestToPay::class;
+        return RequestToWithdrawV2::class;
     }
 
     protected function getResponseInstanceType()
@@ -47,10 +47,14 @@ class InitiateRequestToPayIntegrationTest extends IntegrationTestCase
     protected function setUp(): void
     {
         $env = parse_ini_file(__DIR__ . './../../../../config.env');
-        $this->request = Collection::requestToPay(
+        $sCallbackUrl = "https://webhook.site/37b4b85e-8c15-4fe5-9076-b7de3071b85d";
+        $sContentType = "application/json";
+        $this->request = Collection::requestToWithdrawV1(
             self::$transaction,
             $env['collection_subscription_key'],
-            $env['target_environment']
+            $env['target_environment'],
+            $sCallbackUrl,
+            $sContentType
         );
     }
 }
