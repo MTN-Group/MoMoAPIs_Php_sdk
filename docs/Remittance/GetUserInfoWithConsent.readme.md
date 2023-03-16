@@ -31,8 +31,22 @@ try {
 
 ```php
 
+momopsdk\Common\Models\UserDetail Object
+(
+    [result] => stdClass Object
+        (
+            [sub] => 0
+            [name] => Sand Box
+            [given_name] => Sand
+            [family_name] => Box
+            [birthdate] => 1976-08-13
+            [locale] => sv_SE
+            [gender] => MALE
+            [updated_at] => 1678954231
+        )
 
-
+    [httpCode] => 200
+)
 
 ```
 
