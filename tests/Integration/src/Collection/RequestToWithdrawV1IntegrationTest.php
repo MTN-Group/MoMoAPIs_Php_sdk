@@ -3,7 +3,7 @@
 use momopsdk\Collection\Collection;
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Collection\Models\Transaction;
-use momopsdk\Collection\Models\RequestToPayResponse;
+use momopsdk\Collection\Models\RequestToWithdraw;
 use momopsdk\Collection\Process\RequestToWithdrawV1;
 use momopsdkTest\Integration\src\IntegrationTestCase;
 
@@ -18,7 +18,7 @@ class RequestToWithdrawV1IntegrationTest extends IntegrationTestCase
 
     protected function getResponseInstanceType()
     {
-        return RequestToPayResponse::class;
+        return RequestToWithdraw::class;
     }
 
     protected function getRequestType()
