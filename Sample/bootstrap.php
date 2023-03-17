@@ -22,6 +22,7 @@ try {
         $env['momo_api_key']
     );
     MobileMoney::setSecurityLevel(SecurityLevel::STANDARD);
+    MobileMoney::setCallbackUrl("http://webhook.site/c84cd23c-062b-49bb-b206-909bc8625207");
 } catch (MobileMoneyException $exception) {
     prettyPrint($exception->getMessage());
 }
