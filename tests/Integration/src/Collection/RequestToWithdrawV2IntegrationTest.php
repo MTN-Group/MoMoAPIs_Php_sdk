@@ -49,7 +49,7 @@ class RequestToWithdrawV2IntegrationTest extends IntegrationTestCase
         $env = parse_ini_file(__DIR__ . './../../../../config.env');
         $sCallbackUrl = "https://webhook.site/37b4b85e-8c15-4fe5-9076-b7de3071b85d";
         $sContentType = "application/json";
-        $this->request = Collection::requestToWithdrawV1(
+        $this->request = Collection::requestToWithdrawV2(
             self::$transaction,
             $env['collection_subscription_key'],
             $env['target_environment'],

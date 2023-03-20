@@ -9,7 +9,7 @@ use momopsdk\Common\Process\RequestToPayDeliveryNotification;
 
 class RequestToPayDeliveryNotificationIntegrationTest extends IntegrationTestCase
 {
-    private static $deliveryNotification;
+    public static $oReqDataObject;
 
     protected function getProcessInstanceType()
     {
@@ -28,22 +28,27 @@ class RequestToPayDeliveryNotificationIntegrationTest extends IntegrationTestCas
 
     public static function setUpBeforeClass(): void
     {
+        self::$oReqDataObject = new DeliveryNotification();
 
-        self::$deliveryNotification = new DeliveryNotification();
-        self::$deliveryNotification->setnotificationMessage('Pay for product a mrudul delivery notification');
+        self::$oReqDataObject
+            ->setnotificationMessage('Pay for product a delivery notification');
     }
 
     protected function setUp(): void
     {
         $env = parse_ini_file(__DIR__ . './../../../../config.env');
-        $referenceId = '59a03f5e-59d3-4e74-9040-359d3c027cb4';
-        $notificationMessage = 'Pay for product a mrudul delivery notification';
+        $referenceId = '73f8eeee-1974-4b11-b4bd-edc6d04e6703';
+        $notificationMessage = 'Pay for product a delivery notification';
+        $language = "eng";
+        $contentType = "application/json";
         $this->request = Collection::requestToPayDeliveryNotification(
             $referenceId,
             $notificationMessage,
             $env['collection_subscription_key'],
             $env['target_environment'],
-            self::$deliveryNotification,
+            self::$oReqDataObject,
+            $language,
+            $contentType
         );
     }
 }

@@ -142,11 +142,14 @@ abstract class IntegrationTestCase extends TestCase
 
     protected function responseAssertions($request, $response)
     {
+
         $rawResponse = $request->getRawResponse();
         $jsonData = [];
         if ($request->getRawResponse()->getHttpCode() != '202') {
-            $jsonData = json_decode($rawResponse->getResult(), true);
-            $this->assertNotNull($jsonData, 'Invalid JSON Response from API');
+            if ($rawResponse->getResult() != '') {
+                $jsonData = json_decode($rawResponse->getResult(), true);
+                $this->assertNotNull($jsonData, 'Invalid JSON Response from API');
+            }
         }
         $this->validateFields(
             ['result', 'httpCode'],

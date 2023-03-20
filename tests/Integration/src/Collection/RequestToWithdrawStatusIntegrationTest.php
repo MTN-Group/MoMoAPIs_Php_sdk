@@ -26,7 +26,7 @@ class RequestToWithdrawStatusIntegrationTest extends IntegrationTestCase
     protected function setUp(): void
     {
         $env = parse_ini_file(__DIR__ . './../../../../config.env');
-        $sReferenceId = 'ccf50462-e8e8-4f98-84a8-03007bc93f18';
+        $sReferenceId = 'b7b8545e-ced0-479f-9826-4cba6f558c7b';
         $this->request = Collection::requestToWithdrawTransactionStatus(
             $sReferenceId,
             $env['collection_subscription_key'],
