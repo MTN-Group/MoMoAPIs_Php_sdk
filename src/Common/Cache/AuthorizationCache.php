@@ -61,7 +61,7 @@ abstract class AuthorizationCache
      * @param      $tokenExpiresIn
      * @throws \Exception
      */
-    public static function push(AuthToken $authObj, $clientId, $authType)
+    public static function push(AuthToken $authObj, $clientId, $authType, $aExistingData)
     {
         $cachePath = self::cachePath();
         if (
@@ -95,7 +95,8 @@ abstract class AuthorizationCache
                 'expiresIn' => $authObj->getExpiresIn()
             ];
         }
-        if (!file_put_contents($cachePath, json_encode($tokens))) {
+        $aExistingData[$clientId][$authType] = $tokens[$clientId][$authType];
+        if (!file_put_contents($cachePath, json_encode($aExistingData))) {
             throw new \momopsdk\Common\Exceptions\MobileMoneyException(
                 'Failed to write cache'
             );
