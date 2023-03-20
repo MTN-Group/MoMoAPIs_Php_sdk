@@ -3,7 +3,7 @@
 use momopsdk\Common\Constants\MobileMoney;
 use momopsdk\Common\Process\ValidateAccountHolder;
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Collection\Models\StatusResponse;
+use momopsdk\Common\Models\CommonStatusResponse;
 use momopsdkTest\Unit\src\Common\Process\ProcessTestCase;
 
 class ValidateAccountHolderTest extends ProcessTestCase
@@ -27,6 +27,6 @@ class ValidateAccountHolderTest extends ProcessTestCase
         );
         $this->processType = BaseProcess::SYNCHRONOUS_PROCESS;
         $this->mockResponseObject = 'StatusResponse.json';
-        $this->responseType = StatusResponse::class;
+        $this->responseType = CommonStatusResponse::class;
     }
 }

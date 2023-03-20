@@ -44,7 +44,7 @@ try {
 ### Example Output
 `200 OK`
 ```php
-momopsdk\Collection\Models\StatusResponse Object
+momopsdk\Common\Models\CommonStatusResponse Object
 (
     [result] => stdClass Object
         (
