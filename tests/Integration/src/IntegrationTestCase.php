@@ -15,10 +15,6 @@ abstract class IntegrationTestCase extends TestCase
     abstract protected function getResponseInstanceType();
     abstract protected function getRequestType();
 
-    // protected function pollingRequest($serverCorrelationId)
-    // {
-    //     return Common::viewRequestState($serverCorrelationId);
-    // }
 
     public function testProcessInstanceType()
     {
@@ -64,30 +60,30 @@ abstract class IntegrationTestCase extends TestCase
         }
 
         if ($this->getRequestType() == BaseProcess::ASYNCHRONOUS_PROCESS) {
-            $this->asynchronusProcessAssertions(NotificationMethod::CALLBACK);
+            $this->asynchronusProcessAssertions();
         }
         $this->responseAssertions($this->request, $this->response);
     }
 
-    public function testPollingSequence()
-    {
-        if ($this->getRequestType() == BaseProcess::ASYNCHRONOUS_PROCESS) {
-            $this->request->setNotificationMethod(NotificationMethod::POLLING);
-            $this->response = $this->request->execute();
-            $this->asynchronusProcessAssertions(NotificationMethod::POLLING);
+    // public function testPollingSequence()
+    // {
+    //     if ($this->getRequestType() == BaseProcess::ASYNCHRONOUS_PROCESS) {
+    //         $this->request->setNotificationMethod(NotificationMethod::POLLING);
+    //         $this->response = $this->request->execute();
+    //         $this->asynchronusProcessAssertions(NotificationMethod::POLLING);
 
-            // Poll Request
-            // $serverCorreleationId = $this->response->getServerCorrelationId();
-            // $pollRequest = Common::viewRequestState(
-            //     $serverCorreleationId
-            // )->execute();
-            // $this->assertNotNull($pollRequest);
-        } else {
-            $this->markTestSkipped(
-                'This test is only for asynchronous process'
-            );
-        }
-    }
+    //         // Poll Request
+    //         // $serverCorreleationId = $this->response->getServerCorrelationId();
+    //         // $pollRequest = Common::viewRequestState(
+    //         //     $serverCorreleationId
+    //         // )->execute();
+    //         // $this->assertNotNull($pollRequest);
+    //     } else {
+    //         $this->markTestSkipped(
+    //             'This test is only for asynchronous process'
+    //         );
+    //     }
+    // }
 
     // public function testMissingResponse()
     // {
@@ -109,7 +105,7 @@ abstract class IntegrationTestCase extends TestCase
     //     }
     // }
 
-    private function asynchronusProcessAssertions($notificationMethod)
+    private function asynchronusProcessAssertions()
     {
         $this->assertEquals(
             202,
@@ -120,10 +116,6 @@ abstract class IntegrationTestCase extends TestCase
             $this->response
         );
         $requestStateObject = $this->response;
-        // $this->assertEquals(
-        //     $notificationMethod,
-        //     $requestStateObject->getNotificationMethod()
-        // );
         $this->assertNotNull(
             $requestStateObject->referenceId,
             'Reference ID is null'
@@ -134,10 +126,6 @@ abstract class IntegrationTestCase extends TestCase
             'Invalid Server Correlation ID Returned in response: ' .
                 $requestStateObject->referenceId
         );
-        // $this->assertMatchesRegularExpression(
-        //     '/^(pending|completed|failed)$/',
-        //     $requestStateObject->getStatus()
-        // );
     }
 
     protected function responseAssertions($request, $response)

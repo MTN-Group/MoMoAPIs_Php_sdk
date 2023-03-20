@@ -1,24 +1,24 @@
 <?php
 
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Disbursement\DisbursementTransaction;
+use momopsdk\Remittance\Remittance;
 use momopsdkTest\Integration\src\IntegrationTestCase;
-use momopsdk\Disbursement\Process\CreateDepositV1;
-use momopsdk\Disbursement\Models\ResponseModel;
+use momopsdk\Common\Process\Transfer;
+use momopsdk\Common\Models\TransferResponseModel;
 use momopsdk\Common\Models\DepositModel;
 
-class DepositV1IntegrationTest extends IntegrationTestCase
+class TransferRemittanceIntegrationTest extends IntegrationTestCase
 {
     public static $oReqDataObject;
 
     protected function getProcessInstanceType()
     {
-        return CreateDepositV1::class;
+        return Transfer::class;
     }
 
     protected function getResponseInstanceType()
     {
-        return ResponseModel::class;
+        return TransferResponseModel::class;
     }
 
     protected function getRequestType()
@@ -42,14 +42,14 @@ class DepositV1IntegrationTest extends IntegrationTestCase
             ->setPayerMessage('Payer message here')
             ->setPayeeNote('Payee note here')
             ->setPayee($payee);
-        }
+    }
 
     protected function setUp(): void
     {
         $env = parse_ini_file(__DIR__ . './../../../../config.env');
-        $this->request = DisbursementTransaction::depositV1(
+        $this->request = Remittance::transfer(
             self::$oReqDataObject,
-            $env['disbursement_subscription_key'],
+            $env['remittance_subscription_key'],
             $env['target_environment'],
             $sCallbackUrl = 'http://webhook.site/c84cd23c-062b-49bb-b206-909bc8625207'
         );

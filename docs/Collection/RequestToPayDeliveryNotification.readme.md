@@ -1,6 +1,6 @@
 # This operation is used to send additional Notification to an End User
 
-1.`requestToPayDeliveryNotification($referenceId, $notificationMessage, $sCollectionSubKey, $targetEnvironment) creates a POST request to end point /collection/v1_0/requesttopay/{referenceId}/deliverynotification and send additional Notification to an End User in the sandbox environment.`
+1.`requestToPayDeliveryNotification($referenceId, $notificationMessage, $sCollectionSubKey, $targetEnvironment) creates a POST request to end point /collection/v1_0/requesttopay/{referenceId}/deliverynotification and send additional Notification to an End User in the sandbox environment.Here referenceId used will be the referenceId of requestToPay`
 
 > `End user will get result as 202 ok if the request to pay delivery notification is sent.`
 

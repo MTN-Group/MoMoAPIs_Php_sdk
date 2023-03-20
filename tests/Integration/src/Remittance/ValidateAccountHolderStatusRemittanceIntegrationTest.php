@@ -1,12 +1,12 @@
 <?php
 
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Disbursement\DisbursementTransaction;
+use momopsdk\Remittance\Remittance;
 use momopsdkTest\Integration\src\IntegrationTestCase;
 use momopsdk\Common\Process\ValidateAccountHolder;
 use momopsdk\Common\Models\CommonStatusResponse;
 
-class ValidateAccountHolderStatusDisbursementIntegrationTest extends IntegrationTestCase
+class ValidateAccountHolderStatusRemittanceIntegrationTest extends IntegrationTestCase
 {
     public static $oReqDataObject;
 
@@ -30,10 +30,10 @@ class ValidateAccountHolderStatusDisbursementIntegrationTest extends Integration
         $accountHolderId = '0248888736';
         $accountHolderIdType = 'msisdn';
         $env = parse_ini_file(__DIR__ . './../../../../config.env');
-        $this->request = DisbursementTransaction::validateAccountHolderStatus(
+        $this->request = Remittance::validateAccountHolderStatus(
             $accountHolderId,
             $accountHolderIdType,
-            $env['disbursement_subscription_key'],
+            $env['remittance_subscription_key'],
             $env['target_environment']
         );
     }

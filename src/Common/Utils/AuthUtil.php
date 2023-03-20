@@ -16,6 +16,8 @@ use momopsdk\Common\Process\Oauth2AccessToken;
 
 class AuthUtil
 {
+    public static $CACHE_PATH = '/../../../var/auth.cache';
+
     const EXPIRY_BUFFER_TIME = 5;
 
     public static function buildHeader(RequestUtil $request)
@@ -87,6 +89,7 @@ class AuthUtil
         $tokenIdentifier,
         $sSubKey,
         $sTokenType,
+        $aExistingData,
         $authReqId = null
     )
     {
@@ -101,7 +104,7 @@ class AuthUtil
         if ($sTokenType == null) {
             $sTokenType = 'Basic';
         }
-        AuthorizationCache::push($accessTokenObj, $tokenIdentifier, $sTokenType);
+        AuthorizationCache::push($accessTokenObj, $tokenIdentifier, $sTokenType, $aExistingData);
         MobileMoney::setAccessToken($accessTokenObj);
         return $accessTokenObj;
     }
@@ -130,22 +133,12 @@ class AuthUtil
 
     public static function getAccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey, $sTokenType, $authReqId)
     {
-        if ($sTokenType != 'Bearer') {
-            // Check if we already have accessToken in memory
-            $token = self::getAccessTokenFromMemory();
-            if ($token && self::checkExpiredToken($token)) {
-                $token = null;
-            }
-        }
         if ($sTokenType == null) {
             $sTokenType = 'Basic';
         }
         // Check for persisted data first
         $token = AuthorizationCache::pull($tokenIdentifier, $sTokenType);
-        // Check if Access Token is not null and has not expired.
-        if ($token != null && self::checkExpiredToken($token)) {
-            $token = null;
-        }
+
         //check token exists and of same type as token identifier
         if (
             $token != null && property_exists($token, "tokenIdentifier") &&
@@ -156,12 +149,17 @@ class AuthUtil
         ) {
             return $token;
         } else {
+            $cachePath = self::cachePath();
+            $aExistingData = [];
+            if (file_exists($cachePath)) {
+                $aExistingData = self::setExistingData(json_decode(file_get_contents($cachePath), true));
+            }
             $token = null;
         }
         // If accessToken is Null, obtain a new token
         if ($token == null) {
             // Get a new one by making calls to API
-            $token = self::updateAccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey, $sTokenType, $authReqId);
+            $token = self::updateAccessToken($userId, $apiKey, $tokenIdentifier, $sSubKey, $sTokenType, $aExistingData, $authReqId);
         }
         return $token;
     }
@@ -204,5 +202,16 @@ class AuthUtil
                         MobileMoney::getSecurityLevel()
                 );
         }
+    }
+
+    public static function setExistingData($token)
+    {
+        return $token;
+    }
+
+    public static function cachePath()
+    {
+        $cachePath = MobileMoney::getCachePath();
+        return empty($cachePath) ? __DIR__ . self::$CACHE_PATH : $cachePath;
     }
 }

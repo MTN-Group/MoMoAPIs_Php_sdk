@@ -5,7 +5,7 @@ use momopsdk\Common\Process\BaseProcess;
 use momopsdkTest\Unit\src\Common\Process\ProcessTestCase;
 use momopsdkTest\Unit\src\mocks\MockResponse;
 use momopsdk\Common\Process\Transfer;
-use momopsdk\Disbursement\Models\DepositModel;
+use momopsdk\Common\Models\DepositModel;
 use momopsdk\Common\Models\TransferResponseModel;
 
 

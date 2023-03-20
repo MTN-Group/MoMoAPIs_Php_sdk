@@ -7,7 +7,7 @@ use momopsdk\Common\Constants\Header;
 use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Collection\Models\StatusResponse;
+use momopsdk\Common\Models\CommonStatusResponse;
 
 /**
  * Class ValidateAccountHolder
@@ -94,6 +94,6 @@ class ValidateAccountHolder extends BaseProcess
             ->setSubscriptionKey($this->subKey)
             ->build();
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new StatusResponse());
+        return $this->parseResponse($response, new CommonStatusResponse());
     }
 }

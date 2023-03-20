@@ -142,7 +142,7 @@ The PHP SDK provides an `MobileMoneyException` class that is used for common sce
 ```php
 <?php
 require_once __DIR__ . './../bootstrap.php';
-use momopsdk\Disbursement\Models\DepositModel;
+use momopsdk\Common\Models\DepositModel;
 use momopsdk\Common\Exceptions\MobileMoneyException;
 use momopsdk\Disbursement\DisbursementTransaction;
 
