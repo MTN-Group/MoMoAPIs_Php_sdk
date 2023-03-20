@@ -5,7 +5,7 @@ use momopsdk\Remittance\Remittance;
 use momopsdkTest\Integration\src\IntegrationTestCase;
 use momopsdk\Common\Process\Transfer;
 use momopsdk\Common\Models\TransferResponseModel;
-use momopsdk\Disbursement\Models\DepositModel;
+use momopsdk\Common\Models\DepositModel;
 
 class TransferRemittanceIntegrationTest extends IntegrationTestCase
 {

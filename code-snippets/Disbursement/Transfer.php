@@ -2,7 +2,7 @@
 require_once __DIR__ . './../bootstrap.php';
 
 use momopsdk\Disbursement\DisbursementTransaction;
-use momopsdk\Disbursement\Models\DepositModel;
+use momopsdk\Common\Models\DepositModel;
 
 try {
     $payee = [

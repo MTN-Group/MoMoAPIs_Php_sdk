@@ -5,7 +5,7 @@ use momopsdk\Disbursement\DisbursementTransaction;
 use momopsdkTest\Integration\src\IntegrationTestCase;
 use momopsdk\Disbursement\Process\CreateDepositV2;
 use momopsdk\Disbursement\Models\ResponseModel;
-use momopsdk\Disbursement\Models\DepositModel;
+use momopsdk\Common\Models\DepositModel;
 
 class DepositV2IntegrationTest extends IntegrationTestCase
 {
