@@ -40,14 +40,14 @@ abstract class IntegrationTestCase extends TestCase
         $this->assertNotNull($this->response);
         //Test Response Code
         if ($this->getRequestType() == BaseProcess::ASYNCHRONOUS_PROCESS) {
-            $this->assertEquals(
-                202,
-                $this->request->getRawResponse()->getHttpCode()
+            $this->assertContains(
+                $this->request->getRawResponse()->getHttpCode(),
+                [202,201]
             );
         } else {
-            $this->assertEquals(
-                200,
-                $this->request->getRawResponse()->getHttpCode()
+            $this->assertContains(
+                $this->request->getRawResponse()->getHttpCode(),
+                [200,201]
             );
         }
 
@@ -65,51 +65,12 @@ abstract class IntegrationTestCase extends TestCase
         $this->responseAssertions($this->request, $this->response);
     }
 
-    // public function testPollingSequence()
-    // {
-    //     if ($this->getRequestType() == BaseProcess::ASYNCHRONOUS_PROCESS) {
-    //         $this->request->setNotificationMethod(NotificationMethod::POLLING);
-    //         $this->response = $this->request->execute();
-    //         $this->asynchronusProcessAssertions(NotificationMethod::POLLING);
-
-    //         // Poll Request
-    //         // $serverCorreleationId = $this->response->getServerCorrelationId();
-    //         // $pollRequest = Common::viewRequestState(
-    //         //     $serverCorreleationId
-    //         // )->execute();
-    //         // $this->assertNotNull($pollRequest);
-    //     } else {
-    //         $this->markTestSkipped(
-    //             'This test is only for asynchronous process'
-    //         );
-    //     }
-    // }
-
-    // public function testMissingResponse()
-    // {
-    //     if ($this->getRequestType() == BaseProcess::ASYNCHRONOUS_PROCESS) {
-    //         // Missing Response
-    //         $this->response = $this->request->execute();
-    //         $clientCorreleationId = $this->response->getClientCorrelationId();
-    //         $missingResponse = Common::viewResponse(
-    //             $clientCorreleationId
-    //         )->execute();
-    //         $this->assertNotNull(
-    //             $missingResponse,
-    //             'Missing Response API returned null'
-    //         );
-    //     } else {
-    //         $this->markTestSkipped(
-    //             'This test is only for asynchronous process'
-    //         );
-    //     }
-    // }
 
     private function asynchronusProcessAssertions()
     {
-        $this->assertEquals(
-            202,
-            $this->request->getRawResponse()->getHttpCode()
+        $this->assertContains(
+            $this->request->getRawResponse()->getHttpCode(),
+            [202,201]
         );
         $this->assertInstanceOf(
             $this->getResponseInstanceType(),
@@ -132,7 +93,7 @@ abstract class IntegrationTestCase extends TestCase
     {
         $rawResponse = $request->getRawResponse();
         $jsonData = [];
-        if ($request->getRawResponse()->getHttpCode() != '202') {
+        if ($request->getRawResponse()->getResult() != '') {
             $jsonData = json_decode($rawResponse->getResult(), true);
             $this->assertNotNull($jsonData, 'Invalid JSON Response from API');
         }

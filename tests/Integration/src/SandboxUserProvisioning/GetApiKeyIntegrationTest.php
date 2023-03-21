@@ -1,21 +1,23 @@
 <?php
 
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Remittance\Remittance;
+use momopsdk\SandboxUserProvisioning\User;
 use momopsdkTest\Integration\src\IntegrationTestCase;
-use momopsdk\Common\Process\GetTransferStatus;
-use momopsdk\Common\Models\TransferStatusDetail;
+use momopsdk\SandboxUserProvisioning\Process\GetApiKey;
+use momopsdk\Common\Models\UserDetail;
 
-class TransferStatusRemittanceIntegrationTest extends IntegrationTestCase
+class GetApiKeyIntegrationTest extends IntegrationTestCase
 {
+    public static $oReqDataObject;
+
     protected function getProcessInstanceType()
     {
-        return GetTransferStatus::class;
+        return GetApiKey::class;
     }
 
     protected function getResponseInstanceType()
     {
-        return TransferStatusDetail::class;
+        return UserDetail::class;
     }
 
     protected function getRequestType()
@@ -23,14 +25,14 @@ class TransferStatusRemittanceIntegrationTest extends IntegrationTestCase
         return BaseProcess::SYNCHRONOUS_PROCESS;
     }
 
+
     protected function setUp(): void
     {
-        $sRefId = 'f47e80b6-9c21-40a1-82d6-a2051505fdb3';
         $env = parse_ini_file(__DIR__ . './../../../../config.env');
-        $this->request = Remittance::getTransferStatus(
+        $refId = $env['reference_id'];
+        $this->request = User::createApiKey(
             $env['remittance_subscription_key'],
-            $env['target_environment'],
-            $sRefId
+            $refId
         );
     }
 }

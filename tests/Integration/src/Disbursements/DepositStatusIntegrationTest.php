@@ -25,7 +25,7 @@ class DepositStatusIntegrationTest extends IntegrationTestCase
 
     protected function setUp(): void
     {
-        $sRefId = '8e189def-cb60-4500-9544-b9fb8bb9f662';
+        $sRefId = '2a058e01-6120-413c-85ce-26b892493728';
         $env = parse_ini_file(__DIR__ . './../../../../config.env');
         $this->request = DisbursementTransaction::getDepositStatus(
             $env['disbursement_subscription_key'],

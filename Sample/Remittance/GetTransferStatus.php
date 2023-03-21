@@ -5,7 +5,7 @@ use momopsdk\Remittance\Remittance;
 
 try {
 
-    $sRefId = 'd25214ef-587e-423a-a49b-9c2c21ff0cbc';
+    $sRefId = 'f47e80b6-9c21-40a1-82d6-a2051505fdb3';
 
     $request = Remittance::getTransferStatus($sRemittanceSubKey, $targetEnvironment, $sRefId);
 

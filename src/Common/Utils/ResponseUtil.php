@@ -61,10 +61,7 @@ class ResponseUtil
                         $data['metadata'] = new MetaData();
                         return $data;
                     }
-                    //Add client correlation id along with response
-                    if ($response->getReferenceId()) {
-                        $data->referenceId = $response->getReferenceId();
-                    }
+
                     if ($obj !== null) {
                         $metaData = new MetaData();
                         // if (
@@ -123,6 +120,7 @@ class ResponseUtil
                 );
                 break;
             case self::UNAUTHORIZED:
+                print_R($response->getResult());die;
                 $errorObject = self::decodeJson($response->getResult());
                 if (isset($errorObject->statusCode)) {
                     throw new MobileMoneyException(
