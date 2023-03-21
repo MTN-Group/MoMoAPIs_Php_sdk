@@ -83,8 +83,6 @@ To initialize the PHP SDK, the static method `initialize()` of `MobileMoney` cla
     -   `MobileMoney::PRODUCTION` for Production
 2.  `$env['reference_id']` the reference id or user Id (can be obtained from partner gateway.In Sandbox account it can be generated using user provisioning APIs.)
 3.  `$env['momo_api_key']` the API key of the user (can be obtained from partner gateway or sandbox user provisioning APIs).
-4.  `$bcAuthorizeFormData` is the form data that is needed to pass through BcAuthorize API in momoapi. For details see documentation [here](https://momodeveloper.mtn.com/docs/services/collection/operations/bc-authorize?).
-5.   `$Oauth2TokenFormData` is the form data that must be passed to oauth2 token momo api.([documentation](https://momodeveloper.mtn.com/docs/services/collection/operations/CreateOauth2Token?))
 
 Other optional functions available for `MobileMoney` class are:
 
@@ -110,9 +108,7 @@ try {
     MobileMoney::initialize(
         MobileMoney::SANDBOX,
         $env['reference_id'],
-        $env['momo_api_key'],
-        $bcAuthorizeFormData,
-        $Oauth2TokenFormData
+        $env['momo_api_key']
     );
 } catch (MobileMoneyException $exception) {
     print_r($exception->getMessage());

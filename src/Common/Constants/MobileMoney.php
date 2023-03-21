@@ -97,17 +97,13 @@ class MobileMoney
     public static function initialize(
         $environment,
         $userId,
-        $apiKey = '',
-        $bcAuthorizeFormData,
-        $Oauth2TokenFormData
+        $apiKey = ''
     ) {
         if (!self::$isInitialized) {
             self::$isInitialized = true;
             self::setEnvironment($environment);
             self::setUserId($userId);
             self::setApiKey($apiKey);
-            self::setBcAuthorizeFormData($bcAuthorizeFormData);
-            self::setOauth2TokenFormData($Oauth2TokenFormData);
             self::$cachePath = __DIR__ . '/../../../var/auth.cache';
         }
         if (

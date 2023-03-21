@@ -2,8 +2,13 @@
 require_once __DIR__ . './../bootstrap.php';
 
 use momopsdk\Collection\Collection;
+use momopsdk\Common\Constants\MobileMoney;
 
 try {
+    $bcAuthorizeFormData = "login_hint=ID:msisdn/msisdn&scope=profile&access_type=online";
+    $Oauth2TokenFormData = "grant_type=urn:openid:params:grant-type:ciba&auth_req_id={auth_req_id}";
+    MobileMoney::setBcAuthorizeFormData($bcAuthorizeFormData);
+    MobileMoney::setOauth2TokenFormData($Oauth2TokenFormData);
     /**
      * Construct request object and set desired parameters
      */
