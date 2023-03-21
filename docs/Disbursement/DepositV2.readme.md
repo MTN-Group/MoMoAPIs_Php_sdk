@@ -1,6 +1,6 @@
-# Create deposit v1.
+# Create deposit v2.
 
-1.	`depositV1($oReqDataObject, $sDisbursementSubKey,$targetEnvironment, $callbackUrl) create deposit from owner's account to payee account.`
+1.	`depositV2($oReqDataObject, $sDisbursementSubKey,$targetEnvironment, $callbackUrl) create deposit from owner's account to payee account.`
 2. `Request data prepared using DepositModel.`
 
 > `End user will get 202 as response on success. `

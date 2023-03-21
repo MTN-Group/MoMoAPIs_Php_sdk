@@ -1,6 +1,6 @@
-# Create Refund v2.
+# Transfer.
 
-1.	`transfer($oReqDataObject, $sDisbursementSubKey,$targetEnvironment, $callbackUrl) create transfer from own account to payee account.`
+1.	`transfer($oReqDataObject, $sRemittanceSubKey,$targetEnvironment, $callbackUrl) create transfer from own account to payee account.`
 2. `Request data prepared using DepositModel.`
 
 > `End user will get 202 as response on success. `

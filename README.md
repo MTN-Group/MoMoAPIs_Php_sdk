@@ -487,7 +487,7 @@ momopsdk\Common\Models\Error Object
 
 ## Tests
 
-The `tests` folder contains the test cases. These are logically divided in unit and integration tests. Integration tests require an active `consumer key`, `consumer secret` and `api key`. To run tests provide necessary permission to the system user in the root folder to create the cache file. Auth cache will be created in the path /var/auth.cache. 
+The `tests` folder contains the test cases. These are logically divided in unit and integration tests. Integration tests require an active `user id`, `api key`, `subscription keys`. To run tests provide necessary permission to the system user in the root folder to create the cache file. Auth cache will be created in the path `/var/auth.cache`. 
 
 1. Install [Composer](https://getcomposer.org/download/)
 2. From the root of the sdk-php project, run `composer install --dev` to install the dependencies
@@ -533,7 +533,7 @@ composer run tests
 
 ## Samples
 
-The sample code snippets are all completely independent and self-contained. You can analyze them to get an understanding of how a particular method can be implemented in your application. Sample code snippets can be found [here](/sample). Steps to run the sample code snippets are as follows:
+The sample code snippets are all completely independent and self-contained. You can analyze them to get an understanding of how a particular method can be implemented in your application. Sample code snippets can be found [here](/Sample). Steps to run the sample code snippets are as follows:
 
 -   Clone this repository:
 

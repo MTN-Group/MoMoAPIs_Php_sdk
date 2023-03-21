@@ -15,9 +15,16 @@
     <testsuites>
         <testsuite name="UnitTest">
             <directory>tests/Unit/src</directory>
+            <exclude>tests/Integration/src</exclude>
         </testsuite>
         <testsuite name="IntegrationTest">
             <directory>tests/Integration/src</directory>
+            <exclude>tests/Integration/src/SandboxUserProvisioning</exclude>
+            <exclude>tests/Unit/src</exclude>
+        </testsuite>
+        <testsuite name="Tests">
+            <directory>tests</directory>
+            <exclude>tests/Integration/src/SandboxUserProvisioning</exclude>
         </testsuite>
     </testsuites>
 </phpunit>
