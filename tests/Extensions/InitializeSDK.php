@@ -19,7 +19,9 @@ class InitializeSDK implements BeforeFirstTestHook, AfterLastTestHook
         MobileMoney::initialize(
             MobileMoney::SANDBOX,
             $_ENV['reference_id'],
-            $_ENV['momo_api_key']
+            $_ENV['momo_api_key'],
+            "login_hint=ID:msisdn/msisdn&scope=profile&access_type=online",
+            "grant_type=urn:openid:params:grant-type:ciba&auth_req_id={auth_req_id}"
         );
         MobileMoney::setSecurityLevel(SecurityLevel::STANDARD);
     }

@@ -51,13 +51,12 @@ class GetUserInfoWithConsent extends BaseProcess
      */
     public function execute()
     {
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $reqData = $env['bc_authorize_form_data'];
+        $reqData = MobileMoney::getBcAuthorizeFormData();
         //Function to bc-authorize
         $oBcAuth = new BcAuthorize(
            $reqData,
-           $env['reference_id'],
-           $env['momo_api_key'],
+           MobileMoney::getUserId(),
+           MobileMoney::getApiKey(),
            $this->subKey,
            $this->targetEnv,
            $this->subType,

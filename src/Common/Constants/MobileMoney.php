@@ -82,6 +82,10 @@ class MobileMoney
     public static $authReqId;
 
     public static $tokenType;
+
+    private static $bcAuthorizeFormData;
+
+    private static $Oauth2TokenFormData;
     /**
      * Initialize SDK
      *
@@ -93,13 +97,17 @@ class MobileMoney
     public static function initialize(
         $environment,
         $userId,
-        $apiKey = ''
+        $apiKey = '',
+        $bcAuthorizeFormData,
+        $Oauth2TokenFormData
     ) {
         if (!self::$isInitialized) {
             self::$isInitialized = true;
             self::setEnvironment($environment);
             self::setUserId($userId);
             self::setApiKey($apiKey);
+            self::setBcAuthorizeFormData($bcAuthorizeFormData);
+            self::setOauth2TokenFormData($Oauth2TokenFormData);
             self::$cachePath = __DIR__ . '/../../../var/auth.cache';
         }
         if (
@@ -175,11 +183,10 @@ class MobileMoney
      */
     public static function getBaseUrl()
     {
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
         if (self::$environment === self::SANDBOX) {
-            return $env['base_url'];
+            return API::SANDBOX_BASE_URL;
         } elseif (self::$environment === self::PRODUCTION) {
-            return $env['production_base_url'];
+            return API::PRODUCTION_BASE_URL;
         }
     }
 
@@ -281,12 +288,11 @@ class MobileMoney
      */
     public static function setEnvironment($environment)
     {
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
         self::$environment = $environment;
         if ($environment === self::SANDBOX) {
-            self::$baseUrl = $env['base_url'];
+            self::$baseUrl = API::SANDBOX_BASE_URL;
         } elseif ($environment === self::PRODUCTION) {
-            self::$baseUrl = $env['production_base_url'];
+            self::$baseUrl = API::PRODUCTION_BASE_URL;
         }
     }
 
@@ -313,5 +319,25 @@ class MobileMoney
     public static function destroyTokenType()
     {
         self::$tokenType = null;
+    }
+
+    public static function setBcAuthorizeFormData($bcAuthorizeFormData)
+    {
+        self::$bcAuthorizeFormData = $bcAuthorizeFormData;
+    }
+
+    public static function setOauth2TokenFormData($Oauth2TokenFormData)
+    {
+        self::$Oauth2TokenFormData = $Oauth2TokenFormData;
+    }
+
+    public static function getBcAuthorizeFormData()
+    {
+        return self::$bcAuthorizeFormData;
+    }
+
+    public static function getOauth2TokenFormData()
+    {
+        return self::$Oauth2TokenFormData;
     }
 }

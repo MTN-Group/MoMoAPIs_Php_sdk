@@ -15,11 +15,15 @@ try {
     $targetEnvironment = $env['target_environment'];
     $sDisbursementSubKey = $env['disbursement_subscription_key'];
     $sRemittanceSubKey = $env['remittance_subscription_key'];
+    $bcAuthorizeFormData = "login_hint=ID:msisdn/msisdn&scope=profile&access_type=online";
+    $Oauth2TokenFormData = "grant_type=urn:openid:params:grant-type:ciba&auth_req_id={auth_req_id}";
     
     MobileMoney::initialize(
         MobileMoney::SANDBOX,
         $env['reference_id'],
-        $env['momo_api_key']
+        $env['momo_api_key'],
+        $bcAuthorizeFormData,
+        $Oauth2TokenFormData
     );
     MobileMoney::setSecurityLevel(SecurityLevel::STANDARD);
     MobileMoney::setCallbackUrl("http://webhook.site/c84cd23c-062b-49bb-b206-909bc8625207");
