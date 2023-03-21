@@ -37,7 +37,7 @@ class RequestToPayDeliveryNotificationIntegrationTest extends IntegrationTestCas
     protected function setUp(): void
     {
         $env = parse_ini_file(__DIR__ . './../../../../config.env');
-        $referenceId = '73f8eeee-1974-4b11-b4bd-edc6d04e6703';
+        $referenceId = '5a4d4807-fa36-41f8-b7c7-6e7911df9a12';
         $notificationMessage = 'Pay for product a delivery notification';
         $language = "eng";
         $contentType = "application/json";

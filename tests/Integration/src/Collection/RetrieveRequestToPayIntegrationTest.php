@@ -26,7 +26,7 @@ class RetrieveRequestToPayIntegrationTest extends IntegrationTestCase
     protected function setUp(): void
     {
         $env = parse_ini_file(__DIR__ . './../../../../config.env');
-        $sReferenceId = 'ccf50462-e8e8-4f98-84a8-03007bc93f18';
+        $sReferenceId = '5a4d4807-fa36-41f8-b7c7-6e7911df9a12';
         $this->request = Collection::requestToPayTransactionStatus(
             $sReferenceId,
             $env['collection_subscription_key'],

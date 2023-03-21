@@ -2,11 +2,11 @@
 
 use momopsdk\Collection\Collection;
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Collection\Models\StatusResponse;
+use momopsdk\Common\Models\CommonStatusResponse;
 use momopsdk\Common\Process\ValidateAccountHolder;
 use momopsdkTest\Integration\src\IntegrationTestCase;
 
-class ValidateAccountHolderIntegrationTest extends IntegrationTestCase
+class ValidateAccountHolderStatusIntegrationTest extends IntegrationTestCase
 {
     protected function getProcessInstanceType()
     {
@@ -15,7 +15,7 @@ class ValidateAccountHolderIntegrationTest extends IntegrationTestCase
 
     protected function getResponseInstanceType()
     {
-        return StatusResponse::class;
+        return CommonStatusResponse::class;
     }
 
     protected function getRequestType()
