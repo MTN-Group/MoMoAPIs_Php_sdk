@@ -7,6 +7,7 @@ use momopsdk\Common\Constants\Header;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\EncDecUtil;
+use momopsdk\Common\Constants\MobileMoney;
 
 class Oauth2AccessToken extends BaseProcess
 {
@@ -55,8 +56,7 @@ class Oauth2AccessToken extends BaseProcess
                 # code...
                 break;
         }
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $data = $env['oauth2_token_data'];
+        $data = MobileMoney::getOauth2TokenFormData();
         $request = RequestUtil::post(
             $apiUrl, str_replace('{auth_req_id}', $this->authReqId, $data)
         )

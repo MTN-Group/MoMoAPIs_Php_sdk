@@ -83,7 +83,6 @@ class ValidateAccountHolder extends BaseProcess
      */
     public function execute()
     {
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
         $request = RequestUtil::get(str_replace('{subscriptionType}', $this->subType, API::VALIDATE_ACCOUNT_HOLDER))
             ->setUrlParams([
                 '{accountHolderId}' => $this->accountHolderId,

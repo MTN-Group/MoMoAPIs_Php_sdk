@@ -82,7 +82,7 @@ To initialize the PHP SDK, the static method `initialize()` of `MobileMoney` cla
     -   `MobileMoney::SANDBOX` for Sandbox
     -   `MobileMoney::PRODUCTION` for Production
 2.  `$env['reference_id']` the reference id or user Id (can be obtained from partner gateway.In Sandbox account it can be generated using user provisioning APIs.)
-3.  `$env['momo_api_key']` the API key of the user (can be obtained from partner gateway or sandbox user provisioning APIs)
+3.  `$env['momo_api_key']` the API key of the user (can be obtained from partner gateway or sandbox user provisioning APIs).
 
 Other optional functions available for `MobileMoney` class are:
 
@@ -181,6 +181,8 @@ try {
     print_r($ex->getErrorObj());
 }
 ```
+
+In the above code the variables `$sDisbursementSubKey` is the subscription key of disbursement product that is getting from the user profile and `$targetEnvironment` is the target environment. In sandbox environment use `sandbox`.
 
 Sample Response:
 
@@ -487,7 +489,7 @@ momopsdk\Common\Models\Error Object
 
 ## Tests
 
-The `tests` folder contains the test cases. These are logically divided in unit and integration tests. Integration tests require an active `consumer key`, `consumer secret` and `api key`. To run tests provide necessary permission to the system user in the root folder to create the cache file. Auth cache will be created in the path /var/auth.cache. 
+The `tests` folder contains the test cases. These are logically divided in unit and integration tests. Integration tests require an active `user id`, `api key`, `subscription keys`. To run tests provide necessary permission to the system user in the root folder to create the cache file. Auth cache will be created in the path `/var/auth.cache`. 
 
 1. Install [Composer](https://getcomposer.org/download/)
 2. From the root of the sdk-php project, run `composer install --dev` to install the dependencies
@@ -533,7 +535,7 @@ composer run tests
 
 ## Samples
 
-The sample code snippets are all completely independent and self-contained. You can analyze them to get an understanding of how a particular method can be implemented in your application. Sample code snippets can be found [here](/sample). Steps to run the sample code snippets are as follows:
+The sample code snippets are all completely independent and self-contained. You can analyze them to get an understanding of how a particular method can be implemented in your application. Sample code snippets can be found [here](/Sample). Steps to run the sample code snippets are as follows:
 
 -   Clone this repository:
 
@@ -558,11 +560,7 @@ e.g.
     disbursement_subscription_key = <Disbursement subscription key obtained from user profile>
     remittance_subscription_key = <Remittance subscription key obtained from user profile>
     momo_api_key = <User API key>
-    base_url = <Sandbox base url here>
-    production_base_url = <Production base url here>
     target_environment = <Your Target environment here>
-    oauth2_token_data = <form data to be submitted for the generation of API token>
-    bc_authorize_form_data = <form data for the bc-authorize api>
 ```
 
 -   Run each sample directly from the command line. For example:

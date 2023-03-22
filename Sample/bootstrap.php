@@ -16,6 +16,7 @@ try {
     $sDisbursementSubKey = $env['disbursement_subscription_key'];
     $sRemittanceSubKey = $env['remittance_subscription_key'];
     
+    
     MobileMoney::initialize(
         MobileMoney::SANDBOX,
         $env['reference_id'],

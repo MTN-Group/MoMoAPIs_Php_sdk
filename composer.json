@@ -17,7 +17,7 @@
         }
     },
     "scripts": {
-        "tests": "./vendor/bin/phpunit --testdox tests",
+        "tests": "./vendor/bin/phpunit --testdox --testsuite Tests",
         "unit-test": "./vendor/bin/phpunit --testdox --testsuite UnitTest",
         "integration-tests": "./vendor/bin/phpunit --testdox --testsuite IntegrationTest"
     }
