@@ -7,7 +7,7 @@ use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
-use momopsdk\Disbursement\Models\StatusDetail;
+use momopsdk\Common\Models\TransferStatusDetail;
 
 class GetTransferStatus extends BaseProcess
 {
@@ -62,6 +62,6 @@ class GetTransferStatus extends BaseProcess
             ->setSubscriptionKey($this->subscriptionKey)
             ->build();
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new StatusDetail());
+        return $this->parseResponse($response, new TransferStatusDetail());
     }
 }

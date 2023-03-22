@@ -8,7 +8,7 @@ use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
 use momopsdk\Disbursement\Models\ResponseModel;
-use momopsdk\Disbursement\Models\DepositModel;
+use momopsdk\Common\Models\DepositModel;
 
 class CreateRefundV2 extends BaseProcess
 {

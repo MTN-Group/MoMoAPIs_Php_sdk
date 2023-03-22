@@ -1,4 +1,4 @@
-# Create Refund v2.
+# Transfer.
 
 1.	`transfer($oReqDataObject, $sDisbursementSubKey,$targetEnvironment, $callbackUrl) create transfer from own account to payee account.`
 2. `Request data prepared using DepositModel.`
@@ -13,7 +13,7 @@
 require_once __DIR__ . './../bootstrap.php';
 
 use momopsdk\Disbursement\DisbursementTransaction;
-use momopsdk\Disbursement\Models\DepositModel;
+use momopsdk\Common\Models\DepositModel;
 
 try {
     $payee = [

@@ -7,7 +7,7 @@ use momopsdk\Common\Constants\Header;
 use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Collection\Models\StatusResponse;
+use momopsdk\Common\Models\CommonStatusResponse;
 
 /**
  * Class ValidateAccountHolder
@@ -83,7 +83,6 @@ class ValidateAccountHolder extends BaseProcess
      */
     public function execute()
     {
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
         $request = RequestUtil::get(str_replace('{subscriptionType}', $this->subType, API::VALIDATE_ACCOUNT_HOLDER))
             ->setUrlParams([
                 '{accountHolderId}' => $this->accountHolderId,
@@ -94,6 +93,6 @@ class ValidateAccountHolder extends BaseProcess
             ->setSubscriptionKey($this->subKey)
             ->build();
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new StatusResponse());
+        return $this->parseResponse($response, new CommonStatusResponse());
     }
 }

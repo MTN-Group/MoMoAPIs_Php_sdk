@@ -13,6 +13,10 @@ class GetUserInfoWithConsentRemittanceTest extends ProcessTestCase
 {
     protected function setUp(): void
     {
+        $bcAuthorizeFormData = "login_hint=ID:msisdn/msisdn&scope=profile&access_type=online";
+        $Oauth2TokenFormData = "grant_type=urn:openid:params:grant-type:ciba&auth_req_id={auth_req_id}";
+        MobileMoney::setBcAuthorizeFormData($bcAuthorizeFormData);
+        MobileMoney::setOauth2TokenFormData($Oauth2TokenFormData);
         $env = parse_ini_file(__DIR__ . './../../../../../config.env');
         $sSubsKey = $env['remittance_subscription_key'];
         $sTargetEnvironmentlter = $env['target_environment'];

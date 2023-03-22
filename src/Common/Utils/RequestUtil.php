@@ -572,8 +572,10 @@ class RequestUtil
 
         $outputData = $this->getResponseHeaders($output);
         $response = new Response();
+        if (isset($outputData['Data'])) {
+            $response->setResult($outputData['Data']);
+        }
         $response
-            ->setResult($outputData['Data'])
             ->setInfo(curl_getinfo($ch))
             ->setHttpCode(curl_getinfo($ch, CURLINFO_HTTP_CODE))
             ->setError(curl_error($ch))
