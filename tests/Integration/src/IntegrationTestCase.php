@@ -42,12 +42,12 @@ abstract class IntegrationTestCase extends TestCase
         if ($this->getRequestType() == BaseProcess::ASYNCHRONOUS_PROCESS) {
             $this->assertContains(
                 $this->request->getRawResponse()->getHttpCode(),
-                [202,201]
+                [202, 201]
             );
         } else {
             $this->assertContains(
                 $this->request->getRawResponse()->getHttpCode(),
-                [200,201]
+                [200, 201]
             );
         }
 
@@ -70,7 +70,7 @@ abstract class IntegrationTestCase extends TestCase
     {
         $this->assertContains(
             $this->request->getRawResponse()->getHttpCode(),
-            [202,201]
+            [202, 201]
         );
         $this->assertInstanceOf(
             $this->getResponseInstanceType(),
@@ -91,6 +91,7 @@ abstract class IntegrationTestCase extends TestCase
 
     protected function responseAssertions($request, $response)
     {
+
         $rawResponse = $request->getRawResponse();
         $jsonData = [];
         if ($request->getRawResponse()->getResult() != '') {

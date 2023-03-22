@@ -159,7 +159,7 @@ class Collection
         $sCollectionSubKey,
         $sTargetEnvironment,
         $oDeliveryNotification,
-        $sLanguage,
+        $sLanguage = null,
         $sContentType = null
     ) {
         return new RequestToPayDeliveryNotification(
