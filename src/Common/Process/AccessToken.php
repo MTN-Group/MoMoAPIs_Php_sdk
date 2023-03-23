@@ -23,7 +23,6 @@ class AccessToken extends BaseProcess
     /**
      * Use this API call to generate an Access Token. You can then use the token to authenticate on subsequent API requests until the token expires.
      * To generate the access token, a User Id and a api key is required
-     *
      */
     public function __construct($userId, $apiKey, $tokenIdentifier, $sSubKey)
     {
@@ -39,18 +38,18 @@ class AccessToken extends BaseProcess
     public function execute()
     {
         switch ($this->tokenIdentifier) {
-            case 'COLLECTION':
-                $apiUrl = API::COLLECTION_ACCESS_TOKEN;
-                break;
-            case 'DISBURSEMENT':
-                $apiUrl = API::DISBURSEMENT_ACCESS_TOKEN;
-                break;
-            case 'REMITTANCE':
-                $apiUrl = API::REMITTANCE_ACCESS_TOKEN;
-                break;
-            default:
-                # code...
-                break;
+        case 'COLLECTION':
+            $apiUrl = API::COLLECTION_ACCESS_TOKEN;
+            break;
+        case 'DISBURSEMENT':
+            $apiUrl = API::DISBURSEMENT_ACCESS_TOKEN;
+            break;
+        case 'REMITTANCE':
+            $apiUrl = API::REMITTANCE_ACCESS_TOKEN;
+            break;
+        default:
+            // code...
+            break;
         }
         $request = RequestUtil::post(
             $apiUrl

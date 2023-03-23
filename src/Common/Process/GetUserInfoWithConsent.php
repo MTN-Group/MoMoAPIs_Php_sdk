@@ -12,6 +12,7 @@ use momopsdk\Common\Models\UserDetail;
 
 /**
  * Class GetUserInfoWithConsent
+ *
  * @package momopsdk\Common\Process
  */
 class GetUserInfoWithConsent extends BaseProcess
@@ -27,7 +28,7 @@ class GetUserInfoWithConsent extends BaseProcess
     /**
      * Used to het the personal information of the account holder
      *
-     * @param string $accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment
+     * @param  string $accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment
      * @return this
      */
     public function __construct($sSubKey, $sTargetEnvironment, $subType, $sCallBackUrl = null)
@@ -47,6 +48,7 @@ class GetUserInfoWithConsent extends BaseProcess
 
     /**
      * Function to execute sending of additional Notification to an End User
+     *
      * @return CallbackResponse
      */
     public function execute()
@@ -54,13 +56,13 @@ class GetUserInfoWithConsent extends BaseProcess
         $reqData = MobileMoney::getBcAuthorizeFormData();
         //Function to bc-authorize
         $oBcAuth = new BcAuthorize(
-           $reqData,
-           MobileMoney::getUserId(),
-           MobileMoney::getApiKey(),
-           $this->subKey,
-           $this->targetEnv,
-           $this->subType,
-           $this->callBackUrl
+            $reqData,
+            MobileMoney::getUserId(),
+            MobileMoney::getApiKey(),
+            $this->subKey,
+            $this->targetEnv,
+            $this->subType,
+            $this->callBackUrl
         );
         $bcAuthResult = $oBcAuth->execute();
         MobileMoney::setAuthReqId($bcAuthResult->auth_req_id);

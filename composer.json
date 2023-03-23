@@ -9,7 +9,8 @@
         "phpunit/phpunit": "^9.6",
         "vlucas/phpdotenv": "^5.5",
         "dms/phpunit-arraysubset-asserts": "^0.4.0",
-        "phpcompatibility/php-compatibility": "*"
+        "phpcompatibility/php-compatibility": "*",
+        "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
         "psr-4": {

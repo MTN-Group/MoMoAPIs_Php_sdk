@@ -11,6 +11,7 @@ use momopsdk\Common\Process\BaseProcess;
 
 /**
  * Class RequestToWithdrawV1
+ *
  * @package momopsdk\Collection\Process
  */
 class RequestToWithdrawV1 extends BaseProcess
@@ -40,8 +41,8 @@ class RequestToWithdrawV1 extends BaseProcess
     /**
      * Initiates a Request To withdraw.
      *
-     * @param Transaction $transaction
-     * @param string $sCollectionSubKey, $targetEnvironment
+     * @param  Transaction $transaction
+     * @param  string      $sCollectionSubKey, $targetEnvironment
      * @return this
      */
     public function __construct($oTransaction, $sCollectionSubKey, $sTargetEnvironment, $sCallbackUrl, $sContentType)
@@ -66,6 +67,7 @@ class RequestToWithdrawV1 extends BaseProcess
 
     /**
      * This operation is used to request a withdrawal(cash-out) from a consumer (Payer).
+     *
      * @return RequestToWithdraw
      */
     public function execute()

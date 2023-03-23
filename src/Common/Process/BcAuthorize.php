@@ -25,19 +25,19 @@ class BcAuthorize extends BaseProcess
     private $subType;
     /**
      * Construct function
+     *
      * @param
      * @return object
      */
     public function __construct(
-       $sReqData,
-       $userId,
-       $apiKey,
-       $sSubKey,
-       $sTargetEnvironment,
-       $subType,
-       $sCallBackUrl = null
-    )
-    {
+        $sReqData,
+        $userId,
+        $apiKey,
+        $sSubKey,
+        $sTargetEnvironment,
+        $subType,
+        $sCallBackUrl = null
+    ) {
         CommonUtil::validateArgument($userId, 'userId');
         CommonUtil::validateArgument($apiKey, 'apiKey');
         $this->userId = $userId;
@@ -53,18 +53,18 @@ class BcAuthorize extends BaseProcess
     public function execute()
     {
         switch ($this->subType) {
-            case 'disbursement':
-                $apiUrl = API::DISBURSEMENT_BC_AUTHORIZE;
-                break;
-            case 'collection':
-                $apiUrl = API::COLLECTION_BC_AUTHORIZE;
-                break;
-            case 'remittance':
-                $apiUrl = API::REMITTANCE_BC_AUTHORIZE;
-                break;
-            default:
-                # code...
-                break;
+        case 'disbursement':
+            $apiUrl = API::DISBURSEMENT_BC_AUTHORIZE;
+            break;
+        case 'collection':
+            $apiUrl = API::COLLECTION_BC_AUTHORIZE;
+            break;
+        case 'remittance':
+            $apiUrl = API::REMITTANCE_BC_AUTHORIZE;
+            break;
+        default:
+            // code...
+            break;
         }
         $request = RequestUtil::post(
             $apiUrl,
@@ -83,12 +83,12 @@ class BcAuthorize extends BaseProcess
                 $this->targetEnv
             )
             ->setSubscriptionKey($this->subscriptionKey);
-            if ($this->callBackUrl != null) {
-                $request = $request->httpHeader(
-                    Header::X_CALLBACK_URL,
-                    $this->callBackUrl
-                );
-            }
+        if ($this->callBackUrl != null) {
+            $request = $request->httpHeader(
+                Header::X_CALLBACK_URL,
+                $this->callBackUrl
+            );
+        }
 
         $request = $request->build();
         $response = $this->makeRequest($request);

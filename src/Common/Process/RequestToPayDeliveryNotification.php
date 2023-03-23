@@ -11,6 +11,7 @@ use momopsdk\Common\Models\CallbackResponse;
 
 /**
  * Class RequestToPayDeliveryNotification
+ *
  * @package momopsdk\Common\Process
  */
 class RequestToPayDeliveryNotification extends BaseProcess
@@ -59,8 +60,8 @@ class RequestToPayDeliveryNotification extends BaseProcess
     /**
      * Send notification message for a payment request
      *
-     * @param string $notificationMessage
-     * @param string $referenceId
+     * @param  string $notificationMessage
+     * @param  string $referenceId
      * @return this
      */
     public function __construct($sReferenceId, $sNotificationMessage, $sCollectionSubKey, $sTargetEnvironment, $oDeliveryNotification, $sLanguage, $sContentType, $subType)
@@ -102,14 +103,17 @@ class RequestToPayDeliveryNotification extends BaseProcess
 
     /**
      * Function to execute sending of additional Notification to an End User
+     *
      * @return CallbackResponse
      */
     public function execute()
     {
         $request = RequestUtil::post(str_replace('{subscriptionType}', $this->subType, API::REQUEST_TO_PAY_DELIVERY_NOTIFICATION), json_encode($this->deliveryNotificationMsg))
-            ->setUrlParams([
+            ->setUrlParams(
+                [
                 '{referenceId}' => $this->refId
-            ])
+                ]
+            )
             ->httpHeader(Header::NOTIFICATION, $this->notificationMessage)
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
