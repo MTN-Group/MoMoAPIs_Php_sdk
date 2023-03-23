@@ -1,6 +1,6 @@
 # Shows the status of initiated payment request in the sandbox environment
 
-1.	`requestToPayTransactionStatus($transaction, $referenceId, $sCollectionSubKey, $targetEnvironment) creates a GET request to end point /v1_0/requesttopay/{referenceId} and get the status of the created payment request in the sandbox environment and it requires X-Reference-Id that was passed in the post method of request to pay is used as reference to the request..`
+1.	`requestToPayTransactionStatus($transaction, $referenceId, $sCollectionSubKey, $targetEnvironment) creates a GET request to end point /v1_0/requesttopay/{referenceId} and get the status of the created payment request in the sandbox environment, and it requires X-Reference-Id that was passed in the post method of request to pay is used as reference to the request..`
 
 > `End user will get result as 200 OK with the created payment request details.`
 
