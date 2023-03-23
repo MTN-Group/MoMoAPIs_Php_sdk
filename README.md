@@ -86,7 +86,7 @@ To initialize the PHP SDK, the static method `initialize()` of `MobileMoney` cla
 
 Other optional functions available for `MobileMoney` class are:
 
--   `setCallbackUrl()` - URL for your application where you want MobileMoney API to push data. This is optional; if you wish to specify different callback urls for different use cases, you can pass the callback url with each request seperately.
+-   `setCallbackUrl()` - URL for your application where you want MobileMoney API to push data. This is optional; if you wish to specify different callback urls for different use cases, you can pass the callback url with each request seperately. Otherwise you can use `setCallbackUrl()` to set and `getCallbackUrl()` function to get the callback url.
 -   `setSecurityLevel()` - When making API requests, this property is used to specify the type of authentication to be used. If not set the default `SecurityLevel::STANDARD` will be used. Value can be one of the following
     -   `SecurityLevel::DEVELOPMENT` - Uses Basic authentication for requests.
     -   `SecurityLevel::STANDARD` - Uses OAuth2 authentication for requests.
@@ -566,9 +566,9 @@ e.g.
 -   Run each sample directly from the command line. For example:
 
 ```
-php -f sample/Disbursements/DepositV1.php
+php -f Sample/Disbursements/DepositV1.php
 ```
 
 ## Folder Permissions
 
-Provide permission to the server user in the root folder of the SDK inorder to create authorization cache file. Authorization cache created in path 'var/auth.cache'.
+If needed, provide permission to the server user in the root folder of the SDK inorder to create authorization cache file. Authorization cache would be created in path 'var/auth.cache'.

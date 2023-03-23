@@ -9,7 +9,7 @@ namespace momopsdk\Common\Constants;
 class API
 {
     const SANDBOX_BASE_URL = 'https://sandbox.momodeveloper.mtn.com',
-          PRODUCTION_BASE_URL = '',
+          PRODUCTION_BASE_URL = 'https://proxy.momoapi.mtn.com',
     
     
         CREATE_USER = '/v1_0/apiuser',

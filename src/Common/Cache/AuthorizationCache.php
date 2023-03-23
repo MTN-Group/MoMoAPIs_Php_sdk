@@ -40,8 +40,6 @@ abstract class AuthorizationCache
                             ->setTokenType($authType);
                     }
                     return $obj;
-                    // If client Id is found, just send in that data only
-                    return new AuthToken((object) $tokens[$clientId]);
                 } elseif ($clientId) {
                     // If client Id is provided, but no key in persisted data found matching it.
                     return null;
