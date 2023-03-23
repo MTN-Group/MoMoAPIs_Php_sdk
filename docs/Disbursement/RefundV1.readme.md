@@ -1,7 +1,7 @@
 # Create Refund v1.
 
 1.	`refundV1($oReqDataObject, $sDisbursementSubKey,$targetEnvironment, $callbackUrl) create refund from owner's account to payee account.`
-2. `Request data prepared using RefundModel, then set setReferenceIdToRefund as referenceId of the Request To Pay transaction`
+2. `Request data prepared using RefundModel, where set setReferenceIdToRefund as referenceId of the Request To Pay transaction`
 
 > `End user will get 202 as response on success. `
 
