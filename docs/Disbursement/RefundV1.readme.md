@@ -1,7 +1,7 @@
 # Create Refund v1.
 
 1.	`refundV1($oReqDataObject, $sDisbursementSubKey,$targetEnvironment, $callbackUrl) create refund from owner's account to payee account.`
-2. `Request data prepared using RefundModel.`
+2. `Request data prepared using RefundModel, then set setReferenceIdToRefund as referenceId of the Request To Pay transaction`
 
 > `End user will get 202 as response on success. `
 
@@ -16,7 +16,7 @@ use momopsdk\Disbursement\DisbursementTransaction;
 use momopsdk\Disbursement\Models\RefundModel;
 
 try {
-    
+
     $oReqDataObject = new RefundModel();
 
     $oReqDataObject
@@ -45,7 +45,7 @@ try {
 ```php
 momopsdk\Disbursement\Models\ResponseModel Object
 (
-    [result] => 
+    [result] =>
     [referenceId] => fbc064cb-853c-4462-8c34-dccbc249ece7
     [httpCode] => 202
 )
