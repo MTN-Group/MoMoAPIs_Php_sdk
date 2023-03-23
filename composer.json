@@ -1,14 +1,16 @@
 {
     "name": "mtn/momoapi-php-sdk",
     "require": {
-        "phpunit/phpunit": "^9.6",
-        "vlucas/phpdotenv": "^5.5"
-    },
-    "require-dev": {
         "php": ">=5.4.0",
         "ext-curl": "*",
-        "ext-json": "*",
-        "dms/phpunit-arraysubset-asserts": "^0.4.0"
+        "ext-json": "*"
+    },
+    "require-dev": {        
+        "phpunit/phpunit": "^9.6",
+        "vlucas/phpdotenv": "^5.5",
+        "dms/phpunit-arraysubset-asserts": "^0.4.0",
+        "phpcompatibility/php-compatibility": "*",
+        "squizlabs/php_codesniffer": "*"
     },
     "autoload": {
         "psr-4": {
@@ -19,6 +21,13 @@
     "scripts": {
         "tests": "./vendor/bin/phpunit --testdox --testsuite Tests",
         "unit-test": "./vendor/bin/phpunit --testdox --testsuite UnitTest",
-        "integration-tests": "./vendor/bin/phpunit --testdox --testsuite IntegrationTest"
+        "integration-tests": "./vendor/bin/phpunit --testdox --testsuite IntegrationTest",
+        "check-compat": "./vendor/bin/phpcs -p src/ --standard=PHPCompatibility --runtime-set testVersion 5.4-8.0",
+        "post-install-cmd": [
+            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility"
+        ],
+        "post-update-cmd": [
+            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility"
+        ]
     }
 }

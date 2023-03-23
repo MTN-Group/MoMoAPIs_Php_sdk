@@ -13,6 +13,7 @@ use momopsdk\Collection\Models\RequestToWithdraw;
 
 /**
  * Class RequestToWithdrawV2
+ *
  * @package momopsdk\Collection\Process
  */
 class RequestToWithdrawV2 extends BaseProcess
@@ -41,8 +42,9 @@ class RequestToWithdrawV2 extends BaseProcess
 
     /**
      * Initiates a request to withdraw.
-     * @param Transaction $transaction
-     * @param string $sCollectionSubKey, $targetEnvironment
+     *
+     * @param  Transaction $transaction
+     * @param  string      $sCollectionSubKey, $targetEnvironment
      * @return this
      */
     public function __construct($oTransaction, $sCollectionSubKey, $sTargetEnvironment, $sCallbackUrl, $sContentType)

@@ -26,7 +26,6 @@ class Oauth2AccessToken extends BaseProcess
     /**
      * Use this API call to generate an Access Token. You can then use the token to authenticate on subsequent API requests until the token expires.
      * To generate the access token, a User Id and a api key is required
-     *
      */
     public function __construct($userId, $apiKey, $tokenIdentifier, $sSubKey, $authReqId)
     {
@@ -43,18 +42,18 @@ class Oauth2AccessToken extends BaseProcess
     public function execute()
     {
         switch ($this->tokenIdentifier) {
-            case 'COLLECTION':
-                $apiUrl = API::COLLECTION_OAUTH2ACCESS_TOKEN;
-                break;
-            case 'DISBURSEMENT':
-                $apiUrl = API::DISBURSEMENT_OAUTH2ACCESS_TOKEN;
-                break;
-            case 'REMITTANCE':
-                $apiUrl = API::REMITTANCE_OAUTH2ACCESS_TOKEN;
-                break;
-            default:
-                # code...
-                break;
+        case 'COLLECTION':
+            $apiUrl = API::COLLECTION_OAUTH2ACCESS_TOKEN;
+            break;
+        case 'DISBURSEMENT':
+            $apiUrl = API::DISBURSEMENT_OAUTH2ACCESS_TOKEN;
+            break;
+        case 'REMITTANCE':
+            $apiUrl = API::REMITTANCE_OAUTH2ACCESS_TOKEN;
+            break;
+        default:
+            // code...
+            break;
         }
         $data = MobileMoney::getOauth2TokenFormData();
         $request = RequestUtil::post(

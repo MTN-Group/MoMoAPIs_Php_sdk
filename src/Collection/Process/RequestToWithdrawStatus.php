@@ -10,7 +10,8 @@ use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
 
 /**
- * Class GetAccountBalance
+ * Class RequestToWithdrawStatus
+ *
  * @package momopsdk\Collection\Process
  */
 class RequestToWithdrawStatus extends BaseProcess
@@ -33,7 +34,7 @@ class RequestToWithdrawStatus extends BaseProcess
     /**
      * Get the transaction request status.
      *
-     * @param string $referenceId
+     * @param  string $referenceId
      * @return this
      */
     public function __construct($sReferenceId, $sCollectionSubKey, $sTargetEnvironment)
@@ -51,6 +52,7 @@ class RequestToWithdrawStatus extends BaseProcess
 
     /**
      * Function  used to get the status of a request to withdraw.
+     *
      * @return CallbackResponse
      */
     public function execute()

@@ -47,6 +47,7 @@ class CreateRefundV2 extends BaseProcess
 
     /**
      * Function to execute the API for API key generation
+     *
      * @param
      * @return
      */
@@ -54,7 +55,8 @@ class CreateRefundV2 extends BaseProcess
     {
         $request = RequestUtil::post(
             str_replace('{subscriptionType}', $this->subType, API::CREATE_REFUND_V2),
-            json_encode($this->aReq))
+            json_encode($this->aReq)
+        )
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnvironment)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subscriptionKey)
             ->setSubscriptionKey($this->subscriptionKey)

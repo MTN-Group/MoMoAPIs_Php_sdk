@@ -49,13 +49,15 @@ class GetRefundStatus extends BaseProcess
 
     /**
      * Function to execute the API for API key generation
+     *
      * @param
      * @return
      */
     public function execute()
     {
         $request = RequestUtil::get(
-            str_replace('{subscriptionType}', $this->subType, API::GET_REFUND_STATUS))
+            str_replace('{subscriptionType}', $this->subType, API::GET_REFUND_STATUS)
+        )
             ->setUrlParams(['{referenceId}' => $this->refId])
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnvironment)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subscriptionKey)

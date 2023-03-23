@@ -47,6 +47,7 @@ class GetBalanceInSpecificCurrency extends BaseProcess
 
     /**
      * Function to execute the API for API key generation
+     *
      * @param
      * @return
      */
