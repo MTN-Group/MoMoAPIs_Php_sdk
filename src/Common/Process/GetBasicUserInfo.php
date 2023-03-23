@@ -11,6 +11,7 @@ use momopsdk\Common\Models\UserDetail;
 
 /**
  * Class GetBasicUserInfo
+ *
  * @package momopsdk\Common\Process
  */
 class GetBasicUserInfo extends BaseProcess
@@ -38,7 +39,7 @@ class GetBasicUserInfo extends BaseProcess
     /**
      * Used to het the personal information of the account holder
      *
-     * @param string $accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment
+     * @param  string $accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment
      * @return this
      */
     public function __construct($sAccountHolderMSISDN, $sCollectionSubKey, $sTargetEnvironment, $subType)
@@ -64,14 +65,17 @@ class GetBasicUserInfo extends BaseProcess
 
     /**
      * Function to execute sending of additional Notification to an End User
+     *
      * @return UserDetail
      */
     public function execute()
     {
         $request = RequestUtil::get(str_replace('{subscriptionType}', $this->subType, API::GET_BASIC_USER_INFO))
-            ->setUrlParams([
+            ->setUrlParams(
+                [
                 '{accountHolderMSISDN}' => $this->msisdn
-            ])
+                ]
+            )
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
             ->setSubscriptionKey($this->subKey)
