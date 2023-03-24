@@ -4,6 +4,7 @@
 
 > `End user will get status of the Transfer. `
 
+2. `$sRefId is the reference id of the Transfer transaction.`
 ### Usage/Examples
 
 ```php

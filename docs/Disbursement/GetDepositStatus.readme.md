@@ -4,6 +4,8 @@
 
 > `End user will get status of the deposit. `
 
+2. `$sRefId is the reference id of the Deposit transaction.`
+
 ### Usage/Examples
 
 ```php
