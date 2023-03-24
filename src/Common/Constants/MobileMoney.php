@@ -142,14 +142,6 @@ class MobileMoney
         return self::$userId;
     }
 
-    // /**
-    //  * @return string
-    //  */
-    // public static function getConsumerSecret()
-    // {
-    //     return self::$consumerSecret;
-    // }
-
     /**
      * @return string
      */
@@ -225,14 +217,6 @@ class MobileMoney
     {
         self::$userId = $userId;
     }
-
-    // /**
-    //  * @param string $consumerSecret
-    //  */
-    // public static function setConsumerSecret($consumerSecret)
-    // {
-    //     self::$consumerSecret = $consumerSecret;
-    // }
 
     /**
      * Set pre-shared client's API key

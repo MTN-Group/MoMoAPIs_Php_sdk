@@ -3,6 +3,7 @@
 1.	`getRefundStatus($sDisbursementSubKey, $targetEnvironment, $sRefId). This operation is used to get the status of a refund. $sRefId is UUID that was passed in the 'Refund' functionality is used as reference to the request.`
 
 > `End user will get status of the Refund. `
+2. `$sRefId is the reference id of the Refund transaction.`
 
 ### Usage/Examples
 

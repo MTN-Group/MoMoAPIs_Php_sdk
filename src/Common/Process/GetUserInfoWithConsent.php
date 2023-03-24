@@ -9,6 +9,8 @@ use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Common\Constants\MobileMoney;
 use momopsdk\Common\Models\UserDetail;
+use momopsdk\Common\Cache\AuthorizationCache;
+use momopsdk\Common\Utils\AuthUtil;
 
 /**
  * Class GetUserInfoWithConsent
@@ -53,19 +55,10 @@ class GetUserInfoWithConsent extends BaseProcess
      */
     public function execute()
     {
-        $reqData = MobileMoney::getBcAuthorizeFormData();
-        //Function to bc-authorize
-        $oBcAuth = new BcAuthorize(
-            $reqData,
-            MobileMoney::getUserId(),
-            MobileMoney::getApiKey(),
-            $this->subKey,
-            $this->targetEnv,
-            $this->subType,
-            $this->callBackUrl
-        );
-        $bcAuthResult = $oBcAuth->execute();
-        MobileMoney::setAuthReqId($bcAuthResult->auth_req_id);
+        $token = AuthorizationCache::pull(strtoupper($this->subType), 'Bearer');
+        if ($token == null || AuthUtil::checkExpiredToken($token)) {
+            $this->executeBcAuthorize();
+        }
         MobileMoney::setTokenType('Bearer');
 
         $request = RequestUtil::get(str_replace('{subscriptionType}', $this->subType, API::GET_USER_INFO_WITH_CONSENT))
@@ -76,5 +69,22 @@ class GetUserInfoWithConsent extends BaseProcess
         $response = $this->makeRequest($request);
         MobileMoney::destroyTokenType();
         return $this->parseResponse($response, new UserDetail());
+    }
+
+    public function executeBcAuthorize()
+    {
+        $reqData = MobileMoney::getBcAuthorizeFormData();
+            //Function to bc-authorize
+            $oBcAuth = new BcAuthorize(
+                $reqData,
+                MobileMoney::getUserId(),
+                MobileMoney::getApiKey(),
+                $this->subKey,
+                $this->targetEnv,
+                $this->subType,
+                $this->callBackUrl
+            );
+            $bcAuthResult = $oBcAuth->execute();
+            MobileMoney::setAuthReqId($bcAuthResult->auth_req_id);
     }
 }

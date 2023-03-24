@@ -5,6 +5,8 @@
 
 > `End user will get 200 as response on success. `
 
+> `Here initially a call made to the remittance/v1_0/bc-authorize API and gets the auth_req_id and using this oAuth2Token generated`.
+
 ### Usage/Examples
 
 ```php
