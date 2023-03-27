@@ -12,6 +12,7 @@ This document contains the following sections:
 -   [Requirements](#requirements)
 -   [Getting Started](#getting-started)
     -   [Installation](#installation)
+        -   [Composer](#composer)
         -   [Manual Installation](#manual-installation)
 -   [Setting Up](#setting-up)
     -   [Initialization of PHP SDK](#initialization-of-php-sdk)
@@ -38,6 +39,25 @@ This document contains the following sections:
 ## Getting Started
 
 ### Installation
+
+#### Composer
+
+Update your composer.json file as per the example below and then run for this specific release `composer update`.
+
+```json
+{
+    "require": {
+        "php": ">=5.4",
+        "momopsdk/momopsdk": "<version_number_here>"
+    }
+}
+```
+
+After installation through Composer, don't forget to require its autoloader in your script or bootstrap file:
+
+```php
+require 'vendor/autoload.php';
+```
 
 #### Manual Installation
 
