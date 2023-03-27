@@ -77,7 +77,6 @@ require 'path/to/sdk/autoload.php';
 // require 'vendor/autoload.php';
 
 use momopsdk\Common\Constants\MobileMoney;
-use momopsdk\Common\Enums\SecurityLevel;
 use momopsdk\Common\Exceptions\MobileMoneyException;
 
 //Initialize SDK
