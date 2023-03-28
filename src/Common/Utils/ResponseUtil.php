@@ -8,6 +8,7 @@ use momopsdk\Common\Models\MetaData;
 use momopsdk\Common\Exceptions\MobileMoneyException;
 use momopsdk\Common\Constants\MobileMoney;
 use momopsdk\Common\Process\BaseProcess;
+use momopsdk\Common\Utils\AuthUtil;
 
 /**
  * Class ResponseUtil
@@ -64,32 +65,6 @@ class ResponseUtil
 
                     if ($obj !== null) {
                         $metaData = new MetaData();
-                        // if (
-                        //     $response->getHeaders() !== null &&
-                        //     array_key_exists(
-                        //         Header::X_RECORDS_AVAILABLE_COUNT,
-                        //         $response->getHeaders()
-                        //     )
-                        // ) {
-                        //     $metaData->setAvailableCount(
-                        //         $response->getHeaders()[
-                        //             Header::X_RECORDS_AVAILABLE_COUNT
-                        //         ]
-                        //     );
-                        // }
-                        // if (
-                        //     $response->getHeaders() !== null &&
-                        //     array_key_exists(
-                        //         Header::X_RECORDS_RETURNED_COUNT,
-                        //         $response->getHeaders()
-                        //     )
-                        // ) {
-                        //     $metaData->setReturnedCount(
-                        //         $response->getHeaders()[
-                        //             Header::X_RECORDS_RETURNED_COUNT
-                        //         ]
-                        //     );
-                        // }
                         $data = $obj->hydrate($response, null);
                         $data->result = json_decode($response->getResult());
                         $data->referenceId = $response->getReferenceId();
@@ -120,8 +95,9 @@ class ResponseUtil
                 );
                 break;
             case self::UNAUTHORIZED:
-                print_R($response->getResult());die;
-                $errorObject = self::decodeJson($response->getResult());
+                if ($response->getResult() != '') {
+                    $errorObject = self::decodeJson($response->getResult());
+                }
                 if (isset($errorObject->statusCode)) {
                     throw new MobileMoneyException(
                         self::UNAUTHORIZED,
@@ -130,11 +106,20 @@ class ResponseUtil
                 } else {
                     if (!isset($request->isAuthTokenRequest)) {
                         print_r('Refreshing Token...');
-                        // $authObj = AuthUtil::updateAccessToken(
-                        //     MobileMoney::getConsumerKey(),
-                        //     MobileMoney::getConsumerSecret(),
-                        //     MobileMoney::getApiKey()
-                        // );
+                        $cachePath = AuthUtil::cachePath();
+                        $aExistingData = [];
+                        if (file_exists($cachePath)) {
+                            $aExistingData = AuthUtil::setExistingData(json_decode(file_get_contents($cachePath), true));
+                        }
+                        $authObj = AuthUtil::updateAccessToken(
+                            MobileMoney::getUserId(),
+                            MobileMoney::getApiKey(),
+                            MobileMoney::getTokenIdentifier(),
+                            MobileMoney::getSubscriptionKey(),
+                            MobileMoney::getTokenType(),
+                            $aExistingData,
+                            MobileMoney::getAuthReqId()
+                        );
                     }
                     $request->retryCount += 1;
                     if ($request->retryCount <= $request->retryLimit) {

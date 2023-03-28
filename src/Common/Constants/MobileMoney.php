@@ -85,6 +85,10 @@ class MobileMoney
 
     private static $bcAuthorizeFormData;
 
+    private static $sSubKey;
+
+    private static $sTokenIdentifier;
+
     private static $Oauth2TokenFormData;
     /**
      * Initialize SDK
@@ -319,5 +323,24 @@ class MobileMoney
     public static function getOauth2TokenFormData()
     {
         return self::$Oauth2TokenFormData;
+    }
+
+    public static function setSubscriptionKey($sSubKey)
+    {
+        self::$sSubKey = $sSubKey;
+    }
+
+    public static function getSubscriptionKey()
+    {
+        return self::$sSubKey;
+    }
+    public static function setTokenIdentifier($sTokenIdentifier)
+    {
+        self::$sTokenIdentifier = $sTokenIdentifier;
+    }
+
+    public static function getTokenIdentifier()
+    {
+        return self::$sTokenIdentifier;
     }
 }
