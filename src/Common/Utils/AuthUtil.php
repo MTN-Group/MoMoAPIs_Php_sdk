@@ -45,6 +45,8 @@ class AuthUtil
 
             case SecurityLevel::STANDARD:
                 self::validateCredentials();
+                MobileMoney::setSubscriptionKey($request->getSubscriptionKey());
+                MobileMoney::setTokenIdentifier($request->tokenIdentifier);
                 $accessToken = self::getAccessToken(
                     MobileMoney::getUserId(),
                     MobileMoney::getApiKey(),
