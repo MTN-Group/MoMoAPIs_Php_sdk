@@ -5,6 +5,8 @@
 
 > `End user will get 200 as response on success. `
 
+> `Here initially a call made to the disbursement/v1_0/bc-authorize API and gets the auth_req_id and using this oAuth2Token generated`.
+
 ### Usage/Examples
 
 ```php
@@ -13,9 +15,14 @@
 require_once __DIR__ . './../bootstrap.php';
 
 use momopsdk\Disbursement\DisbursementTransaction;
+use momopsdk\Common\Constants\MobileMoney;
 
 try {
 
+    $bcAuthorizeFormData = "login_hint=ID:msisdn/msisdn&scope=profile&access_type=online";
+    $Oauth2TokenFormData = "grant_type=urn:openid:params:grant-type:ciba&auth_req_id={auth_req_id}";
+    MobileMoney::setBcAuthorizeFormData($bcAuthorizeFormData);
+    MobileMoney::setOauth2TokenFormData($Oauth2TokenFormData);
     $request = DisbursementTransaction::getUserInfoWithConsent($sDisbursementSubKey, $targetEnvironment);
 
     $response = $request->execute();

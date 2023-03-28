@@ -7,10 +7,11 @@ use momopsdk\Common\Constants\Header;
 use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
-use momopsdk\Collection\Models\StatusResponse;
+use momopsdk\Common\Models\CommonStatusResponse;
 
 /**
  * Class ValidateAccountHolder
+ *
  * @package momopsdk\Common\Process
  */
 class ValidateAccountHolder extends BaseProcess
@@ -44,8 +45,8 @@ class ValidateAccountHolder extends BaseProcess
     /**
      * Get the transaction request status.
      *
-     * @param string $sAccountHolderId, $sAccountHolderIdType,
-     * $sCollectionSubKey, $sTargetEnvironment
+     * @param  string $sAccountHolderId, $sAccountHolderIdType,
+     *                                   $sCollectionSubKey, $sTargetEnvironment
      * @return this
      */
     public function __construct($sAccountHolderId, $sAccountHolderIdType, $sCollectionSubKey, $sTargetEnvironment, $subType)
@@ -79,21 +80,23 @@ class ValidateAccountHolder extends BaseProcess
 
     /**
      * Function to execute API call to validate account holder status
+     *
      * @return StatusResponse
      */
     public function execute()
     {
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
         $request = RequestUtil::get(str_replace('{subscriptionType}', $this->subType, API::VALIDATE_ACCOUNT_HOLDER))
-            ->setUrlParams([
+            ->setUrlParams(
+                [
                 '{accountHolderId}' => $this->accountHolderId,
                 '{accountHolderIdType}' => $this->accountHolderIdType
-            ])
+                ]
+            )
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnv)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subKey)
             ->setSubscriptionKey($this->subKey)
             ->build();
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new StatusResponse());
+        return $this->parseResponse($response, new CommonStatusResponse());
     }
 }

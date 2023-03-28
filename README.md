@@ -82,13 +82,11 @@ To initialize the PHP SDK, the static method `initialize()` of `MobileMoney` cla
     -   `MobileMoney::SANDBOX` for Sandbox
     -   `MobileMoney::PRODUCTION` for Production
 2.  `$env['reference_id']` the reference id or user Id (can be obtained from partner gateway.In Sandbox account it can be generated using user provisioning APIs.)
-3.  `$env['momo_api_key']` the API key of the user (can be obtained from partner gateway or sandbox user provisioning APIs)
+3.  `$env['momo_api_key']` the API key of the user (can be obtained from partner gateway or sandbox user provisioning APIs).
 
 Other optional functions available for `MobileMoney` class are:
 
--   `setSecurityLevel()` - When making API requests, this property is used to specify the type of authentication to be used. If not set the default `SecurityLevel::STANDARD` will be used. Value can be one of the following
-    -   `SecurityLevel::DEVELOPMENT` - Uses Basic authentication for requests.
-    -   `SecurityLevel::STANDARD` - Uses OAuth2 authentication for requests.
+-   `setCallbackUrl()` - URL for your application where you want MobileMoney API to push data. This is optional; if you wish to specify different callback urls for different use cases, you can pass the callback url with each request seperately. Otherwise you can use `setCallbackUrl()` to set and `getCallbackUrl()` function to get the callback url.
 
 ```php
 <?php
@@ -99,7 +97,6 @@ require 'path/to/sdk/autoload.php';
 // require 'vendor/autoload.php';
 
 use momopsdk\Common\Constants\MobileMoney;
-use momopsdk\Common\Enums\SecurityLevel;
 use momopsdk\Common\Exceptions\MobileMoneyException;
 
 //Initialize SDK
@@ -141,7 +138,7 @@ The PHP SDK provides an `MobileMoneyException` class that is used for common sce
 ```php
 <?php
 require_once __DIR__ . './../bootstrap.php';
-use momopsdk\Disbursement\Models\DepositModel;
+use momopsdk\Common\Models\DepositModel;
 use momopsdk\Common\Exceptions\MobileMoneyException;
 use momopsdk\Disbursement\DisbursementTransaction;
 
@@ -180,6 +177,8 @@ try {
     print_r($ex->getErrorObj());
 }
 ```
+
+In the above code the variables `$sDisbursementSubKey` is the subscription key of disbursement product that is getting from the user profile and `$targetEnvironment` is the target environment. In sandbox environment use `sandbox`.
 
 Sample Response:
 
@@ -486,7 +485,7 @@ momopsdk\Common\Models\Error Object
 
 ## Tests
 
-The `tests` folder contains the test cases. These are logically divided in unit and integration tests. Integration tests require an active `consumer key`, `consumer secret` and `api key`. To run tests provide necessary permission to the system user in the root folder to create the cache file. Auth cache will be created in the path /var/auth.cache. 
+The `tests` folder contains the test cases. These are logically divided in unit and integration tests. Integration tests require an active `user id`, `api key`, `subscription keys`. To run tests provide necessary permission to the system user in the root folder to create the cache file. Auth cache will be created in the path `/var/auth.cache`. 
 
 1. Install [Composer](https://getcomposer.org/download/)
 2. From the root of the sdk-php project, run `composer install --dev` to install the dependencies
@@ -532,7 +531,7 @@ composer run tests
 
 ## Samples
 
-The sample code snippets are all completely independent and self-contained. You can analyze them to get an understanding of how a particular method can be implemented in your application. Sample code snippets can be found [here](/sample). Steps to run the sample code snippets are as follows:
+The sample code snippets are all completely independent and self-contained. You can analyze them to get an understanding of how a particular method can be implemented in your application. Sample code snippets can be found [here](/Sample). Steps to run the sample code snippets are as follows:
 
 -   Clone this repository:
 
@@ -557,19 +556,15 @@ e.g.
     disbursement_subscription_key = <Disbursement subscription key obtained from user profile>
     remittance_subscription_key = <Remittance subscription key obtained from user profile>
     momo_api_key = <User API key>
-    base_url = <Sandbox base url here>
-    production_base_url = <Production base url here>
     target_environment = <Your Target environment here>
-    oauth2_token_data = <form data to be submitted for the generation of API token>
-    bc_authorize_form_data = <form data for the bc-authorize api>
 ```
 
 -   Run each sample directly from the command line. For example:
 
 ```
-php -f sample/Disbursements/DepositV1.php
+php -f Sample/Disbursements/DepositV1.php
 ```
 
 ## Folder Permissions
 
-Provide permission to the server user in the root folder of the SDK inorder to create authorization cache file. Authorization cache created in path 'var/auth.cache'.
+If needed, provide permission to the server user in the root folder of the SDK inorder to create authorization cache file. Authorization cache would be created in path 'var/auth.cache'.

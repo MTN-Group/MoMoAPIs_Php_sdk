@@ -5,7 +5,7 @@ use momopsdk\Disbursement\DisbursementTransaction;
 
 try {
 
-    $sRefId = '79396086-73e1-4694-b6a3-54d6d0e7a879';
+    $sRefId = '62e6e29b-4a3d-46e7-92c9-2c25473117cf';
 
     $request = DisbursementTransaction::getTransferStatus($sDisbursementSubKey, $targetEnvironment, $sRefId);
 

@@ -5,8 +5,8 @@ use momopsdk\Common\Process\BaseProcess;
 use momopsdkTest\Unit\src\Common\Process\ProcessTestCase;
 use momopsdkTest\Unit\src\mocks\MockResponse;
 use momopsdk\Common\Process\Transfer;
-use momopsdk\Disbursement\Models\DepositModel;
-use momopsdk\Disbursement\Models\ResponseModel;
+use momopsdk\Common\Models\DepositModel;
+use momopsdk\Common\Models\TransferResponseModel;
 
 
 
@@ -47,6 +47,6 @@ class TransferDisbursementTest extends ProcessTestCase
             $this->constructorArgs
         );
         $this->mockResponseObject = 'Transfer.json';
-        $this->responseType = ResponseModel::class;
+        $this->responseType = TransferResponseModel::class;
     }
 }

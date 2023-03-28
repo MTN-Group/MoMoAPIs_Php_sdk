@@ -4,7 +4,7 @@ use momopsdk\Common\Constants\MobileMoney;
 use momopsdk\Common\Process\BaseProcess;
 use momopsdkTest\Unit\src\Common\Process\ProcessTestCase;
 use momopsdkTest\Unit\src\mocks\MockResponse;
-use momopsdk\Disbursement\Models\DepositModel;
+use momopsdk\Common\Models\DepositModel;
 use momopsdk\Disbursement\Models\ResponseModel;
 use momopsdk\Disbursement\Process\CreateDepositV1;
 

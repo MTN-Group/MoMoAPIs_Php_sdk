@@ -11,6 +11,7 @@ use momopsdk\Collection\Models\RequestToPayResponse;
 
 /**
  * Class InitiateRequestToPay
+ *
  * @package momopsdk\Collection\Process
  */
 class InitiateRequestToPay extends BaseProcess
@@ -38,7 +39,7 @@ class InitiateRequestToPay extends BaseProcess
     /**
      * Initiates a Request To Pay.
      *
-     * @param string $transaction
+     * @param  string $transaction
      * @return this
      */
     public function __construct($oTransaction, $sCollectionSubKey, $sTargetEnvironment, $sCallBackUrl, $sContentType)

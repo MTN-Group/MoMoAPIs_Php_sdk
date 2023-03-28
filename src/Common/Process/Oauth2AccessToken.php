@@ -7,6 +7,7 @@ use momopsdk\Common\Constants\Header;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\EncDecUtil;
+use momopsdk\Common\Constants\MobileMoney;
 
 class Oauth2AccessToken extends BaseProcess
 {
@@ -25,7 +26,6 @@ class Oauth2AccessToken extends BaseProcess
     /**
      * Use this API call to generate an Access Token. You can then use the token to authenticate on subsequent API requests until the token expires.
      * To generate the access token, a User Id and a api key is required
-     *
      */
     public function __construct($userId, $apiKey, $tokenIdentifier, $sSubKey, $authReqId)
     {
@@ -42,21 +42,20 @@ class Oauth2AccessToken extends BaseProcess
     public function execute()
     {
         switch ($this->tokenIdentifier) {
-            case 'COLLECTION':
-                $apiUrl = API::COLLECTION_OAUTH2ACCESS_TOKEN;
-                break;
-            case 'DISBURSEMENT':
-                $apiUrl = API::DISBURSEMENT_OAUTH2ACCESS_TOKEN;
-                break;
-            case 'REMITTANCE':
-                $apiUrl = API::REMITTANCE_OAUTH2ACCESS_TOKEN;
-                break;
-            default:
-                # code...
-                break;
+        case 'COLLECTION':
+            $apiUrl = API::COLLECTION_OAUTH2ACCESS_TOKEN;
+            break;
+        case 'DISBURSEMENT':
+            $apiUrl = API::DISBURSEMENT_OAUTH2ACCESS_TOKEN;
+            break;
+        case 'REMITTANCE':
+            $apiUrl = API::REMITTANCE_OAUTH2ACCESS_TOKEN;
+            break;
+        default:
+            // code...
+            break;
         }
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $data = $env['oauth2_token_data'];
+        $data = MobileMoney::getOauth2TokenFormData();
         $request = RequestUtil::post(
             $apiUrl, str_replace('{auth_req_id}', $this->authReqId, $data)
         )

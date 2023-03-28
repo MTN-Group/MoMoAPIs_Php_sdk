@@ -7,7 +7,7 @@ use momopsdk\Common\Utils\CommonUtil;
 use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
-use momopsdk\Disbursement\Models\StatusDetail;
+use momopsdk\Common\Models\TransferStatusDetail;
 
 class GetTransferStatus extends BaseProcess
 {
@@ -49,19 +49,21 @@ class GetTransferStatus extends BaseProcess
 
     /**
      * Function to execute the API for API key generation
+     *
      * @param
      * @return
      */
     public function execute()
     {
         $request = RequestUtil::get(
-            str_replace('{subscriptionType}', $this->subType, API::GET_TRANSFER_STATUS))
+            str_replace('{subscriptionType}', $this->subType, API::GET_TRANSFER_STATUS)
+        )
             ->setUrlParams(['{referenceId}' => $this->refId])
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnvironment)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subscriptionKey)
             ->setSubscriptionKey($this->subscriptionKey)
             ->build();
         $response = $this->makeRequest($request);
-        return $this->parseResponse($response, new StatusDetail());
+        return $this->parseResponse($response, new TransferStatusDetail());
     }
 }

@@ -40,8 +40,6 @@ abstract class AuthorizationCache
                             ->setTokenType($authType);
                     }
                     return $obj;
-                    // If client Id is found, just send in that data only
-                    return new AuthToken((object) $tokens[$clientId]);
                 } elseif ($clientId) {
                     // If client Id is provided, but no key in persisted data found matching it.
                     return null;
@@ -61,7 +59,7 @@ abstract class AuthorizationCache
      * @param      $tokenExpiresIn
      * @throws \Exception
      */
-    public static function push(AuthToken $authObj, $clientId, $authType)
+    public static function push(AuthToken $authObj, $clientId, $authType, $aExistingData)
     {
         $cachePath = self::cachePath();
         if (
@@ -95,7 +93,8 @@ abstract class AuthorizationCache
                 'expiresIn' => $authObj->getExpiresIn()
             ];
         }
-        if (!file_put_contents($cachePath, json_encode($tokens))) {
+        $aExistingData[$clientId][$authType] = $tokens[$clientId][$authType];
+        if (!file_put_contents($cachePath, json_encode($aExistingData))) {
             throw new \momopsdk\Common\Exceptions\MobileMoneyException(
                 'Failed to write cache'
             );

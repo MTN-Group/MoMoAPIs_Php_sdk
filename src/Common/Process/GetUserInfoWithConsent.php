@@ -9,9 +9,12 @@ use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Common\Constants\MobileMoney;
 use momopsdk\Common\Models\UserDetail;
+use momopsdk\Common\Cache\AuthorizationCache;
+use momopsdk\Common\Utils\AuthUtil;
 
 /**
  * Class GetUserInfoWithConsent
+ *
  * @package momopsdk\Common\Process
  */
 class GetUserInfoWithConsent extends BaseProcess
@@ -27,7 +30,7 @@ class GetUserInfoWithConsent extends BaseProcess
     /**
      * Used to het the personal information of the account holder
      *
-     * @param string $accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment
+     * @param  string $accountHolderMSISDN, $sCollectionSubKey, $targetEnvironment
      * @return this
      */
     public function __construct($sSubKey, $sTargetEnvironment, $subType, $sCallBackUrl = null)
@@ -47,24 +50,15 @@ class GetUserInfoWithConsent extends BaseProcess
 
     /**
      * Function to execute sending of additional Notification to an End User
+     *
      * @return CallbackResponse
      */
     public function execute()
     {
-        $env = parse_ini_file(__DIR__ . './../../../config.env');
-        $reqData = $env['bc_authorize_form_data'];
-        //Function to bc-authorize
-        $oBcAuth = new BcAuthorize(
-           $reqData,
-           $env['reference_id'],
-           $env['momo_api_key'],
-           $this->subKey,
-           $this->targetEnv,
-           $this->subType,
-           $this->callBackUrl
-        );
-        $bcAuthResult = $oBcAuth->execute();
-        MobileMoney::setAuthReqId($bcAuthResult->auth_req_id);
+        $token = AuthorizationCache::pull(strtoupper($this->subType), 'Bearer');
+        if ($token == null || AuthUtil::checkExpiredToken($token)) {
+            $this->executeBcAuthorize();
+        }
         MobileMoney::setTokenType('Bearer');
 
         $request = RequestUtil::get(str_replace('{subscriptionType}', $this->subType, API::GET_USER_INFO_WITH_CONSENT))
@@ -75,5 +69,22 @@ class GetUserInfoWithConsent extends BaseProcess
         $response = $this->makeRequest($request);
         MobileMoney::destroyTokenType();
         return $this->parseResponse($response, new UserDetail());
+    }
+
+    public function executeBcAuthorize()
+    {
+        $reqData = MobileMoney::getBcAuthorizeFormData();
+            //Function to bc-authorize
+            $oBcAuth = new BcAuthorize(
+                $reqData,
+                MobileMoney::getUserId(),
+                MobileMoney::getApiKey(),
+                $this->subKey,
+                $this->targetEnv,
+                $this->subType,
+                $this->callBackUrl
+            );
+            $bcAuthResult = $oBcAuth->execute();
+            MobileMoney::setAuthReqId($bcAuthResult->auth_req_id);
     }
 }

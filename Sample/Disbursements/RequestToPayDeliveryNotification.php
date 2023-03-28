@@ -13,7 +13,7 @@ try {
 
     $deliveryNotification = new DeliveryNotification();
     $deliveryNotification->setnotificationMessage('Pay for product a delivery notification');
-    $referenceId = 'ce20fe55-fc5c-4a50-8d5a-43a85e67f928';
+    $referenceId = 'ba3f54b1-3105-486b-9185-5f2737a377a4';
     $notificationMessage = 'Pay for product a delivery notification';
     $language = "eng";
     $contentType = "application/json";

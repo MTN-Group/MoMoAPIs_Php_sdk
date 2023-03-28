@@ -11,6 +11,7 @@ use momopsdk\Collection\Models\RequestToPayStatusResponse;
 
 /**
  * Class RetrieveRequestToPay
+ *
  * @package momopsdk\Collection\Process
  */
 class RetrieveRequestToPay extends BaseProcess
@@ -33,7 +34,7 @@ class RetrieveRequestToPay extends BaseProcess
     /**
      * Get the transaction request status.
      *
-     * @param string $sReferenceId, $sCollectionSubKey, $sTargetEnvironment
+     * @param  string $sReferenceId, $sCollectionSubKey, $sTargetEnvironment
      * @return this
      */
     public function __construct($sReferenceId, $sCollectionSubKey, $sTargetEnvironment)
@@ -58,6 +59,7 @@ class RetrieveRequestToPay extends BaseProcess
 
     /**
      * Function to execute API call to get payment status
+     *
      * @return RequestToPayStatusResponse
      */
     public function execute()

@@ -8,7 +8,7 @@ use momopsdk\Common\Utils\RequestUtil;
 use momopsdk\Common\Constants\API;
 use momopsdk\Common\Constants\Header;
 use momopsdk\Disbursement\Models\ResponseModel;
-use momopsdk\Disbursement\Models\DepositModel;
+use momopsdk\Common\Models\DepositModel;
 
 class CreateDepositV1 extends BaseProcess
 {
@@ -47,6 +47,7 @@ class CreateDepositV1 extends BaseProcess
 
     /**
      * Function to execute the API for API key generation
+     *
      * @param
      * @return
      */
@@ -54,14 +55,14 @@ class CreateDepositV1 extends BaseProcess
     {
         $request = RequestUtil::post(
             str_replace('{subscriptionType}', $this->subType, API::GET_DEPOSIT_V1),
-            json_encode($this->aReq))
+            json_encode($this->aReq)
+        )
             ->httpHeader(Header::X_TARGET_ENVIRONMENT, $this->targetEnvironment)
             ->httpHeader(Header::OCP_APIM_SUBSCRIPTION_KEY, $this->subscriptionKey)
             ->setSubscriptionKey($this->subscriptionKey)
             ->setReferenceId($this->referenceId);
 
-        if ($this->callBackUrl != null)
-        {
+        if ($this->callBackUrl != null) {
             $request = $request->httpHeader(Header::X_CALLBACK_URL, $this->callBackUrl);
         }
         $request = $request->build();

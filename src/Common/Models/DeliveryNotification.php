@@ -1,6 +1,6 @@
 <?php
 
-namespace momopsdk\common\Models;
+namespace momopsdk\Common\Models;
 
 use momopsdk\Common\Models\BaseModel;
 
