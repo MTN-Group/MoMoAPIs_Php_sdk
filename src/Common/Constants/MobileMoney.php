@@ -90,6 +90,10 @@ class MobileMoney
     private static $sTokenIdentifier;
 
     private static $Oauth2TokenFormData;
+
+    private static $sTargetEnv;
+
+    private static $sSubType;
     /**
      * Initialize SDK
      *
@@ -342,5 +346,25 @@ class MobileMoney
     public static function getTokenIdentifier()
     {
         return self::$sTokenIdentifier;
+    }
+
+    public static function setTargetEnvironment($sTargetEnv)
+    {
+        self::$sTargetEnv = $sTargetEnv;
+    }
+
+    public static function getTargetEnvironment()
+    {
+        return self::$sTargetEnv;
+    }
+
+    public static function setSubscriptionType($sSubType)
+    {
+        self::$sSubType = $sSubType;
+    }
+
+    public static function getSubscriptionType()
+    {
+        return self::$sSubType;
     }
 }

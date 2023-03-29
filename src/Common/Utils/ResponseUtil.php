@@ -9,6 +9,7 @@ use momopsdk\Common\Exceptions\MobileMoneyException;
 use momopsdk\Common\Constants\MobileMoney;
 use momopsdk\Common\Process\BaseProcess;
 use momopsdk\Common\Utils\AuthUtil;
+use momopsdk\Common\Process\GetUserInfoWithConsent;
 
 /**
  * Class ResponseUtil
@@ -46,6 +47,7 @@ class ResponseUtil
                 } else {
                     $data = json_decode($response->getResult());
                 }
+                MobileMoney::destroyTokenType();
                 return $data;
             case self::ACCEPTED:
                 $data = $obj->hydrate($request, null);
@@ -111,20 +113,36 @@ class ResponseUtil
                         if (file_exists($cachePath)) {
                             $aExistingData = AuthUtil::setExistingData(json_decode(file_get_contents($cachePath), true));
                         }
-                        $authObj = AuthUtil::updateAccessToken(
-                            MobileMoney::getUserId(),
-                            MobileMoney::getApiKey(),
-                            MobileMoney::getTokenIdentifier(),
-                            MobileMoney::getSubscriptionKey(),
-                            MobileMoney::getTokenType(),
-                            $aExistingData,
-                            MobileMoney::getAuthReqId()
-                        );
+                        if (MobileMoney::getTokenType() != 'Bearer') {
+
+                            $authObj = AuthUtil::updateAccessToken(
+                                MobileMoney::getUserId(),
+                                MobileMoney::getApiKey(),
+                                MobileMoney::getTokenIdentifier(),
+                                MobileMoney::getSubscriptionKey(),
+                                MobileMoney::getTokenType(),
+                                $aExistingData,
+                                MobileMoney::getAuthReqId()
+                            );
+                        } else {
+                            MobileMoney::setTokenType('Basic');
+                            GetUserInfoWithConsent::executeBcAuthorize();
+                            $authObj = AuthUtil::updateAccessToken(
+                                MobileMoney::getUserId(),
+                                MobileMoney::getApiKey(),
+                                MobileMoney::getTokenIdentifier(),
+                                MobileMoney::getSubscriptionKey(),
+                                'Bearer',
+                                $aExistingData,
+                                MobileMoney::getAuthReqId()
+                            );
+                        }
                     }
                     $request->retryCount += 1;
                     if ($request->retryCount <= $request->retryLimit) {
                         return $request->execute();
                     } else {
+                        MobileMoney::destroyTokenType();
                         throw new MobileMoneyException(
                             MobileMoneyException::MAX_RETRIES_EXCEEDED
                         );
