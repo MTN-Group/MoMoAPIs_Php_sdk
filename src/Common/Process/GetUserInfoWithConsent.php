@@ -41,9 +41,13 @@ class GetUserInfoWithConsent extends BaseProcess
             CommonUtil::TYPE_STRING
         );
         $this->subKey = $sSubKey;
+        MobileMoney::setSubscriptionKey($sSubKey);
         $this->targetEnv = $sTargetEnvironment;
+        MobileMoney::setTargetEnvironment($sTargetEnvironment);
         $this->subType = $subType;
+        MobileMoney::setSubscriptionType($subType);
         $this->callBackUrl = $sCallBackUrl;
+        MobileMoney::setCallbackUrl($sCallBackUrl);
         return $this;
     }
 
@@ -67,11 +71,10 @@ class GetUserInfoWithConsent extends BaseProcess
             ->setSubscriptionKey($this->subKey)
             ->build();
         $response = $this->makeRequest($request);
-        MobileMoney::destroyTokenType();
         return $this->parseResponse($response, new UserDetail());
     }
 
-    public function executeBcAuthorize()
+    public static function executeBcAuthorize()
     {
         $reqData = MobileMoney::getBcAuthorizeFormData();
             //Function to bc-authorize
@@ -79,10 +82,10 @@ class GetUserInfoWithConsent extends BaseProcess
                 $reqData,
                 MobileMoney::getUserId(),
                 MobileMoney::getApiKey(),
-                $this->subKey,
-                $this->targetEnv,
-                $this->subType,
-                $this->callBackUrl
+                MobileMoney::getSubscriptionKey(),
+                MobileMoney::getTargetEnvironment(),
+                MobileMoney::getSubscriptionType(),
+                MobileMoney::getCallbackUrl()
             );
             $bcAuthResult = $oBcAuth->execute();
             MobileMoney::setAuthReqId($bcAuthResult->auth_req_id);
